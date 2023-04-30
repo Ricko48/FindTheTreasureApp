@@ -1,0 +1,30 @@
+using FindTheTreasureServer;
+using FindTheTreasureServer.Database;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+using (TreasureDbContext dbContext = new TreasureDbContext())
+{
+    if (dbContext.Database.EnsureCreated())
+        Seed.SeedData(dbContext);
+}
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapControllers();
+
+app.Run();
