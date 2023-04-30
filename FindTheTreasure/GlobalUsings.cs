@@ -7,9 +7,8 @@ global using FindTheTreasure.ViewModels;
 global using FindTheTreasure.Pages;
 
 global using FindTheTreasure.Pages.Home;
-global using FindTheTreasure.Pages.Instructions;
-global using FindTheTreasure.Pages.Privacy;
-global using FindTheTreasure.Pages.Settings;
+global using FindTheTreasure.Pages.ScoreBoard;
+global using FindTheTreasure.Pages.Account;
 global using FindTheTreasure.Pages.Beacon;
 global using FindTheTreasure.Pages.Map;
 

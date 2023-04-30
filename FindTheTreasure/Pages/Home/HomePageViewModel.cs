@@ -98,7 +98,6 @@ namespace FindTheTreasure.Pages.Home
 
         private async Task CheckPermissionsAsync()
         {
-#if ANDROID
             PermissionStatus permissionStatus = await bluetoothPermissionsService.CheckBluetoothPermissions();
             if (permissionStatus != PermissionStatus.Granted)
             {
@@ -110,9 +109,6 @@ namespace FindTheTreasure.Pages.Home
                 }
             }
             await Shell.Current.DisplayAlert($"Permissions info", "Permissions OK", "OK");
-#elif IOS
-#elif WINDOWS
-#endif
         }
 
 

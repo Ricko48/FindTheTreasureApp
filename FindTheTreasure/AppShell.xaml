@@ -5,10 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:homePage="clr-namespace:FindTheTreasure.Pages.Home"
     xmlns:mapPage="clr-namespace:FindTheTreasure.Pages.Map"
-
-    xmlns:instructionsPage="clr-namespace:FindTheTreasure.Pages.Instructions"
-    xmlns:privacyPage="clr-namespace:FindTheTreasure.Pages.Privacy"
-    xmlns:settingsPage="clr-namespace:FindTheTreasure.Pages.Settings"
+    xmlns:scoreBoardPage="clr-namespace:FindTheTreasure.Pages.ScoreBoard"
+    xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.Account"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.Resources>
@@ -28,38 +26,31 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <FlyoutItem Title="Scan and select device" 
+    <FlyoutItem Title="Game" 
                 FlyoutIcon="{StaticResource IconBluetoothLE}">
         <ShellContent ContentTemplate="{DataTemplate homePage:HomePage}"
                       Route="HomePage" >
         </ShellContent>
     </FlyoutItem>
 
-    <FlyoutItem Title="Found beacons" 
+    <FlyoutItem Title="Found treasures map" 
                 FlyoutIcon="{StaticResource IconMap}">
         <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsView}"
                       Route="FoundBeaconsView" >
         </ShellContent>
     </FlyoutItem>
 
-    <FlyoutItem Title="Settings"
-                FlyoutIcon="{StaticResource IconGears}">
-        <ShellContent ContentTemplate="{DataTemplate settingsPage:SettingsPage}"
-                      Route="SettingsPage">
+    <FlyoutItem Title="Score board"
+                FlyoutIcon="{StaticResource IconInfo}">
+        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardView}"
+                      Route="ScoreBoardView">
         </ShellContent>
     </FlyoutItem>
 
-    <FlyoutItem Title="Instructions"
+    <FlyoutItem Title="My account"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate instructionsPage:InstructionsPage}"
-                      Route="InstructionsPage">
-        </ShellContent>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Privacy statement"
-                FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate privacyPage:PrivacyStatementPage}"
-                      Route="PrivacyStatementPage">
+        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailView}"
+                      Route="AccountDetailView">
         </ShellContent>
     </FlyoutItem>
 

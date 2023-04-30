@@ -65,16 +65,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\Account\AccountDetailView.xaml.cs">
+	    <DependentUpon>AccountDetailView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\Map\FoundBeaconsView.xaml.cs">
 	    <DependentUpon>FoundBeaconsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ScoreBoard\ScoreBoardView.xaml.cs">
+	    <DependentUpon>ScoreBoardView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\Account\AccountDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Beacon\BeaconDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Map\FoundBeaconsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

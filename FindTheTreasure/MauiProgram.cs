@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Android.Locations;
+using FindTheTreasure.Pages.ScoreBoard;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Data;
 using FindTheTreasure.Services.GPS;
@@ -25,10 +26,7 @@ public static class MauiProgram
                 fonts.AddFont("fa-brands-400.ttf", "FontAwesomeBrands");
             });
 
-        //builder.UseSkiaSharp(true); //for MapsUI
-        //Mapsui.UI.Maui.MapControl.UseGPU = false; 
-
-        builder.UseMauiMaps(); //official .NET 7 MAUI Maps
+        builder.UseMauiMaps();
 
         builder.Services.AddSingleton<BluetoothPermissionsService>();
 
@@ -58,20 +56,14 @@ public static class MauiProgram
         builder.Services.AddSingleton<FoundBeaconsView>();
         builder.Services.AddSingleton<FoundBeaconsViewModel>();
 
-        //builder.Services.AddSingleton<MapsUIPage>();
-        //builder.Services.AddTransient<MapsUIPageViewModel>();
-
         builder.Services.AddSingleton<BeaconDetailPage>();
         builder.Services.AddSingleton<BeaconDetailPageViewModel>();
 
-        builder.Services.AddSingleton<SettingsPage>();
-        builder.Services.AddSingleton<SettingsPageViewModel>();
+        builder.Services.AddSingleton<AccountDetailView>();
+        builder.Services.AddSingleton<AccountDetailViewModel>();
 
-        builder.Services.AddSingleton<InstructionsPage>();
-        builder.Services.AddSingleton<InstructionsPageViewModel>();
-
-        builder.Services.AddSingleton<PrivacyStatementPage>();
-        builder.Services.AddSingleton<PrivacyStatementPageViewModel>();
+        builder.Services.AddSingleton<ScoreBoardView>();
+        builder.Services.AddSingleton<ScoreBoardViewModel>();
 
         return builder.Build();
     }
