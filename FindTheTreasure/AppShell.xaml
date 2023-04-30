@@ -28,29 +28,29 @@
 
     <FlyoutItem Title="Game" 
                 FlyoutIcon="{StaticResource IconBluetoothLE}">
-        <ShellContent ContentTemplate="{DataTemplate homePage:HomePage}"
-                      Route="HomePage" >
+        <ShellContent ContentTemplate="{DataTemplate homePage:HomeView}"
+                      Route="HomeView" >
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="Found treasures map" 
                 FlyoutIcon="{StaticResource IconMap}">
-        <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsPage}"
-                      Route="FoundBeaconsPage" >
+        <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsView}"
+                      Route="FoundBeaconsView" >
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="Score board"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardPage}"
-                      Route="ScoreBoardPage">
+        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardView}"
+                      Route="ScoreBoardView">
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="My account"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailPage}"
-                      Route="AccountDetailPage">
+        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailView}"
+                      Route="AccountDetailView">
         </ShellContent>
     </FlyoutItem>
 

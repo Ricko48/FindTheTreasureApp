@@ -50,20 +50,20 @@ public static class MauiProgram
         builder.Services.AddSingleton<BeaconService>();
         builder.Services.AddSingleton<BeaconBluetoothDeviceMergeService>();
 
-        builder.Services.AddSingleton<HomePage>();
-        builder.Services.AddSingleton<HomePageViewModel>();
+        builder.Services.AddSingleton<HomeView>();
+        builder.Services.AddSingleton<HomeViewModel>();
 
-        builder.Services.AddSingleton<FoundBeaconsPage>();
-        builder.Services.AddSingleton<FoundBeaconsPageModel>();
+        builder.Services.AddSingleton<FoundBeaconsView>();
+        builder.Services.AddSingleton<FoundBeaconsViewModel>();
 
-        builder.Services.AddSingleton<BeaconDetailPage>();
-        builder.Services.AddSingleton<BeaconDetailPageViewModel>();
+        builder.Services.AddSingleton<BeaconDetailView>();
+        builder.Services.AddSingleton<BeaconDetailViewModel>();
 
-        builder.Services.AddSingleton<AccountDetailPage>();
-        builder.Services.AddSingleton<AccountDetailPageModel>();
+        builder.Services.AddSingleton<AccountDetailView>();
+        builder.Services.AddSingleton<AccountDetailViewModel>();
 
-        builder.Services.AddSingleton<ScoreBoardPage>();
-        builder.Services.AddSingleton<ScoreBoardPageModel>();
+        builder.Services.AddSingleton<ScoreBoardView>();
+        builder.Services.AddSingleton<ScoreBoardViewModel>();
 
         return builder.Build();
     }

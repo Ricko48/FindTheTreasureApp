@@ -1,6 +1,6 @@
 ﻿namespace FindTheTreasure.Pages.Account
 {
-    public partial class AccountDetailPageModel
+    public partial class AccountDetailViewModel
     {
     }
 }

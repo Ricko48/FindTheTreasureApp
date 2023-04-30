@@ -7,7 +7,7 @@ using FindTheTreasure.Services.Bluetooth;
 namespace FindTheTreasure.Pages.Beacon
 {
     [QueryProperty(nameof(Item), nameof(Item))] //binding of query parameter to automatically generated public property by MVVM toolkit
-    public partial class BeaconDetailPageViewModel : BaseViewModel
+    public partial class BeaconDetailViewModel : BaseViewModel
     {
         public IAsyncRelayCommand ConnectToDeviceCandidateAsyncCommand { get; }
         public IAsyncRelayCommand DisconnectFromDeviceAsyncCommand { get; }
@@ -17,7 +17,7 @@ namespace FindTheTreasure.Pages.Beacon
         [ObservableProperty] //MVVM toolkit creates public property for binding through View
         private BeaconModel item;
 
-        public BeaconDetailPageViewModel(IAdapter adapter, BeaconDiscoveryService beaconDiscoveryService)
+        public BeaconDetailViewModel(IAdapter adapter, BeaconDiscoveryService beaconDiscoveryService)
         {
             Title = $"Heart rate";
 

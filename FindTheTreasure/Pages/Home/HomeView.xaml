@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FindTheTreasure.Pages.Home.HomePage"
-             x:DataType="viewmodel:HomePageViewModel"
+             x:Class="FindTheTreasure.Pages.Home.HomeView"
+             x:DataType="viewmodel:HomeViewModel"
              xmlns:model="clr-namespace:FindTheTreasure.Models"
              xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Home"
              Title="{Binding Title}">
@@ -44,7 +44,7 @@
                                 <Frame.GestureRecognizers>
                                     <!-- TapGestureRecognizer adds onclick behavior for a control which does not have clicked event/command -->
                                     <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, 
                                                   Path=GoToBeaconDetailPageAsyncCommand}"
                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>

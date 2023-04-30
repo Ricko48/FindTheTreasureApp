@@ -3,9 +3,9 @@ using Microsoft.Maui.Maps;
 namespace FindTheTreasure.Pages.Map;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class FoundBeaconsPage : ContentPage
+public partial class FoundBeaconsView : ContentPage
 {
-    public FoundBeaconsPage(FoundBeaconsPageModel viewModel)
+    public FoundBeaconsView(FoundBeaconsViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

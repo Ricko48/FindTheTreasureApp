@@ -8,7 +8,7 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace FindTheTreasure.Pages.Home
 {
-    public partial class HomePageViewModel : BaseViewModel
+    public partial class HomeViewModel : BaseViewModel
     {
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
         public IAsyncRelayCommand CheckPermissionsAsyncCommand { get; }
@@ -22,7 +22,7 @@ namespace FindTheTreasure.Pages.Home
         //CollectionView one-way binding from ViewModel to View
         public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new ObservableCollection<BeaconModel>();
 
-        public HomePageViewModel(
+        public HomeViewModel(
             BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
             BluetoothPermissionsService bluetoothPermissionsService,
             BeaconDiscoveryService beaconDiscoveryService,
@@ -42,8 +42,8 @@ namespace FindTheTreasure.Pages.Home
 
         private async Task GoToBeaconDetailPageAsync(BeaconModel item)
         {
-            Dictionary<string, object> parameters = new() { { nameof(BeaconDetailPageViewModel.Item), item } };
-            await Shell.Current.GoToAsync(nameof(BeaconDetailPage), true, parameters);
+            Dictionary<string, object> parameters = new() { { nameof(BeaconDetailViewModel.Item), item } };
+            await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
         }
 
         private async Task ScanDevicesAsync()

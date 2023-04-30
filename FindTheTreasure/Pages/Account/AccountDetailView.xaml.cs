@@ -1,9 +1,9 @@
 namespace FindTheTreasure.Pages.Account;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class AccountDetailPage : ContentPage
+public partial class AccountDetailView : ContentPage
 {
-	public AccountDetailPage(AccountDetailPageModel viewModel)
+	public AccountDetailView(AccountDetailViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;

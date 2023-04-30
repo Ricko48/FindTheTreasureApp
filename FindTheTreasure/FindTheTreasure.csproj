@@ -65,28 +65,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\Account\AccountDetailPage.xaml.cs">
-	    <DependentUpon>AccountDetailPage.xaml</DependentUpon>
+	  <Compile Update="Pages\Account\AccountDetailView.xaml.cs">
+	    <DependentUpon>AccountDetailView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\Map\FoundBeaconsPage.xaml.cs">
-	    <DependentUpon>FoundBeaconsPage.xaml</DependentUpon>
+	  <Compile Update="Pages\Beacon\BeaconDetailView.xaml.cs">
+	    <DependentUpon>BeaconDetailView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\ScoreBoard\ScoreBoardPage.xaml.cs">
-	    <DependentUpon>ScoreBoardPage.xaml</DependentUpon>
+	  <Compile Update="Pages\Home\HomeView.xaml.cs">
+	    <DependentUpon>HomeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Map\FoundBeaconsView.xaml.cs">
+	    <DependentUpon>FoundBeaconsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ScoreBoard\ScoreBoardView.xaml.cs">
+	    <DependentUpon>ScoreBoardView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Account\AccountDetailPage.xaml">
+	  <MauiXaml Update="Pages\Account\AccountDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Beacon\BeaconDetailPage.xaml">
+	  <MauiXaml Update="Pages\Beacon\BeaconDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Map\FoundBeaconsPage.xaml">
+	  <MauiXaml Update="Pages\Map\FoundBeaconsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardPage.xaml">
+	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -1,9 +1,9 @@
-namespace FindTheTreasure.Pages.Home
+﻿namespace FindTheTreasure.Pages.Beacon
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class BeaconDetailView : ContentPage
     {
-        public HomePage(HomePageViewModel viewModel)
+        public BeaconDetailView(BeaconDetailViewModel viewModel)
         {
             InitializeComponent();
             BindingContext = viewModel;

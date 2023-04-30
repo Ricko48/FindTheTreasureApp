@@ -1,8 +1,8 @@
 namespace FindTheTreasure.Pages.ScoreBoard;
 
-public partial class ScoreBoardPage : ContentPage
+public partial class ScoreBoardView : ContentPage
 {
-	public ScoreBoardPage()
+	public ScoreBoardView()
 	{
 		InitializeComponent();
 	}

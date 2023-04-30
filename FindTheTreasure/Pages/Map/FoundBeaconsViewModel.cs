@@ -2,7 +2,7 @@
 
 namespace FindTheTreasure.Pages.Map
 {
-    public partial class FoundBeaconsPageModel
+    public partial class FoundBeaconsViewModel
     {
 
         public FoundBeaconsModel FoundBeaconsModel { get; set; } = new()
@@ -14,7 +14,7 @@ namespace FindTheTreasure.Pages.Map
             }
         };
 
-        public FoundBeaconsPageModel()
+        public FoundBeaconsViewModel()
         {
 
         }
