@@ -7,9 +7,9 @@ public partial class AppShell : Shell
 		InitializeComponent();
 
         Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
-        Routing.RegisterRoute(nameof(FoundBeaconsView), typeof(FoundBeaconsView));
-        Routing.RegisterRoute(nameof(ScoreBoardView), typeof(ScoreBoardView));
-        Routing.RegisterRoute(nameof(AccountDetailView), typeof(AccountDetailView));
+        Routing.RegisterRoute(nameof(FoundBeaconsPage), typeof(FoundBeaconsPage));
+        Routing.RegisterRoute(nameof(ScoreBoardPage), typeof(ScoreBoardPage));
+        Routing.RegisterRoute(nameof(AccountDetailPage), typeof(AccountDetailPage));
         Routing.RegisterRoute(nameof(BeaconDetailPage), typeof(BeaconDetailPage));
     }
 }
