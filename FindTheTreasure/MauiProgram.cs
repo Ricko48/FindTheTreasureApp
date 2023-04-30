@@ -53,17 +53,17 @@ public static class MauiProgram
         builder.Services.AddSingleton<HomePage>();
         builder.Services.AddSingleton<HomePageViewModel>();
 
-        builder.Services.AddSingleton<FoundBeaconsView>();
-        builder.Services.AddSingleton<FoundBeaconsViewModel>();
+        builder.Services.AddSingleton<FoundBeaconsPage>();
+        builder.Services.AddSingleton<FoundBeaconsPageModel>();
 
         builder.Services.AddSingleton<BeaconDetailPage>();
         builder.Services.AddSingleton<BeaconDetailPageViewModel>();
 
-        builder.Services.AddSingleton<AccountDetailView>();
-        builder.Services.AddSingleton<AccountDetailViewModel>();
+        builder.Services.AddSingleton<AccountDetailPage>();
+        builder.Services.AddSingleton<AccountDetailPageModel>();
 
-        builder.Services.AddSingleton<ScoreBoardView>();
-        builder.Services.AddSingleton<ScoreBoardViewModel>();
+        builder.Services.AddSingleton<ScoreBoardPage>();
+        builder.Services.AddSingleton<ScoreBoardPageModel>();
 
         return builder.Build();
     }

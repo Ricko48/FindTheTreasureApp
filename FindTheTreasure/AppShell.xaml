@@ -35,22 +35,22 @@
 
     <FlyoutItem Title="Found treasures map" 
                 FlyoutIcon="{StaticResource IconMap}">
-        <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsView}"
-                      Route="FoundBeaconsView" >
+        <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsPage}"
+                      Route="FoundBeaconsPage" >
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="Score board"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardView}"
-                      Route="ScoreBoardView">
+        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardPage}"
+                      Route="ScoreBoardPage">
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="My account"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailView}"
-                      Route="AccountDetailView">
+        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailPage}"
+                      Route="AccountDetailPage">
         </ShellContent>
     </FlyoutItem>
 

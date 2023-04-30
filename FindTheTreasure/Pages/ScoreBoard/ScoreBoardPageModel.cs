@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FindTheTreasure.Pages.ScoreBoard
 {
-    public class ScoreBoardViewModel
+    public class ScoreBoardPageModel
     {
     }
 }
