@@ -5,9 +5,34 @@
              x:DataType="viewmodel:UserDetailViewModel"
              xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.User">
     <VerticalStackLayout>
-        <Label 
-            Text="User details"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label x:Name="Username"
+               Text="{Binding UserModel.UserName}"
+               IsVisible="{Binding IsSignedIn}"/>
+        <Label x:Name="FirstName"
+               Text="{Binding UserModel.FirstName}"
+               IsVisible="{Binding IsSignedIn}"/>
+        <Label x:Name="LastName"
+               Text="{Binding UserModel.LastName}"
+               IsVisible="{Binding IsSignedIn}"/>
+        <Button Text="Sign out"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding SignOutButtonClickedCommand}"
+                IsVisible="{Binding IsSignedIn}"/>
+        <Button Text="Delete account"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding DeleteAccountButtonClickedCommand}"
+                IsVisible="{Binding IsSignedIn}"/>
+        <Button Text="SignIn"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding SignInButtonClickedCommand}"
+                IsVisible="{Binding IsSignedOut}"/>
+        <Button Text="SignUp"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding SignUpButtonClickedCommand}"
+                IsVisible="{Binding IsSignedOut}"/>
     </VerticalStackLayout>
 </ContentPage>

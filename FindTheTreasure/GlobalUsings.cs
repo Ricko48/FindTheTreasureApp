@@ -14,6 +14,8 @@ global using FindTheTreasure.Pages.Map;
 global using FindTheTreasure.Pages.User.SignIn;
 global using FindTheTreasure.Pages.User.SignUp;
 
+global using FindTheTreasure.Pages.User.Models;
+
 namespace FindTheTreasure
 {
     internal class GlobalUsings

@@ -33,13 +33,10 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
         builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
-        //builder.Services.AddSingleton<IMap>(Map.Default);
 
-        //register Bluetooth Low-Energy library (Plugin.BLE)
         builder.Services.AddSingleton<IBluetoothLE>(CrossBluetoothLE.Current);
         builder.Services.AddSingleton<IAdapter>(CrossBluetoothLE.Current.Adapter);
 
-        //custom Bluetooth services (using Plugin.BLE)
         builder.Services.AddSingleton<BluetoothPermissionsService>();
         builder.Services.AddSingleton<BeaconDiscoveryService>();
         builder.Services.AddSingleton<BluetoothDeviceMacAddressService>();

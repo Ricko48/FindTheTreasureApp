@@ -5,10 +5,22 @@
              x:Class="FindTheTreasure.Pages.User.SignIn.SignInView"
              x:DataType="signIn:SignInViewModel"
              Title="SignInView">
-    <VerticalStackLayout>
+    <StackLayout>
         <Label 
-            Text="Sign in page!"
+            Text="Sign in"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        <Entry x:Name="UserName"
+               Text="{Binding UserName}"
+               Placeholder="Enter Username"
+               />
+        <Button Text="Sign in"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding SignInButtonClickedCommand}" />
+        <Button Text="Don't have an account? SignUp here"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding SignUpButtonClickedCommand}" />
+    </StackLayout>
 </ContentPage>

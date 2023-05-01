@@ -39,7 +39,7 @@ namespace FindTheTreasure.Pages.Home
             CheckPermissionsAsyncCommand = new AsyncRelayCommand(CheckPermissionsAsync);
             GoToBeaconDetailPageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToBeaconDetailPageAsync);
 
-            if (!userService.IsLoggedIn())
+            if (!userService.IsSignedIn())
             {
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
