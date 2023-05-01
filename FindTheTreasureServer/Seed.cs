@@ -10,9 +10,9 @@ namespace FindTheTreasureServer
         {
             var beacons = new List<Beacon>
             {
-                new Beacon { Name = "Beacon 1", PositionX = 1.0f, PositionY = 2.0f },
-                new Beacon { Name = "Beacon 2", PositionX = 3.0f, PositionY = 4.0f },
-                new Beacon { Name = "Beacon 3", PositionX = 5.0f, PositionY = 6.0f }
+                new Beacon { Name = "Beacon 1", PositionX = 1.0f, PositionY = 2.0f, PositionDescription = "FI MUNI A318" },
+                new Beacon { Name = "Beacon 2", PositionX = 3.0f, PositionY = 4.0f, PositionDescription = "MZK" },
+                new Beacon { Name = "Beacon 3", PositionX = 5.0f, PositionY = 6.0f, PositionDescription = "Tesco Campus pri pečive" }
             };
 
             var users = new List<User>
