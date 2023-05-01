@@ -8,9 +8,11 @@ global using FindTheTreasure.Pages;
 
 global using FindTheTreasure.Pages.Home;
 global using FindTheTreasure.Pages.ScoreBoard;
-global using FindTheTreasure.Pages.Account;
+global using FindTheTreasure.Pages.User;
 global using FindTheTreasure.Pages.Beacon;
 global using FindTheTreasure.Pages.Map;
+global using FindTheTreasure.Pages.User.SignIn;
+global using FindTheTreasure.Pages.User.SignUp;
 
 namespace FindTheTreasure
 {

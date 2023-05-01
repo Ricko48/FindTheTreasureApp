@@ -4,6 +4,7 @@ using FindTheTreasure.Pages.ScoreBoard;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Data;
 using FindTheTreasure.Services.GPS;
+using FindTheTreasure.Services.User;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 
@@ -59,11 +60,19 @@ public static class MauiProgram
         builder.Services.AddSingleton<BeaconDetailView>();
         builder.Services.AddSingleton<BeaconDetailViewModel>();
 
-        builder.Services.AddSingleton<AccountDetailView>();
-        builder.Services.AddSingleton<AccountDetailViewModel>();
+        builder.Services.AddSingleton<UserDetailView>();
+        builder.Services.AddSingleton<UserDetailViewModel>();
+
+        builder.Services.AddSingleton<SignInView>();
+        builder.Services.AddSingleton<SignInViewModel>();
+
+        builder.Services.AddSingleton<SignUpView>();
+        builder.Services.AddSingleton<SignUpViewModel>();
 
         builder.Services.AddSingleton<ScoreBoardView>();
         builder.Services.AddSingleton<ScoreBoardViewModel>();
+
+        builder.Services.AddSingleton<UserService>();
 
         return builder.Build();
     }
