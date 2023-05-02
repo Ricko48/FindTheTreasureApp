@@ -78,7 +78,7 @@
 	  <Compile Update="Pages\Home\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\Map\FoundBeaconsView.xaml.cs">
+	  <Compile Update="Pages\FoundBeacons\FoundBeaconsView.xaml.cs">
 	    <DependentUpon>FoundBeaconsView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\ScoreBoard\ScoreBoardView.xaml.cs">
@@ -99,11 +99,16 @@
 	  <MauiXaml Update="Pages\Beacon\BeaconDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Map\FoundBeaconsView.xaml">
+	  <MauiXaml Update="Pages\FoundBeacons\FoundBeaconsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Pages\FoundBeacons\Models\" />
+	  <Folder Include="Services\Game\API\" />
 	</ItemGroup>
 </Project>

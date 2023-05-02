@@ -78,12 +78,12 @@ namespace FindTheTreasure.Services.Bluetooth
             {
                 throw new InvalidOperationException($"Bluetooth is not turned on. Please turn on bluetooth.");
             }
-#if ANDROID
+
             if(gpsFeatureService.IsGPSOn() == false)
             {
                 throw new InvalidOperationException($"GPS is not turned on. Please turn on GPS to be able to scan for bluetooth low-energy devices.");
             }
-#endif
+
             discoveredDevices.Clear(); //reset to 0 items
             currentScanningMaxItems = maxItems;
 
@@ -122,9 +122,9 @@ namespace FindTheTreasure.Services.Bluetooth
             //u beaconů někdy funguje oznamování jména, jindy není oznámeno žádné (a nemění se to s aktuálním módem signálování (1/2/3))
             //spolehlivá je zde pouze MAC adresa
             string mac = null;
-#if ANDROID
+
             mac = GetAndroidBluetoothDeviceMacAddress(device.NativeDevice as Android.Bluetooth.BluetoothDevice);
-#endif
+
             Debug.WriteLine($"Discovered device: " +
                 $"ID: {device.Id}, Name: {device.Name}, Rsii: {device.Rssi}, MAC address: {mac}"); //DEBUG
             discoveredDevices.Add(device);
