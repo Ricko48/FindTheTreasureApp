@@ -12,7 +12,7 @@
 		<ApplicationTitle>FindTheTreasure</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.findthetreasure</ApplicationId>
+		<ApplicationId>com.muni.findthetreasure</ApplicationId>
 		<ApplicationIdGuid>a15b2046-b91b-4d59-a0d8-97a89f384494</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -62,11 +62,15 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.59" />
 		<PackageReference Include="Plugin.BLE" Version="3.0.0-beta.2" />
+		<PackageReference Include="Refit" Version="6.3.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\Account\AccountDetailView.xaml.cs">
-	    <DependentUpon>AccountDetailView.xaml</DependentUpon>
+	  <Compile Update="Pages\User\UserDetailView.xaml.cs">
+	    <DependentUpon>UserDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\User\SignUp\SignUpView.xaml.cs">
+	    <DependentUpon>SignUpView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\Beacon\BeaconDetailView.xaml.cs">
 	    <DependentUpon>BeaconDetailView.xaml</DependentUpon>
@@ -83,7 +87,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Account\AccountDetailView.xaml">
+	  <MauiXaml Update="Pages\User\UserDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\User\SignIn\SignInView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\User\SignUp\SignUpView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Beacon\BeaconDetailView.xaml">

@@ -4,8 +4,11 @@ using FindTheTreasure.Pages.ScoreBoard;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Data;
 using FindTheTreasure.Services.GPS;
+using FindTheTreasure.Services.User;
+using FindTheTreasure.Services.User.API;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
+using Refit;
 
 namespace FindTheTreasure;
 
@@ -32,13 +35,10 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
         builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
-        //builder.Services.AddSingleton<IMap>(Map.Default);
 
-        //register Bluetooth Low-Energy library (Plugin.BLE)
         builder.Services.AddSingleton<IBluetoothLE>(CrossBluetoothLE.Current);
         builder.Services.AddSingleton<IAdapter>(CrossBluetoothLE.Current.Adapter);
 
-        //custom Bluetooth services (using Plugin.BLE)
         builder.Services.AddSingleton<BluetoothPermissionsService>();
         builder.Services.AddSingleton<BeaconDiscoveryService>();
         builder.Services.AddSingleton<BluetoothDeviceMacAddressService>();
@@ -59,11 +59,23 @@ public static class MauiProgram
         builder.Services.AddSingleton<BeaconDetailView>();
         builder.Services.AddSingleton<BeaconDetailViewModel>();
 
-        builder.Services.AddSingleton<AccountDetailView>();
-        builder.Services.AddSingleton<AccountDetailViewModel>();
+        builder.Services.AddSingleton<UserDetailView>();
+        builder.Services.AddSingleton<UserDetailViewModel>();
+
+        builder.Services.AddSingleton<SignInView>();
+        builder.Services.AddSingleton<SignInViewModel>();
+
+        builder.Services.AddSingleton<SignUpView>();
+        builder.Services.AddSingleton<SignUpViewModel>();
 
         builder.Services.AddSingleton<ScoreBoardView>();
         builder.Services.AddSingleton<ScoreBoardViewModel>();
+
+        builder.Services.AddSingleton<UserService>();
+
+        // register api clients
+        const string apiUrl = "http://example.com"; // ToDo
+        builder.Services.AddSingleton<IUserApiClient>(RestService.For<IUserApiClient>(apiUrl));
 
         return builder.Build();
     }

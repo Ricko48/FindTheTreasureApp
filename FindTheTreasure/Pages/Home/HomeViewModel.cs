@@ -1,10 +1,9 @@
-﻿using System.Collections.ObjectModel;
-
-using FindTheTreasure.Models;
-using FindTheTreasure.Pages.Beacon;
+﻿using FindTheTreasure.Models;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Data;
 using Plugin.BLE.Abstractions.Contracts;
+using System.Collections.ObjectModel;
+using FindTheTreasure.Services.User;
 
 namespace FindTheTreasure.Pages.Home
 {
@@ -26,7 +25,8 @@ namespace FindTheTreasure.Pages.Home
             BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
             BluetoothPermissionsService bluetoothPermissionsService,
             BeaconDiscoveryService beaconDiscoveryService,
-            BeaconService beaconService)
+            BeaconService beaconService,
+            UserService userService)
         {
             Title = $"Scan and select device";
 
@@ -38,6 +38,11 @@ namespace FindTheTreasure.Pages.Home
             ScanNearbyDevicesAsyncCommand = new AsyncRelayCommand(ScanDevicesAsync);
             CheckPermissionsAsyncCommand = new AsyncRelayCommand(CheckPermissionsAsync);
             GoToBeaconDetailPageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToBeaconDetailPageAsync);
+
+            if (!userService.IsSignedIn())
+            {
+                Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
+            }
         }
 
         private async Task GoToBeaconDetailPageAsync(BeaconModel item)

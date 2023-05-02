@@ -6,7 +6,7 @@
     xmlns:homePage="clr-namespace:FindTheTreasure.Pages.Home"
     xmlns:mapPage="clr-namespace:FindTheTreasure.Pages.Map"
     xmlns:scoreBoardPage="clr-namespace:FindTheTreasure.Pages.ScoreBoard"
-    xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.Account"
+    xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.User"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.Resources>
@@ -49,8 +49,8 @@
 
     <FlyoutItem Title="My account"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailView}"
-                      Route="AccountDetailView">
+        <ShellContent ContentTemplate="{DataTemplate accountPage:UserDetailView}"
+                      Route="UserDetailView">
         </ShellContent>
     </FlyoutItem>
 
