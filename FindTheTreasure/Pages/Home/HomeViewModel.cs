@@ -1,8 +1,8 @@
 ﻿using FindTheTreasure.Models;
 using FindTheTreasure.Services.Bluetooth;
-using FindTheTreasure.Services.Data;
 using Plugin.BLE.Abstractions.Contracts;
 using System.Collections.ObjectModel;
+using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.User;
 
 namespace FindTheTreasure.Pages.Home
@@ -15,7 +15,7 @@ namespace FindTheTreasure.Pages.Home
 
         private readonly BluetoothPermissionsService bluetoothPermissionsService;
         private readonly BeaconDiscoveryService beaconDiscoveryService;
-        private readonly BeaconService beaconService;
+        private readonly BeaconsService beaconService;
         private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
         //CollectionView one-way binding from ViewModel to View
@@ -25,7 +25,7 @@ namespace FindTheTreasure.Pages.Home
             BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
             BluetoothPermissionsService bluetoothPermissionsService,
             BeaconDiscoveryService beaconDiscoveryService,
-            BeaconService beaconService,
+            BeaconsService beaconService,
             UserService userService)
         {
             Title = $"Scan and select device";
@@ -93,7 +93,7 @@ namespace FindTheTreasure.Pages.Home
         private void ShowDiscoveredDevices(List<IDevice> discoveredBluetoothDevices)
         {
             var knownBeacons = beaconService.GetAll();
-            var devicesToDisplay = beaconBluetoothDeviceMergeService.Merge(knownBeacons, discoveredBluetoothDevices);
+            var devicesToDisplay = beaconBluetoothDeviceMergeService.Merge(knownBeacons.ToList(), discoveredBluetoothDevices);
             DiscoveredDevices.Clear();
             foreach (var device in devicesToDisplay)
             {
