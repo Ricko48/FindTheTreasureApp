@@ -1,20 +1,31 @@
-﻿using FindTheTreasure.Services.User;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using FindTheTreasure.Services.User;
 using System.Windows.Input;
 
 namespace FindTheTreasure.Pages.User
 {
-    public class UserDetailViewModel
+    public class UserDetailViewModel : INotifyPropertyChanged
     {
         private readonly UserService _userService;
 
-        public UserModel UserModel { get; set; }
-        public bool IsSignedOut => !_userService.IsSignedIn();
-        public bool IsSignedIn => _userService.IsSignedIn();
+        private UserModel _userModel;
+        public UserModel UserModel
+        {
+            get => _userModel;
+            set
+            {
+                _userModel = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand SignOutButtonClickedCommand { get; }
         public ICommand DeleteAccountButtonClickedCommand { get; }
         public ICommand SignInButtonClickedCommand { get; }
         public ICommand SignUpButtonClickedCommand { get; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public UserDetailViewModel(UserService userService)
         {
@@ -53,6 +64,11 @@ namespace FindTheTreasure.Pages.User
         public async Task OnSignUpButtonClickedAsync()
         {
             await Shell.Current.GoToAsync(nameof(SignUpView), false);
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -3,36 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FindTheTreasure.Pages.User.UserDetailView"
              x:DataType="viewmodel:UserDetailViewModel"
-             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.User">
-    <VerticalStackLayout>
+             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.User"
+             Title="My account">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
         <Label x:Name="Username"
                Text="{Binding UserModel.UserName}"
-               IsVisible="{Binding IsSignedIn}"/>
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="1"
+               FontSize="40"/>
         <Label x:Name="FirstName"
                Text="{Binding UserModel.FirstName}"
-               IsVisible="{Binding IsSignedIn}"/>
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="2"
+               FontSize="25"/>
         <Label x:Name="LastName"
                Text="{Binding UserModel.LastName}"
-               IsVisible="{Binding IsSignedIn}"/>
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="3"
+               FontSize="25"/>
         <Button Text="Sign out"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Command="{Binding SignOutButtonClickedCommand}"
-                IsVisible="{Binding IsSignedIn}"/>
+                Grid.Row="6"/>
         <Button Text="Delete account"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Command="{Binding DeleteAccountButtonClickedCommand}"
-                IsVisible="{Binding IsSignedIn}"/>
-        <Button Text="SignIn"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Command="{Binding SignInButtonClickedCommand}"
-                IsVisible="{Binding IsSignedOut}"/>
-        <Button Text="SignUp"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Command="{Binding SignUpButtonClickedCommand}"
-                IsVisible="{Binding IsSignedOut}"/>
-    </VerticalStackLayout>
+                Grid.Row="7"/>
+    </Grid>
 </ContentPage>

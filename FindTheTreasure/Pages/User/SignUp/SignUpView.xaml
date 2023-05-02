@@ -4,28 +4,51 @@
              xmlns:signUp="clr-namespace:FindTheTreasure.Pages.User.SignUp"
              x:Class="FindTheTreasure.Pages.User.SignUp.SignUpView"
              x:DataType="signUp:SignUpViewModel"
-             Title="SignUp">
-    <VerticalStackLayout>
-        <Label 
-            Text="Sign un"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="Sign up">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
         <Entry x:Name="Username"
                Text="{Binding UserModel.UserName}"
-               Placeholder="Username"/>
+               Placeholder="Username"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="1"/>
         <Entry x:Name="FirstName"
                Text="{Binding UserModel.FirstName}"
-               Placeholder="First name"/>
+               Placeholder="First name"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="2"/>
         <Entry x:Name="LastName"
                Text="{Binding UserModel.LastName}"
-               Placeholder="Last name"/>
+               Placeholder="Last name"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="3"/>
         <Button Text="SignUp"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                Command="{Binding SignUpButtonClickedCommand}" />
+                Command="{Binding SignUpButtonClickedCommand}"
+                Grid.Row="4"/>
         <Button Text="Already have an account? SignIn here"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                Command="{Binding SignInButtonClickedCommand}" />
-    </VerticalStackLayout>
+                Command="{Binding SignInButtonClickedCommand}"
+                Grid.Row="6"/>
+    </Grid>
 </ContentPage>

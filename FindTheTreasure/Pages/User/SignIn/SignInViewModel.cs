@@ -1,16 +1,28 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using FindTheTreasure.Services.User;
 
 namespace FindTheTreasure.Pages.User.SignIn
 {
-    public class SignInViewModel
+    public class SignInViewModel : INotifyPropertyChanged
     {
         private readonly UserService _userService;
 
-        public string UserName { get; set; }
+        private string _userName;
+        public string UserName
+        {
+            get => _userName;
+            set
+            {
+                _userName = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand SignInButtonClickedCommand { get; }
         public ICommand SignUpButtonClickedCommand { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public SignInViewModel(UserService userService)
         {
@@ -18,6 +30,11 @@ namespace FindTheTreasure.Pages.User.SignIn
 
             SignInButtonClickedCommand = new Command(async () => await OnSignInButtonClickedAsync());
             SignUpButtonClickedCommand = new Command(async () => await OnSignUpButtonClickedAsync());
+        }
+
+        public void Refresh()
+        {
+            UserName = null;
         }
 
         public async Task OnSignInButtonClickedAsync()
@@ -35,12 +52,16 @@ namespace FindTheTreasure.Pages.User.SignIn
             }
 
             await Shell.Current.Navigation.PopToRootAsync();
-            //await Shell.Current.GoToAsync(nameof(HomeView), false);
         }
 
         public async Task OnSignUpButtonClickedAsync()
         {
             await Shell.Current.GoToAsync( nameof(SignUpView), false);
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

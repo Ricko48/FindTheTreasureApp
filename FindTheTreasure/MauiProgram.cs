@@ -5,8 +5,10 @@ using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Data;
 using FindTheTreasure.Services.GPS;
 using FindTheTreasure.Services.User;
+using FindTheTreasure.Services.User.API;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
+using Refit;
 
 namespace FindTheTreasure;
 
@@ -70,6 +72,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<ScoreBoardViewModel>();
 
         builder.Services.AddSingleton<UserService>();
+
+        // register api clients
+        const string apiUrl = "http://example.com"; // ToDo
+        builder.Services.AddSingleton<IUserApiClient>(RestService.For<IUserApiClient>(apiUrl));
 
         return builder.Build();
     }

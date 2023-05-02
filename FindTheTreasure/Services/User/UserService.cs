@@ -1,7 +1,14 @@
-﻿namespace FindTheTreasure.Services.User
+﻿using FindTheTreasure.Services.User.API;
+using Refit;
+
+namespace FindTheTreasure.Services.User
 {
     public class UserService
     {
+        private readonly IUserApiClient _userApiClient;
+
+        public UserService(IUserApiClient userApiClient) => _userApiClient = userApiClient;
+
         public bool IsSignedIn()
         {
             var isUserLoggedIn = Preferences.Get("isUserLoggedIn", null);
@@ -14,10 +21,9 @@
 
         public async Task<bool> SignInAsync(string userName)
         {
+            //var userModel = await _userApiClient.SignInAsync(userName);
 
-            // ToDo API
-
-            var model = new UserModel // arrange
+            var userModel = new UserModel // arrange for testing
             {
                 UserName = userName,
                 FirstName = "Peter",
@@ -25,9 +31,9 @@
             };
 
             Preferences.Set("isUserLoggedIn", "true");
-            Preferences.Set("userName", model.UserName);
-            Preferences.Set("firstName", model.FirstName);
-            Preferences.Set("lastName", model.LastName);
+            Preferences.Set("userName", userModel.UserName);
+            Preferences.Set("firstName", userModel.FirstName);
+            Preferences.Set("lastName", userModel.LastName);
 
             return true;
         }
@@ -35,15 +41,6 @@
         public void SignOut()
         {
             Preferences.Set("isUserLoggedIn", "false");
-        }
-
-        public string GetUserName()
-        {
-            if (!IsSignedIn())
-            {
-                return null;
-            }
-            return Preferences.Get("userName", null);
         }
 
         public UserModel GetUser()
@@ -62,15 +59,13 @@
 
         public async Task DeleteAccountAsync()
         {
-            // ToDo API
-
+            //await _userApiClient.DeleteAsync(Preferences.Get("userName", null));
             SignOut();
         }
 
         public async Task<bool> SignUpAsync(UserModel userModel)
         {
-            // ToDo API
-
+            //return await _userApiClient.SignUpAsync(userModel);
             return true;
         }
     }
