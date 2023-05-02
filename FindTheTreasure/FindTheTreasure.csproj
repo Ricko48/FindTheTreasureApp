@@ -109,6 +109,9 @@
 
 	<ItemGroup>
 	  <Folder Include="Pages\FoundBeacons\Models\" />
+	  <Folder Include="Pages\Beacons\" />
+	  <Folder Include="Pages\Games\" />
+	  <Folder Include="Pages\Game\" />
 	  <Folder Include="Services\Game\API\" />
 	</ItemGroup>
 </Project>

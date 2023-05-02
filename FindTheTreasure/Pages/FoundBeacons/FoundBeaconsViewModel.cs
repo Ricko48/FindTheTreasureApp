@@ -25,15 +25,15 @@ namespace FindTheTreasure.Pages.FoundBeacons
 
             if (!_gameService.IsInGame())
             {
-                SetMapToCurrentLocation(map);
+                SetMapRegionToCurrentLocation(map);
                 return;
             }
 
-            SetPinsToMap(map);
-            SetNewRegion(map);
+            SetBeaconPinsToMap(map);
+            AdjustNewRegion(map);
         }
 
-        private void SetPinsToMap(Microsoft.Maui.Controls.Maps.Map map)
+        private void SetBeaconPinsToMap(Microsoft.Maui.Controls.Maps.Map map)
         {
             map.Pins.Clear();
 
@@ -50,7 +50,7 @@ namespace FindTheTreasure.Pages.FoundBeacons
             }
         }
 
-        private void SetNewRegion(Microsoft.Maui.Controls.Maps.Map map)
+        private void AdjustNewRegion(Microsoft.Maui.Controls.Maps.Map map)
         {
             var locations = map.Pins.Select(x => x.Location).Append(Geolocation.Default.GetLastKnownLocationAsync().Result);
             var center = GetPinsCenter(locations);
@@ -92,7 +92,7 @@ namespace FindTheTreasure.Pages.FoundBeacons
             return new Location(centerLat, centerLon);
         }
 
-        private void SetMapToCurrentLocation(Microsoft.Maui.Controls.Maps.Map map)
+        private void SetMapRegionToCurrentLocation(Microsoft.Maui.Controls.Maps.Map map)
         {
             var location = Geolocation.Default.GetLastKnownLocationAsync().Result;
             var currentLocationRegion = new MapSpan(location, 0.01, 0.01);
