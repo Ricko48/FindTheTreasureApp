@@ -9,8 +9,5 @@ namespace FindTheTreasureServer.Database.Entity
         [ForeignKey("User")]
         public int OwnerId { get; set; }
         public User Owner { get; set; }
-
-        public virtual ICollection<GameParticipant> GameParticipants { get; set; }
-        public virtual ICollection<GameBeacon> GameBeacons { get; set; }
     }
 }

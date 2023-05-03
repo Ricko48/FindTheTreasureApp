@@ -45,53 +45,19 @@ namespace FindTheTreasureServer.Controllers
         [HttpPost("{gameId}/beacon/{beaconId}")]
         public bool AddBeaconToGame(int gameId, int beaconId)
         {
-            using var dbContext = new TreasureDbContext();
-            var newBeacon = new GameBeacon { BeaconId = beaconId, GameId = gameId };
-            dbContext.GameBeacons.Add(newBeacon);
-            dbContext.GameParticipants
-                .Where(p => p.GameId == gameId)
-                .ForEachAsync(p => dbContext.ParticipantBeacons
-                    .Add(new ParticipantBeacon
-                    {
-                        GameBeaconId = newBeacon.Id ?? 0,
-                        GameParticipantId = p.Id ?? 0,
-                        Found = false
-                    }))
-                .Wait();
-            dbContext.SaveChanges();
-            return true;
+            throw new NotImplementedException();
         }
 
         [HttpDelete("{gameId}/beacon/{beaconId}")]
         public bool DeleteBeaconFromGame(int gameId, int beaconId)
         {
-            using var dbContext = new TreasureDbContext();
-            var beacon = dbContext.GameBeacons.First(b => b.BeaconId == beaconId && b.GameId == gameId);
-            if (beacon == null)
-                return false;
-            dbContext.GameBeacons.Remove(beacon);
-            dbContext.SaveChanges();
-            return true;
+            throw new NotImplementedException();
         }
 
         [HttpPost("{gameId}/user{userId}")]
         public bool AddUserToGame(int gameId, int userId)
         {
-            using var dbContext = new TreasureDbContext();
-            var newParticipant= new GameParticipant { UserId = userId, GameId = gameId };
-            dbContext.GameParticipants.Add(newParticipant);
-            dbContext.GameBeacons
-                .Where(b => b.GameId == gameId)
-                .ForEachAsync(b => dbContext.ParticipantBeacons
-                    .Add(new ParticipantBeacon
-                    {
-                        GameBeaconId = b.Id ?? 0,
-                        GameParticipantId = newParticipant.Id ?? 0,
-                        Found = false
-                    }))
-                .Wait();
-            dbContext.SaveChanges();
-            return true;
+            throw new NotImplementedException();
         }
 
         [HttpDelete("{gameId}/user/{userId}")]

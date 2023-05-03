@@ -2,6 +2,7 @@
 using FindTheTreasureServer.Database.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {
@@ -13,26 +14,46 @@ namespace FindTheTreasureServer.Controllers
         public IEnumerable<Beacon> GetBeaconsForGame(int gameId)
         {
             using var dbContext = new TreasureDbContext();
-            dbContext.Games.Find(gameId);
-            throw new NotImplementedException();
+            return dbContext.Beacons.Where(b => b.GameId == gameId);
         }
 
         [HttpPut]
         public Beacon UpdateBeacon(Beacon beacon)
         {
-            throw new NotImplementedException();
+            using var dbContext = new TreasureDbContext();
+            dbContext.Beacons.Update(beacon);
+            dbContext.SaveChanges();
+            return beacon;
         }
 
         [HttpPost]
         public Beacon CreateBeacon(Beacon beacon)
         {
-            throw new NotImplementedException();
+            using var dbContext = new TreasureDbContext();
+            dbContext.Beacons.Add(beacon);
+            dbContext.SaveChanges();
+            return beacon;
         }
 
         [HttpGet("{id}")]
         public Beacon GetBeacon(int id)
         {
-            throw new NotImplementedException();
+            using var dbContext = new TreasureDbContext();
+            return dbContext.Beacons.Find(id);
         }
+
+        /// <summary>
+        /// Returns if beacon is used in a game
+        /// </summary>
+        /// <param name="beaconId">Id of a beacon</param>
+        /// <returns>Returns 0 if it is not in the game or Id of the game</returns>
+        [HttpGet("ingame/{beaconId}")]
+        public int GetBeaconInGame(int beaconId)
+        {
+            using var dbContext = new TreasureDbContext();
+            var beacon = dbContext.Beacons.Find(beaconId);
+            return beacon.GameId.HasValue ? beacon.GameId.Value : 0;
+        }
+
     }
 }
