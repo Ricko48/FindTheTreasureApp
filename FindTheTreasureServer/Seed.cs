@@ -17,9 +17,9 @@ namespace FindTheTreasureServer
 
             var users = new List<User>
             {
-                new User { Name = "John", Surname = "Doe", Participants = new List<GameParticipant>() },
-                new User { Name = "Jane", Surname = "Doe", Participants = new List<GameParticipant>() },
-                new User { Name = "Bob", Surname = "Smith", Participants = new List<GameParticipant>() }
+                new User { Name = "John", Surname = "Doe" },
+                new User { Name = "Jane", Surname = "Doe"},
+                new User { Name = "Bob", Surname = "Smith"}
             };
 
             var games = new List<Game>

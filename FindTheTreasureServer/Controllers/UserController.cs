@@ -26,11 +26,11 @@ namespace FindTheTreasureServer.Controllers
             return user.Id ?? 0;
         }
 
-        [HttpGet("{id}")]
-        public User? GetUser(int id)
+        [HttpGet("{username}")]
+        public User? GetUser(string username)
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Users.Find(id);
+            return dbContext.Users.First(u => u.Username == username);
         }
 
         [HttpGet("exists/{id}")]
