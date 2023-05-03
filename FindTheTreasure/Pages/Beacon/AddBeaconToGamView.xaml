@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindTheTreasure.Pages.Beacon.BeaconDetailView"
+             x:DataType="viewmodel:AddBeaconToGameViewModel"
+             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Beacon">
+
+    <Grid x:Name="AddBeaconPage"
+          ColumnDefinitions="*,*"
+          ColumnSpacing="6"
+          RowDefinitions="*,Auto"
+          RowSpacing="0"
+          BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+
+        <StackLayout>
+            <Label Text="Clue" />
+            <Entry x:Name="entryClue"
+                   Placeholder="Enter clue"
+                   Text="{Binding Clue}" />
+        </StackLayout>
+
+        <Button x:Name="AddDeviceToGame"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="8"
+                Command="{Binding AddDeviceToGameAsyncCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Add device to game" />
+
+        <Button x:Name="Back"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8"
+                Command="{Binding GoBackAsyncCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Back" />
+
+        <ActivityIndicator x:Name="AddBeaconToGamePageActivityIndicator"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="StartAndExpand" />
+    </Grid>
+</ContentPage>

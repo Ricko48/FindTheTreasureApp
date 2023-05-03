@@ -59,7 +59,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<FoundBeaconsViewModel>();
 
         builder.Services.AddSingleton<BeaconDetailView>();
-        builder.Services.AddSingleton<BeaconDetailViewModel>();
+        builder.Services.AddSingleton<AddBeaconToGameViewModel>();
 
         builder.Services.AddSingleton<UserDetailView>();
         builder.Services.AddSingleton<UserDetailViewModel>();

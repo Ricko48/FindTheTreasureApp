@@ -47,7 +47,8 @@ namespace FindTheTreasure.Pages.Home
 
         private async Task GoToBeaconDetailPageAsync(BeaconModel item)
         {
-            Dictionary<string, object> parameters = new() { { nameof(BeaconDetailViewModel.Item), item } };
+            Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), item } };
+            var y = 1; 
             await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
         }
 
