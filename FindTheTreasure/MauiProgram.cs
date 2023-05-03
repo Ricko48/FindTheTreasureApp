@@ -77,7 +77,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<GameService>();
 
         // register api clients
-        const string apiUrl = "http://example.com"; // ToDo
+        const string apiUrl = "http://147.251.68.4:80/api";
         builder.Services.AddSingleton(RestService.For<IUserApiClient>(apiUrl));
         builder.Services.AddSingleton(RestService.For<IBeaconsApiClient>(apiUrl));
 

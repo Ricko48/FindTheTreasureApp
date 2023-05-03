@@ -4,13 +4,13 @@ namespace FindTheTreasure.Services.User.API
 {
     public interface IUserApiClient
     {
-        [Get("/user/signin")]
-        Task<UserModel> SignInAsync(string userName);
+        [Get("/user/{userName}")]
+        Task<UserModel?> GetUserAsync(string userName);
 
-        [Post("/user/signup")]
-        Task<bool> SignUpAsync(UserModel userModel);
+        [Post("/api/user")]
+        Task<int> CreateUserAsync(UserModel userModel);
 
-        [Get("/user/delete")]
+        [Delete("/api/user/delete/{userName}")]
         Task<bool> DeleteAsync(string userName);
     }
 }
