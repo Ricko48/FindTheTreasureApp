@@ -4,7 +4,7 @@ namespace FindTheTreasure.Services.User.API
 {
     public interface IUserApiClient
     {
-        [Get("/user/{userName}")]
+        [Get("/api/user/{userName}")]
         Task<UserModel?> GetUserAsync(string userName);
 
         [Post("/api/user")]
