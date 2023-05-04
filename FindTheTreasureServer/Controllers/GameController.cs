@@ -51,13 +51,33 @@ namespace FindTheTreasureServer.Controllers
         [HttpDelete("{gameId}/beacon/{beaconId}")]
         public bool DeleteBeaconFromGame(int gameId, int beaconId)
         {
-            throw new NotImplementedException();
+            using var dbContext = new TreasureDbContext();
+            var beacon = dbContext.Beacons.Find(beaconId);
+            if (beacon.GameId != gameId)
+                return false;
+            beacon.GameId = null;
+            dbContext.SaveChanges();
+            return true;
         }
 
         [HttpPost("{gameId}/user{userId}")]
         public bool AddUserToGame(int gameId, int userId)
         {
-            throw new NotImplementedException();
+            using var dbContext = new TreasureDbContext();
+            var participant = new GameParticipant { GameId = gameId, UserId = userId };
+            dbContext.GameParticipants.Add(participant);
+            var beacons = dbContext
+                .Beacons
+                .Where(b => b.GameId == gameId)
+                .Select(b => new ParticipantBeacon
+                {
+                    BeaconId = b.Id.Value,
+                    GameParticipantId = participant.Id.Value,
+                    Found = false
+                });
+            dbContext.ParticipantBeacons.AddRange(beacons);
+            dbContext.SaveChanges();
+            return true;
         }
 
         [HttpDelete("{gameId}/user/{userId}")]
