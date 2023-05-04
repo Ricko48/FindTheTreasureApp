@@ -55,5 +55,14 @@ namespace FindTheTreasureServer.Controllers
             return beacon.GameId.HasValue ? beacon.GameId.Value : 0;
         }
 
+        [HttpPost("{beaconId}/{participantId}")]
+        public bool SetParticipantBeaconFound(int beaconId, int participantId)
+        {
+            using var dbContext = new TreasureDbContext();
+            var beacon = dbContext.ParticipantBeacons.First(b => b.GameParticipantId == participantId && beaconId == b.BeaconId);
+            beacon.Found = true;
+            dbContext.SaveChanges();
+            return true;
+        }
     }
 }
