@@ -66,7 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\Game\CreateGameView.xaml.cs">
+	  <Compile Update="Pages\Game\CreateGame\CreateGameView.xaml.cs">
 	    <DependentUpon>CreateGameView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\User\UserDetailView.xaml.cs">
@@ -90,7 +90,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Game\CreateGameView.xaml">
+	  <MauiXaml Update="Pages\Game\CreateGame\CreateGameView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Game\GamesList\GamesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\User\UserDetailView.xaml">
