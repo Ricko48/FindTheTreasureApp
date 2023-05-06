@@ -13,7 +13,6 @@ namespace FindTheTreasure.Pages.Beacon
     public partial class AddBeaconToGameViewModel : INotifyPropertyChanged
     {
         public IAsyncRelayCommand AddDeviceToGameAsyncCommand { get; }
-        public IAsyncRelayCommand GoBackAsyncCommand { get; }
         private IAdapter adapter;
         private BeaconDiscoveryService beaconDiscoveryService;
 
@@ -22,14 +21,15 @@ namespace FindTheTreasure.Pages.Beacon
         
         public BeaconModel Item { get; set; }
 
-        private string clue;
 
-        public string Clue
+        private GameBeacon gameBeacon;
+
+        public GameBeacon GameBeacon
         {
-            get => clue;
+            get => gameBeacon;
             set 
             {
-                clue = value;
+                gameBeacon = value;
                 OnPropertyChanged_();
             } 
 
@@ -38,7 +38,6 @@ namespace FindTheTreasure.Pages.Beacon
         public AddBeaconToGameViewModel(IAdapter adapter, BeaconDiscoveryService beaconDiscoveryService)
         {
             AddDeviceToGameAsyncCommand = new AsyncRelayCommand(AddDeviceToGameAsync);
-            GoBackAsyncCommand = new AsyncRelayCommand(GoBack);
             this.adapter = adapter;
             this.beaconDiscoveryService = beaconDiscoveryService;                     
         }
@@ -50,18 +49,17 @@ namespace FindTheTreasure.Pages.Beacon
 
         public void Refresh()
         {
-            Clue = "";           
+            GameBeacon.Puzze = "";
+            GameBeacon.Name = "";
+            GameBeacon.GameID = -1;
         }
 
         private async Task AddDeviceToGameAsync()
         {
-            string myText = clue;
+            //add to game
+            string myText = GameBeacon.Name;
             var y = 1;
         }
 
-        private async Task GoBack()
-        {
-
-        }
     }
 }

@@ -6,38 +6,49 @@
              xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Beacon">
 
     <Grid x:Name="AddBeaconPage"
-          ColumnDefinitions="*,*"
-          ColumnSpacing="6"
           RowDefinitions="*,Auto"
-          RowSpacing="0"
           BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
-        <StackLayout>
-            <Label Text="Clue" />
-            <Entry x:Name="entryClue"
-                   Placeholder="Enter clue"
-                   Text="{Binding Clue}" />
-        </StackLayout>
 
-        <Button x:Name="AddDeviceToGame"
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="8"
-                Command="{Binding AddDeviceToGameAsyncCommand}"
-                Style="{StaticResource ButtonOutline}"
-                Text="Add device to game" />
+        <Grid 
+            RowSpacing="0"
+            Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                
+            </Grid.RowDefinitions>
+            <Entry x:Name="entryPuzzle"
+                   Placeholder="Enter puzzle"
+                   Text="{Binding GameBeacon.Puzze}"
+                   Grid.Row="1"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Entry x:Name="beaconGameName"
+                   Placeholder="Enter game name"
+                   Text="{Binding GameBeacon.Name}"
+                   Grid.Row="2"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+        </Grid>
 
-        <Button x:Name="Back"
+        <Grid ColumnDefinitions="*,300,*"
+          ColumnSpacing="6"
+          RowDefinitions="*,Auto"
+          RowSpacing="0">
+
+            <Button x:Name="AddDeviceToGame"
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="8"
-                Command="{Binding GoBackAsyncCommand}"
+                Command="{Binding AddDeviceToGameAsyncCommand}"
                 Style="{StaticResource ButtonOutline}"
-                Text="Back" />
-
-        <ActivityIndicator x:Name="AddBeaconToGamePageActivityIndicator"
-                           Grid.ColumnSpan="2"
-                           HorizontalOptions="CenterAndExpand"
-                           VerticalOptions="StartAndExpand" />
+                Text="Add device to a game" />
+        </Grid>
+    
     </Grid>
 </ContentPage>

@@ -18,6 +18,8 @@ namespace FindTheTreasure.Pages.Home
         private readonly BeaconsService beaconService;
         private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
+        public int GameId { get; set; }
+
         //CollectionView one-way binding from ViewModel to View
         public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new ObservableCollection<BeaconModel>();
 
@@ -47,8 +49,8 @@ namespace FindTheTreasure.Pages.Home
 
         private async Task GoToBeaconDetailPageAsync(BeaconModel item)
         {
+            item.GameID = GameId;
             Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), item } };
-            var y = 1; 
             await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
         }
 
