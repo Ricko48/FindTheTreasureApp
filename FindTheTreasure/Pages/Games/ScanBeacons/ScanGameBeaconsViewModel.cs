@@ -1,16 +1,9 @@
 ﻿using FindTheTreasure.Models;
 using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Bluetooth;
-using FindTheTreasure.Services.User;
 using Plugin.BLE.Abstractions.Contracts;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Android.Content.ClipData;
-using static Android.Graphics.ColorSpace;
 
 namespace FindTheTreasure.Pages.Games.ScanBeacons
 {
@@ -65,7 +58,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
                 IsScanning = true;
                 DiscoveredDevices.Clear();
 
-                var knownBeacons = beaconService.GetAll();
+                var knownBeacons = await beaconService.GetAllAsync();
                 var macAddresses = knownBeacons.Select(b => b.MAC).ToArray();
 
                 await beaconDiscoveryService.StartScanning(macAddresses: macAddresses, maxItems: null);
@@ -91,9 +84,9 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
             }
         }
 
-        private void ShowDiscoveredDevices(List<IDevice> discoveredBluetoothDevices)
+        private async Task ShowDiscoveredDevices(List<IDevice> discoveredBluetoothDevices)
         {
-            var knownBeacons = beaconService.GetAll();
+            var knownBeacons = await beaconService.GetAllAsync();
             var devicesToDisplay = beaconBluetoothDeviceMergeService.Merge(knownBeacons.ToList(), discoveredBluetoothDevices);
             DiscoveredDevices.Clear();
             foreach (var device in devicesToDisplay)

@@ -1,9 +1,7 @@
-﻿using Android.App;
-using FindTheTreasure.Services.Beacons;
+﻿using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Game;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
-using static Android.Icu.Text.Transliterator;
 
 namespace FindTheTreasure.Pages.FoundBeacons
 {
@@ -21,13 +19,13 @@ namespace FindTheTreasure.Pages.FoundBeacons
 
         public void Refresh(Microsoft.Maui.Controls.Maps.Map map)
         {
-            BeaconsModel.Beacons = _beaconService.GetFoundBeaconsAsync().Result;
-
             if (!_gameService.IsInGame())
             {
                 SetMapToCurrentLocation(map);
                 return;
             }
+
+            BeaconsModel.Beacons = _beaconService.GetFoundBeaconsAsync().Result;
 
             SetPinsToMap(map);
             SetNewRegion(map);

@@ -20,54 +20,19 @@ namespace FindTheTreasure.Services.Beacons
 
         public async Task<IEnumerable<BeaconModel>> GetFoundBeaconsAsync()
         {
-            if (!_userService.IsSignedIn())
-            {
-                return new List<BeaconModel>();
-            }
-
-            await _gameService.StartGameAsync("123"); // just for testing
-
-            if (!_gameService.IsInGame())
+            if (!_userService.IsSignedIn() || !_gameService.IsInGame())
             {
                 return new List<BeaconModel>();
             }
 
             var userName = _userService.GetUser().UserName;
             var gameId = _gameService.GetGameId();
-            //return await _beaconsApiClient.GetFoundBeaconsForUserAndGameAsync(userName, gameId);
-            
-            return new List<BeaconModel>()  // for testing
-            {
-                new BeaconModel
-                {
-                    MAC = "0C:F3:EE:B8:DD:0A",
-                    Name = "EMBeacon54828",
-                    SerialNumber = "5350336951052",
-                    Latitude = 50.367884,
-                    Longitude = 14.570348
-                },
-                new BeaconModel
-                {
-                    MAC = "blabal",
-                    Name = "Treasure 2",
-                    SerialNumber = "123456",
-                    Latitude = 39.366051,
-                    Longitude = 31.088122
-                }
-            };
+            return await _beaconsApiClient.GetFoundBeaconsForUserAndGameAsync(userName, gameId);
         }
 
-        public IEnumerable<BeaconModel> GetAll()
+        public async Task<IEnumerable<BeaconModel>> GetAllAsync()
         {
-            return new List<BeaconModel>()  // for testing
-            {
-                new BeaconModel
-                {
-                    MAC = "0C:F3:EE:B8:DD:0A",
-                    Name = "EMBeacon54828",
-                    SerialNumber = "5350336951052"
-                }
-            };
+            return await _beaconsApiClient.GetAllAsync();
         }
     }
 }
