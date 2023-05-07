@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindTheTreasure.Pages.Games.GamesOverview.GamesOverviewView"
+             x:DataType="viewmodel:GamesOverviewViewModel"
+             xmlns:model="clr-namespace:FindTheTreasure.Models"
+             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Games.GamesOverview"
+             >
+
+    <Grid x:Name="HomePageGrid"
+          ColumnDefinitions="*,*"
+          ColumnSpacing="6"
+          RowDefinitions="*,Auto"
+          RowSpacing="0"
+          BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+        <ScrollView x:Name="HomePageScrollView"
+                    Grid.ColumnSpan="2">
+            <CollectionView x:Name="HomePageCollectionView"
+                            ItemsSource="{Binding Games}"
+                            BackgroundColor="Transparent"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout Grid.RowSpan="2"
+                                 Grid.ColumnSpan="2"
+                                 BackgroundColor="Transparent">
+                        <Grid RowDefinitions="*,*"
+                              RowSpacing="8"
+                              HorizontalOptions="CenterAndExpand"
+                              VerticalOptions="CenterAndExpand">
+                            <Label Grid.Row="0"
+                                   Text="Create games."
+                                   Style="{StaticResource LargeLabel}"
+                                   HorizontalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout  Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:GameModel">
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:GamesOverviewViewModel}}, 
+                                                  Path=GoToStartGamePageAsyncCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Padding="8">
+                                    <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <Button x:Name="CreateGame"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="8"
+                Command="{Binding GoCreateGameAsyncCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Create game" />
+
+        <Button x:Name="DeleteGame"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8"
+                Command="{Binding DeleteGameAsyncCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Delete game" />
+
+    </Grid>
+</ContentPage>

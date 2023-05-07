@@ -3,6 +3,7 @@
     x:Class="FindTheTreasure.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:gamesPage="clr-namespace:FindTheTreasure.Pages.Games.GamesOverview"
     xmlns:homePage="clr-namespace:FindTheTreasure.Pages.Home"
     xmlns:mapPage="clr-namespace:FindTheTreasure.Pages.FoundBeacons"
     xmlns:scoreBoardPage="clr-namespace:FindTheTreasure.Pages.ScoreBoard"
@@ -26,6 +27,13 @@
         </ResourceDictionary>
     </Shell.Resources>
 
+    <FlyoutItem Title="Games" 
+                FlyoutIcon="{StaticResource IconBluetoothLE}">
+        <ShellContent ContentTemplate="{DataTemplate gamesPage:GamesOverviewView}"
+                      Route="HomeView" >
+        </ShellContent>
+    </FlyoutItem>
+    
     <FlyoutItem Title="Game" 
                 FlyoutIcon="{StaticResource IconBluetoothLE}">
         <ShellContent ContentTemplate="{DataTemplate homePage:HomeView}"

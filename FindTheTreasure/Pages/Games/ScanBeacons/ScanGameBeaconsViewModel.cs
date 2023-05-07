@@ -1,14 +1,23 @@
 ﻿using FindTheTreasure.Models;
-using FindTheTreasure.Services.Bluetooth;
-using Plugin.BLE.Abstractions.Contracts;
-using System.Collections.ObjectModel;
 using FindTheTreasure.Services.Beacons;
+using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.User;
+using Plugin.BLE.Abstractions.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Android.Content.ClipData;
+using static Android.Graphics.ColorSpace;
 
-namespace FindTheTreasure.Pages.Home
+namespace FindTheTreasure.Pages.Games.ScanBeacons
 {
-    public partial class HomeViewModel : BaseViewModel
+    [QueryProperty(nameof(Item), nameof(Item))]
+    public class ScanGameBeaconsViewModel : BaseViewModel
     {
+        public GameModel GameModel { get; set; }
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
         public IAsyncRelayCommand CheckPermissionsAsyncCommand { get; }
         public IAsyncRelayCommand GoToBeaconDetailPageAsyncCommand { get; }
@@ -18,20 +27,13 @@ namespace FindTheTreasure.Pages.Home
         private readonly BeaconsService beaconService;
         private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
-        public int GameId { get; set; }
-
-        //CollectionView one-way binding from ViewModel to View
         public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new ObservableCollection<BeaconModel>();
 
-        public HomeViewModel(
-            BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
+        public ScanGameBeaconsViewModel(BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
             BluetoothPermissionsService bluetoothPermissionsService,
             BeaconDiscoveryService beaconDiscoveryService,
-            BeaconsService beaconService,
-            UserService userService)
+            BeaconsService beaconService)
         {
-            Title = $"Scan and select device";
-
             this.beaconBluetoothDeviceMergeService = beaconBluetoothDeviceMergeService;
             this.beaconDiscoveryService = beaconDiscoveryService;
             this.beaconService = beaconService;
@@ -40,16 +42,13 @@ namespace FindTheTreasure.Pages.Home
             ScanNearbyDevicesAsyncCommand = new AsyncRelayCommand(ScanDevicesAsync);
             CheckPermissionsAsyncCommand = new AsyncRelayCommand(CheckPermissionsAsync);
             GoToBeaconDetailPageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToBeaconDetailPageAsync);
-
-            if (!userService.IsSignedIn())
-            {
-                Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
-            }
         }
 
         private async Task GoToBeaconDetailPageAsync(BeaconModel item)
         {
-            item.GameID = GameId;
+            item.GameID = GameModel.Id;
+            //get real id
+            item.Id = 1;
             Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), item } };
             await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
         }
@@ -67,7 +66,6 @@ namespace FindTheTreasure.Pages.Home
                 DiscoveredDevices.Clear();
 
                 var knownBeacons = beaconService.GetAll();
-                //used to filter bluetooth devices when scanning
                 var macAddresses = knownBeacons.Select(b => b.MAC).ToArray();
 
                 await beaconDiscoveryService.StartScanning(macAddresses: macAddresses, maxItems: null);
@@ -75,7 +73,7 @@ namespace FindTheTreasure.Pages.Home
                 var devices = beaconDiscoveryService.DiscoveredDevices;
                 if (devices.Count == 0)
                 {
-                    await Shell.Current.DisplayAlert($"Info", $"No Bluetooth LE devices found", "OK");
+                    await Shell.Current.DisplayAlert($"Info", $"No available devices found", "OK");
                     return;
                 }
 
@@ -83,13 +81,13 @@ namespace FindTheTreasure.Pages.Home
             }
             catch (Exception ex)
             {
-                IsScanning = false; //just to turn off spinner in UI before error popup shows, nothing else.
-                Debug.WriteLine($"Unable to get nearby Bluetooth LE devices: {ex.Message}");
-                await Shell.Current.DisplayAlert($"Unable to get nearby Bluetooth LE devices", $"{ex.Message}", "OK");
+                IsScanning = false;
+                Debug.WriteLine($"Unable to get nearby Bluetooth  devices: {ex.Message}");
+                await Shell.Current.DisplayAlert($"Unable to get nearby Bluetooth devices", $"{ex.Message}", "OK");
             }
             finally
             {
-                IsScanning = false; //turns off spinner and turns on Scan button upon fail or success.
+                IsScanning = false;
             }
         }
 
@@ -121,5 +119,4 @@ namespace FindTheTreasure.Pages.Home
 
 
     }
-
 }

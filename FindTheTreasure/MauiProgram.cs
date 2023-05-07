@@ -1,9 +1,11 @@
 ﻿using Android.Content;
 using Android.Locations;
+using FindTheTreasure.Pages.Games.ScanBeacons;
 using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Beacons.API;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Game;
+using FindTheTreasure.Services.Game.API;
 using FindTheTreasure.Services.GPS;
 using FindTheTreasure.Services.User;
 using FindTheTreasure.Services.User.API;
@@ -58,7 +60,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<FoundBeaconsViewModel>();
 
         builder.Services.AddSingleton<BeaconDetailView>();
-        builder.Services.AddSingleton<BeaconDetailViewModel>();
+        builder.Services.AddSingleton<AddBeaconToGameViewModel>();
 
         builder.Services.AddSingleton<UserDetailView>();
         builder.Services.AddSingleton<UserDetailViewModel>();
@@ -75,10 +77,21 @@ public static class MauiProgram
         builder.Services.AddSingleton<UserService>();
         builder.Services.AddSingleton<GameService>();
 
+        builder.Services.AddSingleton<GamesOverviewViewModel>();
+        builder.Services.AddSingleton<GamesOverviewView>();
+
+        builder.Services.AddSingleton<GameCreateView>();
+        builder.Services.AddSingleton<GameCreateViewModel>();
+
+        builder.Services.AddSingleton<ScanGameBeaconsView>();
+        builder.Services.AddSingleton<ScanGameBeaconsViewModel>();
+
+
         // register api clients
-        const string apiUrl = "http://147.251.69.32:80";
+        const string apiUrl = "http://147.251.69.14:80";
         builder.Services.AddSingleton(RestService.For<IUserApiClient>(apiUrl));
         builder.Services.AddSingleton(RestService.For<IBeaconsApiClient>(apiUrl));
+        builder.Services.AddSingleton(RestService.For<IGameApiClient>(apiUrl));
 
         return builder.Build();
     }
