@@ -15,7 +15,7 @@ namespace FindTheTreasureServer.Controllers
         public IEnumerable<Game> GetGames()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Games;
+            return dbContext.Games.ToList();
         }
 
         [HttpPut]
@@ -108,7 +108,7 @@ namespace FindTheTreasureServer.Controllers
                 {
                     Position = position,
                     Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
-                    Username = p.User.Name
+                    Username = p.User.UserName
                 });
                 position++;
             }
