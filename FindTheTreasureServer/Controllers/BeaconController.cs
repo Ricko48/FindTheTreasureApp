@@ -17,6 +17,19 @@ namespace FindTheTreasureServer.Controllers
             return dbContext.Beacons.Where(b => b.GameId == gameId);
         }
 
+        [HttpGet("participant/found/{participantId}")]
+        public IEnumerable<Beacon> GetFoundBeaconsForParticipant(int participantId)
+        {
+            using var dbContext = new TreasureDbContext();
+            var participantBeacons =  dbContext
+                .ParticipantBeacons
+                .Where(b => b.GameParticipantId == participantId && b.Found);
+            return dbContext
+                .Beacons
+                .Where(b => participantBeacons.Any(pb => pb.BeaconId == b.Id))
+                .ToList();
+        }
+
         [HttpPut]
         public Beacon UpdateBeacon(Beacon beacon)
         {
