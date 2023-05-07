@@ -58,13 +58,13 @@ namespace FindTheTreasure.Pages.User.SignUp
 
             } catch (ApiException ex)
             {
-                if (ex.StatusCode != HttpStatusCode.Conflict)
+                if (ex.StatusCode == HttpStatusCode.Conflict)
                 {
                     await Shell.Current.DisplayAlert("Error", $"Username '{UserModel.UserName}' is already used.", "Ok");
                     return;
                 }
 
-                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
+                await Shell.Current.DisplayAlert("Error", "Something went wrong." + ex.Message, "Ok");
                 return;
             }
 

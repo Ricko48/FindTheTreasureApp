@@ -70,7 +70,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
                     return;
                 }
 
-                ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
+                await ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
             }
             catch (Exception ex)
             {

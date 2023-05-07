@@ -79,7 +79,7 @@ namespace FindTheTreasure.Pages.Home
                     return;
                 }
 
-                ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
+                await ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
             }
             catch (Exception ex)
             {

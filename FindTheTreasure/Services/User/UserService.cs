@@ -21,6 +21,7 @@ namespace FindTheTreasure.Services.User
             Preferences.Set("userName", userModel.UserName);
             Preferences.Set("firstName", userModel.FirstName);
             Preferences.Set("lastName", userModel.LastName);
+            Preferences.Set("userId", userModel.Id.ToString());
         }
 
         public void SignOut()
@@ -34,11 +35,13 @@ namespace FindTheTreasure.Services.User
             {
                 return null;
             }
+
             return new UserModel
             {
                 UserName = Preferences.Get("userName", null),
                 FirstName = Preferences.Get("firstName", null),
-                LastName = Preferences.Get("lastName", null)
+                LastName = Preferences.Get("lastName", null),
+                Id = int.Parse(Preferences.Get("userId", null))
             };
         }
 

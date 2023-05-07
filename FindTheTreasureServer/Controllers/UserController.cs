@@ -20,6 +20,7 @@ namespace FindTheTreasureServer.Controllers
 
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
+
             return Ok(user.Id);
         }
 

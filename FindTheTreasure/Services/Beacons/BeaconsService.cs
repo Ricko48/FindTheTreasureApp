@@ -25,9 +25,8 @@ namespace FindTheTreasure.Services.Beacons
                 return new List<BeaconModel>();
             }
 
-            var userName = _userService.GetUser().UserName;
-            var gameId = _gameService.GetGameId();
-            return await _beaconsApiClient.GetFoundBeaconsForUserAndGameAsync(userName, gameId);
+            var userId = _userService.GetUser().Id;
+            return await _beaconsApiClient.GetFoundBeaconsForParticipant(userId);
         }
 
         public async Task<IEnumerable<BeaconModel>> GetAllAsync()
