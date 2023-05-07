@@ -9,7 +9,6 @@ namespace FindTheTreasureServer.Database
         public DbSet<Game> Games { get; set; }
         public DbSet<GameParticipant> GameParticipants { get; set; }
         public DbSet<Beacon> Beacons { get; set; }
-        public DbSet<GameBeacon> GameBeacons { get; set; }
         public DbSet<ParticipantBeacon> ParticipantBeacons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
