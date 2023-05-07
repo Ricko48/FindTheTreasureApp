@@ -61,6 +61,11 @@ namespace FindTheTreasure.Pages.User.SignIn
                 await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
             }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
+                return;
+            }
 
             await Shell.Current.Navigation.PopToRootAsync();
         }

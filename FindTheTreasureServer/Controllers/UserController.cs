@@ -34,7 +34,7 @@ namespace FindTheTreasureServer.Controllers
             {
                 return NotFound();
             }
-            return Ok(dbContext.Users.First());
+            return Ok(users.First());
         }
 
         [HttpDelete("delete/{username}")]

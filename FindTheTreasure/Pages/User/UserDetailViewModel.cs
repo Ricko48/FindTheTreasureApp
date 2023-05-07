@@ -56,7 +56,7 @@ namespace FindTheTreasure.Pages.User
             {
                 await _userService.DeleteAccountAsync();
             }
-            catch (ApiException ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
