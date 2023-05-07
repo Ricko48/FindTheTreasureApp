@@ -20,6 +20,7 @@ namespace FindTheTreasureServer.Controllers
 
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
+
             return Ok(user.Id);
         }
 
@@ -33,7 +34,8 @@ namespace FindTheTreasureServer.Controllers
             {
                 return NotFound();
             }
-            return Ok(users.Users.First());
+            
+            return Ok(users.First());
         }
 
         [HttpDelete("delete/{username}")]

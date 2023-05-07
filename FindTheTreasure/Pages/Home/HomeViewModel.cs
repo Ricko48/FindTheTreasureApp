@@ -66,7 +66,7 @@ namespace FindTheTreasure.Pages.Home
                 IsScanning = true;
                 DiscoveredDevices.Clear();
 
-                var knownBeacons = beaconService.GetAll();
+                var knownBeacons = await beaconService.GetAllAsync();
                 //used to filter bluetooth devices when scanning
                 var macAddresses = knownBeacons.Select(b => b.MAC).ToArray();
 
@@ -79,7 +79,7 @@ namespace FindTheTreasure.Pages.Home
                     return;
                 }
 
-                ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
+                await ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
             }
             catch (Exception ex)
             {
@@ -93,9 +93,9 @@ namespace FindTheTreasure.Pages.Home
             }
         }
 
-        private void ShowDiscoveredDevices(List<IDevice> discoveredBluetoothDevices)
+        private async Task ShowDiscoveredDevices(List<IDevice> discoveredBluetoothDevices)
         {
-            var knownBeacons = beaconService.GetAll();
+            var knownBeacons = await beaconService.GetAllAsync();
             var devicesToDisplay = beaconBluetoothDeviceMergeService.Merge(knownBeacons.ToList(), discoveredBluetoothDevices);
             DiscoveredDevices.Clear();
             foreach (var device in devicesToDisplay)

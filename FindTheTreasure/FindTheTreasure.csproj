@@ -51,6 +51,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Pages\FoundBeacons\Models\**" />
+	  <Compile Remove="Pages\FoundBeacons\Models\**" />
+	  <EmbeddedResource Remove="Pages\FoundBeacons\Models\**" />
+	  <MauiCss Remove="Pages\FoundBeacons\Models\**" />
+	  <MauiXaml Remove="Pages\FoundBeacons\Models\**" />
+	  <None Remove="Pages\FoundBeacons\Models\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\AppIcon\appiconfg.svg" />
 		<None Remove="Resources\Fonts\fa-brands-400.ttf" />
 		<None Remove="Resources\Fonts\fa_solid.ttf" />
@@ -114,9 +123,5 @@
 	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Pages\FoundBeacons\Models\" />
 	</ItemGroup>
 </Project>

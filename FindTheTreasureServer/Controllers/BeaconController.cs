@@ -1,8 +1,6 @@
 ﻿using FindTheTreasureServer.Database;
 using FindTheTreasureServer.Database.Entity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {
@@ -78,6 +76,13 @@ namespace FindTheTreasureServer.Controllers
                 dbContext.GameParticipants.Find(participantId).End = DateTime.Now;
             dbContext.SaveChanges();
             return true;
+        }
+
+        [HttpGet("all")]
+        public IEnumerable<Beacon> GetAllBeacons()
+        {
+            using var dbContext = new TreasureDbContext();
+            return dbContext.Beacons.ToList();
         }
     }
 }

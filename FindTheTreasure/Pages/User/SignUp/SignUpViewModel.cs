@@ -56,14 +56,21 @@ namespace FindTheTreasure.Pages.User.SignUp
             {
                 await _userService.SignUpAsync(UserModel);
 
-            } catch (ApiException ex)
+            }
+            catch (ApiException ex)
             {
-                if (ex.StatusCode != HttpStatusCode.Conflict)
+                if (ex.StatusCode == HttpStatusCode.Conflict)
                 {
-                    await Shell.Current.DisplayAlert("Error", $"Username '{UserModel.UserName}' is already used.", "Ok");
+                    await Shell.Current.DisplayAlert("Error", $"Username '{UserModel.UserName}' is already used.",
+                        "Ok");
                     return;
                 }
 
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
+                return;
+            }
+            catch (Exception ex)
+            {
                 await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
             }

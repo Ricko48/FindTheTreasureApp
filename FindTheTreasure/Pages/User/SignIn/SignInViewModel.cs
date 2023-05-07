@@ -54,10 +54,15 @@ namespace FindTheTreasure.Pages.User.SignIn
             {
                 if (ex.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await Shell.Current.DisplayAlert("Error", $"No account with username '{UserName}' was not found.", "Ok");
+                    await Shell.Current.DisplayAlert("Error", $"Account with username '{UserName}' was not found.", "Ok");
                     return;
                 }
 
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
+                return;
+            }
+            catch (Exception ex)
+            {
                 await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
             }

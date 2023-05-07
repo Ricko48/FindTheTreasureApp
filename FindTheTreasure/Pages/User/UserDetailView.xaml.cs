@@ -14,7 +14,7 @@ public partial class UserDetailView : ContentPage
 
     protected override void OnAppearing()
     {
-        base.OnAppearing();
         _viewModel.Refresh();
+        base.OnAppearing();
     }
 }

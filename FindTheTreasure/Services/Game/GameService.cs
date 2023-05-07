@@ -57,7 +57,12 @@ namespace FindTheTreasure.Services.Game
 
         public bool IsInGame()
         {
-            return Preferences.Get("isInGame", null) == "true";
+            var isInGame = Preferences.Get("isInGame", null);
+            if (string.IsNullOrEmpty(isInGame))
+            {
+                Preferences.Set("isInGame", "false");
+            }
+            return isInGame == "true";
         }
 
         public string GetGameId()
