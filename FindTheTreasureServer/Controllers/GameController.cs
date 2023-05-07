@@ -14,7 +14,7 @@ namespace FindTheTreasureServer.Controllers
         public IEnumerable<Game> GetGames()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Games;
+            return dbContext.Games.ToList();
         }
 
         [HttpPut]
