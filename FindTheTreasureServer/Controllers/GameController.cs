@@ -43,10 +43,33 @@ namespace FindTheTreasureServer.Controllers
             return dbContext.Games.Find(id);
         }
 
+        /// <summary>
+        /// Adds beacon to game
+        /// </summary>
+        /// <param name="gameId">Game Id</param>
+        /// <param name="beaconId">Beacon Id</param>
+        /// <returns>Returns true, if beacon added to game or false if beacon does not exist or it is already 
+        /// assigned to game</returns>
         [HttpPost("{gameId}/beacon/{beaconId}")]
         public bool AddBeaconToGame(int gameId, int beaconId)
         {
-            throw new NotImplementedException();
+            using var dbContext = new TreasureDbContext();
+            var beacon = dbContext.Beacons.Find(beaconId);
+            if (beacon == null || beacon.GameId != null)
+                return false;
+            beacon.GameId = gameId;
+            var participantBeacons = dbContext
+                .GameParticipants
+                .Where(p => p.GameId == gameId)
+                .Select(p => new ParticipantBeacon
+                {
+                    BeaconId = beaconId,
+                    Found = false,
+                    GameParticipantId = p.Id.Value,
+                });
+            dbContext.ParticipantBeacons.AddRange(participantBeacons);
+            dbContext.SaveChanges();
+            return true;
         }
 
         [HttpDelete("{gameId}/beacon/{beaconId}")]
