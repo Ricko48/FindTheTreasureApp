@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FindTheTreasure.Services.User;
+using Refit;
 
 namespace FindTheTreasure.Pages.User.SignIn
 {
@@ -27,7 +29,6 @@ namespace FindTheTreasure.Pages.User.SignIn
         public SignInViewModel(UserService userService)
         {
             _userService = userService;
-
             SignInButtonClickedCommand = new Command(async () => await OnSignInButtonClickedAsync());
             SignUpButtonClickedCommand = new Command(async () => await OnSignUpButtonClickedAsync());
         }
@@ -41,13 +42,23 @@ namespace FindTheTreasure.Pages.User.SignIn
         {
             if (string.IsNullOrEmpty(UserName))
             {
-                await Shell.Current.DisplayAlert("Alert", "Please fill in the Username.", "Ok");
+                await Shell.Current.DisplayAlert("Alert", "Please fill in the username.", "Ok");
                 return;
             }
 
-            if (!await _userService.SignInAsync(UserName))
+            try
             {
-                await Shell.Current.DisplayAlert("Alert", $"The username '{UserName}' is already used.", "Ok");
+                await _userService.SignInAsync(UserName);
+
+            } catch (ApiException ex)
+            {
+                if (ex.StatusCode == HttpStatusCode.NotFound)
+                {
+                    await Shell.Current.DisplayAlert("Error", $"No account with username '{UserName}' was not found.", "Ok");
+                    return;
+                }
+
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
             }
 

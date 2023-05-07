@@ -1,5 +1,4 @@
 ﻿using FindTheTreasure.Services.User.API;
-using Refit;
 
 namespace FindTheTreasure.Services.User
 {
@@ -12,35 +11,16 @@ namespace FindTheTreasure.Services.User
         public bool IsSignedIn()
         {
             var isUserLoggedIn = Preferences.Get("isUserLoggedIn", null);
-            if (string.IsNullOrEmpty(isUserLoggedIn) || isUserLoggedIn == "false")
-            {
-                return false;
-            }
-            return true;
+            return !string.IsNullOrEmpty(isUserLoggedIn) && isUserLoggedIn != "false";
         }
 
-        public async Task<bool> SignInAsync(string userName)
+        public async Task SignInAsync(string userName)
         {
             var userModel = await _userApiClient.GetUserAsync(userName);
-
-            if (userModel == null)
-            {
-                return false;
-            }
-
-            //var userModel = new UserModel // arrange for testing
-            //{
-            //    UserName = userName,
-            //    FirstName = "Peter",
-            //    LastName = "Parker",
-            //};
-
             Preferences.Set("isUserLoggedIn", "true");
             Preferences.Set("userName", userModel.UserName);
             Preferences.Set("firstName", userModel.FirstName);
             Preferences.Set("lastName", userModel.LastName);
-
-            return true;
         }
 
         public void SignOut()
@@ -68,10 +48,9 @@ namespace FindTheTreasure.Services.User
             SignOut();
         }
 
-        public async Task<bool> SignUpAsync(UserModel userModel)
+        public async Task SignUpAsync(UserModel userModel)
         {
-            return await _userApiClient.CreateUserAsync(userModel) != -1;
-            return true;
+            await _userApiClient.CreateUserAsync(userModel);
         }
     }
 }
