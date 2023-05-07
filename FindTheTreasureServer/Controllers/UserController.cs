@@ -12,7 +12,7 @@ namespace FindTheTreasureServer.Controllers
         public IActionResult CreateUser(User user)
         {
             using var dbContext = new TreasureDbContext();
-
+            user.Id = user.Id == null || user.Id == 0 ? null : user.Id;
             if (dbContext.Users.Any(u => u.UserName == user.UserName))
             {
                 return Conflict();
