@@ -6,6 +6,8 @@ namespace FindTheTreasure.Services.Beacons.API
     public interface IBeaconsApiClient
     {
         [Get("/game/foundbeacons")]
-        public Task<IEnumerable<BeaconModel>> GetFoundBeaconsForUserAndGameAsync(string userName, string gameId);
+        Task<IEnumerable<BeaconModel>> GetFoundBeaconsForUserAndGameAsync(string userName, string gameId);
+
+
     }
 }

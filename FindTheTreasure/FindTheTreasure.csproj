@@ -66,9 +66,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\Game\CreateGame\CreateGameView.xaml.cs">
-	    <DependentUpon>CreateGameView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Pages\User\UserDetailView.xaml.cs">
 	    <DependentUpon>UserDetailView.xaml</DependentUpon>
 	  </Compile>
@@ -90,10 +87,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Game\CreateGame\CreateGameView.xaml">
+	  <MauiXaml Update="Pages\Games\CreateGame\GameCreateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Game\GamesList\GamesView.xaml">
+	  <MauiXaml Update="Pages\Games\GamesOverview\GamesOverviewView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Games\ScanBeacons\ScanGameBeaconsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\User\UserDetailView.xaml">
@@ -118,6 +118,5 @@
 
 	<ItemGroup>
 	  <Folder Include="Pages\FoundBeacons\Models\" />
-	  <Folder Include="Services\Game\API\" />
 	</ItemGroup>
 </Project>

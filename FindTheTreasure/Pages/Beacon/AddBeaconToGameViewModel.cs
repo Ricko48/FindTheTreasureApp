@@ -6,6 +6,7 @@ using FindTheTreasure.Services.Bluetooth;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using static Android.Content.ClipData;
+using FindTheTreasure.Services.Game;
 
 namespace FindTheTreasure.Pages.Beacon
 {
@@ -13,8 +14,6 @@ namespace FindTheTreasure.Pages.Beacon
     public partial class AddBeaconToGameViewModel : INotifyPropertyChanged
     {
         public IAsyncRelayCommand AddDeviceToGameAsyncCommand { get; }
-        private IAdapter adapter;
-        private BeaconDiscoveryService beaconDiscoveryService;
 
         public event PropertyChangedEventHandler PropertyChanged;    
 
@@ -35,11 +34,12 @@ namespace FindTheTreasure.Pages.Beacon
 
         }
 
-        public AddBeaconToGameViewModel(IAdapter adapter, BeaconDiscoveryService beaconDiscoveryService)
+        private GameService GameService;
+
+        public AddBeaconToGameViewModel( GameService gameService)
         {
             AddDeviceToGameAsyncCommand = new AsyncRelayCommand(AddDeviceToGameAsync);
-            this.adapter = adapter;
-            this.beaconDiscoveryService = beaconDiscoveryService;                     
+            GameService = gameService;
         }
 
         protected virtual void OnPropertyChanged_([CallerMemberName] string propertyName = null)
@@ -49,16 +49,16 @@ namespace FindTheTreasure.Pages.Beacon
 
         public void Refresh()
         {
-            GameBeacon.Puzze = "";
-            GameBeacon.Name = "";
-            GameBeacon.GameID = -1;
+            GameBeacon = new GameBeacon();
         }
 
         private async Task AddDeviceToGameAsync()
         {
-            //add to game
-            string myText = GameBeacon.Name;
-            var y = 1;
+            bool su = await GameService.AddBeaconToGameAsync(Item.GameID, Item.Id); 
+            if (su)
+            {
+                await Shell.Current.DisplayAlert("Alert", "Beacon added", "Ok");
+            }
         }
 
     }

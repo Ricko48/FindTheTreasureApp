@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace FindTheTreasure.Models
 {
-    public class GameModel
+    public class CreateGameModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int OwnerId { get; set; }
+        public User Owner { get; set; }
+        public virtual ICollection<GameParticipant> GameParticipants { get; set; }
+        public virtual ICollection<GameBeacon> GameBeacons { get; set; }
+
     }
 }
