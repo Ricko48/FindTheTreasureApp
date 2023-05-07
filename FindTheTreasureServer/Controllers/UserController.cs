@@ -34,6 +34,7 @@ namespace FindTheTreasureServer.Controllers
             {
                 return NotFound();
             }
+            
             return Ok(users.First());
         }
 
