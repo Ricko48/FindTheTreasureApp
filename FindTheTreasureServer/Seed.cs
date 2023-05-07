@@ -8,7 +8,6 @@ namespace FindTheTreasureServer
     {
         public static void SeedData(TreasureDbContext context)
         {
-
         }
     }
 }

@@ -21,14 +21,19 @@ namespace FindTheTreasure.Services.User
 
         public async Task<bool> SignInAsync(string userName)
         {
-            //var userModel = await _userApiClient.SignInAsync(userName);
+            var userModel = await _userApiClient.GetUserAsync(userName);
 
-            var userModel = new UserModel // arrange for testing
+            if (userModel == null)
             {
-                UserName = userName,
-                FirstName = "Peter",
-                LastName = "Parker",
-            };
+                return false;
+            }
+
+            //var userModel = new UserModel // arrange for testing
+            //{
+            //    UserName = userName,
+            //    FirstName = "Peter",
+            //    LastName = "Parker",
+            //};
 
             Preferences.Set("isUserLoggedIn", "true");
             Preferences.Set("userName", userModel.UserName);
@@ -59,13 +64,13 @@ namespace FindTheTreasure.Services.User
 
         public async Task DeleteAccountAsync()
         {
-            //await _userApiClient.DeleteAsync(Preferences.Get("userName", null));
+            await _userApiClient.DeleteAsync(Preferences.Get("userName", null));
             SignOut();
         }
 
         public async Task<bool> SignUpAsync(UserModel userModel)
         {
-            //return await _userApiClient.SignUpAsync(userModel);
+            return await _userApiClient.CreateUserAsync(userModel) != -1;
             return true;
         }
     }
