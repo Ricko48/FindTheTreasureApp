@@ -8,6 +8,5 @@ namespace FindTheTreasureServer.Database.Entity
         public string Description { get; set; } = string.Empty;
         [ForeignKey("User")]
         public int OwnerId { get; set; }
-        public User Owner { get; set; }
     }
 }
