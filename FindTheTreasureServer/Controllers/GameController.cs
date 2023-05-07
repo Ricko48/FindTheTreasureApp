@@ -1,5 +1,6 @@
 ﻿using FindTheTreasureServer.Database;
 using FindTheTreasureServer.Database.Entity;
+using FindTheTreasureServer.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -90,6 +91,29 @@ namespace FindTheTreasureServer.Controllers
             dbContext.GameParticipants.Remove(participant);
             dbContext.SaveChanges();
             return true;
+        }
+
+        [HttpGet("ScoreBoard/{gameId}")]
+        public IEnumerable<ScoreDto> GetScoreBoardForGame(int gameId)
+        {
+            using var dbContext = new TreasureDbContext();
+            var participants = dbContext.GameParticipants
+                .Where(p => p.GameId == gameId)
+                .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
+            var position = 1;
+            var result = new List<ScoreDto>();
+            foreach (var p in participants)
+            {
+                result.Add(new ScoreDto
+                {
+                    Position = position,
+                    Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
+                    Username = p.User.UserName
+                });
+                position++;
+            }
+
+            return result;
         }
     }
 }
