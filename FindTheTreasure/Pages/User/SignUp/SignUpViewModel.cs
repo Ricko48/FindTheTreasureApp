@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
+using System.Net;
 using System.Runtime.CompilerServices;
 using FindTheTreasure.Services.User;
 using System.Windows.Input;
+using Refit;
 
 namespace FindTheTreasure.Pages.User.SignUp
 {
@@ -28,7 +30,6 @@ namespace FindTheTreasure.Pages.User.SignUp
         public SignUpViewModel(UserService userService)
         {
             _userService = userService;
-
             SignInButtonClickedCommand = new Command(async () => await OnSignInButtonClickedAsync());
             SignUpButtonClickedCommand = new Command(async () => await OnSignUpButtonClickedAsync());
         }
@@ -50,11 +51,23 @@ namespace FindTheTreasure.Pages.User.SignUp
                 await Shell.Current.DisplayAlert("Alert", "Please fill in all the fields.", "Ok");
                 return;
             }
-            if (!await _userService.SignUpAsync(UserModel))
+
+            try
             {
-                await Shell.Current.DisplayAlert("Alert", $"The username '{UserModel.UserName}' is already used.", "Ok");
+                await _userService.SignUpAsync(UserModel);
+
+            } catch (ApiException ex)
+            {
+                if (ex.StatusCode != HttpStatusCode.Conflict)
+                {
+                    await Shell.Current.DisplayAlert("Error", $"Username '{UserModel.UserName}' is already used.", "Ok");
+                    return;
+                }
+
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
             }
+
             await Shell.Current.GoToAsync(nameof(SignInView), false);
         }
 
