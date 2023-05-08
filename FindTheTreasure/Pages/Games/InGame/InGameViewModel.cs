@@ -49,9 +49,16 @@ namespace FindTheTreasure.Pages.Games.InGame
 
         private async Task OnBeaconFoundAsync()
         {
-            await Shell.Current.DisplayAlert("Success", "You found the beacon. Good luck with the next one!", "Ok");
-            await beaconService.SetBeaconToFoundAsync(DiscoveredDevices.First().Id);
-            await SetNextBeacon();
+            try
+            {
+                await Shell.Current.DisplayAlert("Success", "You found the beacon. Good luck with the next one!", "Ok");
+                await beaconService.SetBeaconToFoundAsync(DiscoveredDevices.First().Id);
+                await SetNextBeacon();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Something went wrong while connecting to the server.", "Ok");
+            }
         }
 
         private void InitializeMacAddress()

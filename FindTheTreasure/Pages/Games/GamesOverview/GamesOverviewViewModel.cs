@@ -22,15 +22,20 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
             {
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
-
-            //GetGames();
         }
 
         public async void GetGames()
         {
-            Games.Clear();
-            var games = await GameService.GetGamesAsync();
-            games.ForEach(g => Games.Add(g));
+            try
+            {
+                Games.Clear();
+                var games = await GameService.GetGamesAsync();
+                games.ForEach(g => Games.Add(g));
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Yes");
+            }
         }
 
         private async Task GoToStartGamePageAsync(GameModel item)
