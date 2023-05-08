@@ -2,6 +2,7 @@
 using FindTheTreasure.Services.Game;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
+using System.Windows.Input;
 
 namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
 {
@@ -10,11 +11,14 @@ namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
         private readonly BeaconsService _beaconService;
         private readonly GameService _gameService;
 
+        public ICommand GoBackButtonClickedCommand { get; }
+
         public FoundBeaconsModel BeaconsModel { get; set; } = new();
         public FoundBeaconsViewModel(BeaconsService beaconService, GameService gameService)
         {
             _beaconService = beaconService;
             _gameService = gameService;
+            GoBackButtonClickedCommand = new Command(async () => await OnGoBackButtonClicked());
         }
 
         public void Refresh(Microsoft.Maui.Controls.Maps.Map map)
@@ -29,6 +33,11 @@ namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
 
             SetPinsToMap(map);
             SetNewRegion(map);
+        }
+
+        public async Task OnGoBackButtonClicked()
+        {
+            await Shell.Current.GoToAsync(nameof(InGameVIew));
         }
 
         private void SetPinsToMap(Microsoft.Maui.Controls.Maps.Map map)

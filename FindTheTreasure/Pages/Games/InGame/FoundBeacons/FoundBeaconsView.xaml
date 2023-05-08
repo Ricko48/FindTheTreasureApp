@@ -7,9 +7,20 @@
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:foundBeacons="clr-namespace:FindTheTreasure.Pages.Games.InGame.FoundBeacons"
              Title="Found beacons">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="True" IsVisible="True"/>
+    </Shell.BackButtonBehavior>
+
     <Grid>
         <maps:Map x:Name="Map" 
                   VerticalOptions="FillAndExpand"
                   HorizontalOptions="FillAndExpand"/>
+
+        <Button Text="Show map"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Command="{Binding GoBackButtonClickedCommand}"/>
+
     </Grid>
 </ContentPage>

@@ -1,18 +1,22 @@
+using FindTheTreasure.Services.Beacons.API;
 ﻿using Android.App;
 using FindTheTreasure.Models;
 using FindTheTreasure.Pages.ScoreBoard.Models;
+
 using FindTheTreasure.Services.Game.API;
-using FindTheTreasure.Services.User.API;
+using FindTheTreasure.Services.User;
 
 namespace FindTheTreasure.Services.Game
 {
     public class GameService
     {
-        private readonly IGameApiClient _gameApiClient;      
+        private readonly IGameApiClient _gameApiClient;
+        private readonly UserService _userService;
 
-        public GameService(IGameApiClient gameApiClient)
+        public GameService(IGameApiClient gameApiClient, UserService userService)
         {
             _gameApiClient = gameApiClient;
+            _userService = userService;
         }
 
         public async Task<bool> AddBeaconToGameAsync(int gameId, int beaconId)
@@ -37,21 +41,20 @@ namespace FindTheTreasure.Services.Game
             return 0;
         }
 
-        public async Task<bool> StartGameAsync(string gameId)
+        public async Task StartGameAsync(int gameId)
         {
-            // ToDo API
+            var userId = _userService.GetUser().Id;
+            var participantId = await _gameApiClient.StartGame(gameId, userId);
 
             Preferences.Set("isInGame", "true");
             Preferences.Set("gameId", gameId);
-            return true;
+            Preferences.Set("beaconOder", (-1).ToString());
+            Preferences.Set("participantId", participantId.ToString());
         }
 
-        public async Task<bool> StopGameAsync()
+        public void StopGame()
         {
-            // ToDo API
-
             Preferences.Set("isInGame", "false");
-            return true;
         }
 
         public bool IsInGame()

@@ -1,10 +1,20 @@
+using FindTheTreasure.Services.Game;
+
 namespace FindTheTreasure.Pages.Games.InGame;
 
 public partial class InGameVIew : ContentPage
 {
-	public InGameVIew(InGameViewModel vieModel)
+    private readonly GameService _gameService;
+	public InGameVIew(InGameViewModel vieModel, GameService gameService)
 	{
-		BindingContext = vieModel;
-		InitializeComponent();
-	}
+        _gameService = gameService;
+        InitializeComponent();
+        BindingContext = vieModel;
+    }
+
+    // to disable go back functionality
+    protected override bool OnBackButtonPressed()
+    {
+        return true;
+    }
 }

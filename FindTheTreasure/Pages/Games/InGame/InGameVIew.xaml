@@ -2,11 +2,109 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FindTheTreasure.Pages.Games.InGame.InGameVIew"
-             Title="InGameVIew">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Games.InGame"
+             x:DataType="viewmodel:InGameViewModel"
+             xmlns:model="clr-namespace:FindTheTreasure.Models"
+             Title="Game">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid x:Name="HomePageGrid"
+          ColumnDefinitions="*,*"
+          ColumnSpacing="6"
+          RowDefinitions="*,Auto, Auto"
+          RowSpacing="0"
+          BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+        <ScrollView x:Name="HomePageScrollView"
+                    Grid.ColumnSpan="2">
+            <CollectionView x:Name="HomePageCollectionView"
+                            ItemsSource="{Binding DiscoveredDevices}"
+                            BackgroundColor="Transparent"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout Grid.RowSpan="2"
+                                 Grid.ColumnSpan="2"
+                                 BackgroundColor="Transparent">
+                        <Grid RowDefinitions="*,*"
+                              RowSpacing="8"
+                              HorizontalOptions="CenterAndExpand"
+                              VerticalOptions="CenterAndExpand">
+                            <Label Grid.Row="0"
+                                   Text="Scan for nearby Bluetooth LE devices."
+                                   Style="{StaticResource LargeLabel}"
+                                   HorizontalOptions="CenterAndExpand"/>
+                        </Grid>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout  Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:BeaconModel">
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:InGameViewModel}}, 
+                                                  Path=BeaconFoundCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Padding="8">
+                                    <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
+                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding MacAddress}" />
+                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding Number}" />
+                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding SerialNumber}" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <Button x:Name="ScanDevicesButton"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="8"
+                Command="{Binding ScanNearbyDevicesAsyncCommand}"
+                IsEnabled="{Binding IsNotScanning}"
+                IsVisible="{Binding IsNotScanning}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Scan nearby devices" />
+
+        <Button x:Name="CheckPermissionsButton"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8"
+                Command="{Binding CheckPermissionsAsyncCommand}"
+                IsEnabled="{Binding IsNotScanning}"
+                IsVisible="{Binding IsNotScanning}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Check Permissions" />
+
+        <Button x:Name="ShowMap"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="8"
+                Command="{Binding ShowMapButtonClickedCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Show map" />
+
+        <Button x:Name="StopGame"
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="8"
+                Command="{Binding StopGameButtonClickedCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Stop game" />
+
+        <ActivityIndicator x:Name="HomePageActivityIndicator"
+                           Grid.ColumnSpan="2"
+                           IsRunning="{Binding IsScanning}"
+                           IsVisible="{Binding IsScanning}"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="StartAndExpand" />
+    </Grid>
 </ContentPage>

@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FindTheTreasure.Models;
 using FindTheTreasure.Pages.ScoreBoard.Models;
+
 using Refit;
 
 namespace FindTheTreasure.Services.Game.API
@@ -20,7 +22,12 @@ namespace FindTheTreasure.Services.Game.API
         [Get("/api/game")]
         Task<List<GameModel>> GetGamesAsync();
 
+
+        [Post("/api/game/{gameId}/user/{userId}")]
+        Task<int> StartGame(int gameId, int userId);
+
         [Get("/api/Game/ScoreBoards")]
         Task<IEnumerable<Scoreboard>> GetScoreBoardsAsync();
+
     }
 }
