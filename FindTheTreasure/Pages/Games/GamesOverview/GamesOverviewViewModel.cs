@@ -30,15 +30,14 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
             {
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
-
-            //GetGames();
             
         }
 
-        private async void GetGames()
+        public async void GetGames()
         {
-            /*var games = await GameService.GetGamesAsync();
-            games.ForEach(g => Games.Add(g));*/
+            Games.Clear();
+            var games = await GameService.GetGamesAsync();
+            games.ForEach(g => Games.Add(g));
         }
 
         private async Task GoToStartGamePageAsync(BeaconModel item)

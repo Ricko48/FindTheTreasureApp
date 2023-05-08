@@ -50,26 +50,16 @@ namespace FindTheTreasure.Pages.Games.CreateGame
 
         private async Task CreateGameAsync()
         {
+            //get real wonerID
             gameModel.OwnerId = 1;
-            var g = gameModel;
             var createGame = new CreateGameModel
             {
                 Name = gameModel.Name,
                 OwnerId = gameModel.OwnerId,
-                Owner = new Models.User
-                {
-                    Id = 1,
-                    FirstName = "xx",
-                    LastName = "xx",
-                    UserName = ""
-                },
-                GameBeacons = new List<GameBeacon>(),
-                GameParticipants = new List<GameParticipant>(),
             };
-            gameModel.Id = await GameService.CreateGameAsync(createGame); 
-            
-            /*Dictionary<string, object> parameters = new() { { nameof(ScanGameBeaconsViewModel.GameModel), gameModel } };
-            await Shell.Current.GoToAsync(nameof(ScanGameBeaconsView), true, parameters);*/
+            gameModel.Id = await GameService.CreateGameAsync(createGame);
+            Dictionary<string, object> parameters = new() { { nameof(ScanGameBeaconsViewModel.Item), gameModel } };
+            await Shell.Current.GoToAsync(nameof(ScanGameBeaconsView), true, parameters);
         }
     }
 }

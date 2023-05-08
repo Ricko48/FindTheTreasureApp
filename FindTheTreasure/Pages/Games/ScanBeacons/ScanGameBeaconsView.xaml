@@ -10,7 +10,7 @@
     <Grid x:Name="HomePageGrid"
           ColumnDefinitions="*,*"
           ColumnSpacing="6"
-          RowDefinitions="*,Auto"
+          RowDefinitions="*,Auto, Auto"
           RowSpacing="0"
           BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
         <ScrollView x:Name="HomePageScrollView"
@@ -44,12 +44,12 @@
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ScanGameBeaconsViewModel}}, 
-                                                  Path=GoToBeaconDetailPageAsyncCommand}"
+                                                  Path=GoToAddBeaconPageAsyncCommand}"
                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
                                 <VerticalStackLayout Padding="8">
                                     <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding MAC}" />
+                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding MacAddress}" />
                                     <Label Style="{StaticResource MicroLabel}" Text="{Binding Number}" />
                                     <Label Style="{StaticResource MicroLabel}" Text="{Binding SerialNumber}" />
                                 </VerticalStackLayout>
@@ -79,6 +79,16 @@
                 IsVisible="{Binding IsNotScanning}"
                 Style="{StaticResource ButtonOutline}"
                 Text="Check Permissions" />
+
+        <Button x:Name="Done"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="10"
+                Command="{Binding GoBackAsyncCommand}"
+                IsEnabled="{Binding IsNotScanning}"
+                IsVisible="{Binding IsNotScanning}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Done adding beacons" />
 
         <ActivityIndicator x:Name="HomePageActivityIndicator"
                            Grid.ColumnSpan="2"

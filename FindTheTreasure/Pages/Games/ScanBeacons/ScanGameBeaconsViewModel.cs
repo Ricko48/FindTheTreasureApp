@@ -3,17 +3,17 @@ using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Bluetooth;
 using Plugin.BLE.Abstractions.Contracts;
 using System.Collections.ObjectModel;
-using static Android.Content.ClipData;
 
 namespace FindTheTreasure.Pages.Games.ScanBeacons
 {
     [QueryProperty(nameof(Item), nameof(Item))]
-    public class ScanGameBeaconsViewModel : BaseViewModel
+    public partial class ScanGameBeaconsViewModel : BaseViewModel
     {
-        public GameModel GameModel { get; set; }
+        public GameModel Item { get; set; }
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
         public IAsyncRelayCommand CheckPermissionsAsyncCommand { get; }
-        public IAsyncRelayCommand GoToBeaconDetailPageAsyncCommand { get; }
+        public IAsyncRelayCommand GoToAddBeaconPageAsyncCommand { get; }
+        public IAsyncRelayCommand GoBackAsyncCommand { get; }
 
         private readonly BluetoothPermissionsService bluetoothPermissionsService;
         private readonly BeaconDiscoveryService beaconDiscoveryService;
@@ -34,15 +34,19 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
 
             ScanNearbyDevicesAsyncCommand = new AsyncRelayCommand(ScanDevicesAsync);
             CheckPermissionsAsyncCommand = new AsyncRelayCommand(CheckPermissionsAsync);
-            GoToBeaconDetailPageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToBeaconDetailPageAsync);
+            GoToAddBeaconPageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToAddBeaconPageAsync);
+            GoBackAsyncCommand = new AsyncRelayCommand(GoBackAsync);
         }
 
-        private async Task GoToBeaconDetailPageAsync(BeaconModel item)
+        private async Task GoBackAsync()
         {
-            item.GameID = GameModel.Id;
-            //get real id
-            item.Id = 1;
-            Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), item } };
+            await Shell.Current.GoToAsync("../..");
+        }
+
+        private async Task GoToAddBeaconPageAsync(BeaconModel model)
+        {
+            model.GameID = Item.Id;
+            Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), model } };
             await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
         }
 
@@ -59,7 +63,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
                 DiscoveredDevices.Clear();
 
                 var knownBeacons = await beaconService.GetAllAsync();
-                var macAddresses = knownBeacons.Select(b => b.MAC).ToArray();
+                var macAddresses = knownBeacons.Select(b => b.MacAddress).ToArray();
 
                 await beaconDiscoveryService.StartScanning(macAddresses: macAddresses, maxItems: null);
                 Debug.WriteLine("Finished scanning");

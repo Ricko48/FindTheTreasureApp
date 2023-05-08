@@ -25,7 +25,7 @@ namespace FindTheTreasure.Services.Bluetooth
             var discoveredWithInfos = new List<BeaconModel>();
             foreach(var beacon in discovered)
             {
-                var discoveredWithInfo = (from known in knownBeacons where known.MAC == beacon.MAC select known).SingleOrDefault();
+                var discoveredWithInfo = (from known in knownBeacons where known.MacAddress == beacon.MacAddress select known).SingleOrDefault();
                 if(discoveredWithInfo is not null)
                 {
                     discoveredWithInfos.Add(discoveredWithInfo);
@@ -39,7 +39,7 @@ namespace FindTheTreasure.Services.Bluetooth
             var mac = bluetoothDeviceMacAddressService.GetMacAddress(device);
             return new BeaconModel
             {
-                MAC = mac,
+                MacAddress = mac,
                 Name = "unknown",
                 Number = null,
                 SerialNumber = null

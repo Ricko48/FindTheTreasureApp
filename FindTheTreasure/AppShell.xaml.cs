@@ -1,5 +1,5 @@
-﻿namespace FindTheTreasure;
 
+﻿namespace FindTheTreasure;
 public partial class AppShell : Shell
 {
     public AppShell()
@@ -15,6 +15,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(SignInView), typeof(SignInView));
         Routing.RegisterRoute(nameof(SignUpView), typeof(SignUpView));
         Routing.RegisterRoute(nameof(BeaconDetailView), typeof(BeaconDetailView));
+        Routing.RegisterRoute(nameof(ScanGameBeaconsView), typeof(ScanGameBeaconsView));
         Routing.RegisterRoute(nameof(InGameVIew), typeof(InGameViewModel));
     }
 }

@@ -15,6 +15,7 @@ public class BluetoothLEPermissions : Permissions.BasePlatformPermission
                 (Android.Manifest.Permission.Bluetooth, true),
                 (Android.Manifest.Permission.AccessFineLocation, true),
                 (Android.Manifest.Permission.AccessCoarseLocation, true),
+                (Android.Manifest.Permission.AccessBackgroundLocation, true),
 
             }.ToArray();
             };
@@ -24,7 +25,7 @@ public class BluetoothLEPermissions : Permissions.BasePlatformPermission
                 (Android.Manifest.Permission.BluetoothScan, true),
                 (Android.Manifest.Permission.BluetoothConnect, true),
                 (Android.Manifest.Permission.AccessFineLocation, true),
-                //(Android.Manifest.Permission.AccessBackgroundLocation, true),
+                (Android.Manifest.Permission.AccessBackgroundLocation, true),
             }.ToArray();
         }
     }    

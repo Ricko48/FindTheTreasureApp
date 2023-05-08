@@ -17,7 +17,7 @@ namespace FindTheTreasure.Services.Game.API
         [Post("/api/game")]
         Task<int> CreateGameAsync(CreateGameModel gameModel);
 
-        [Put("/api/game")]
+        [Get("/api/game")]
         Task<List<GameModel>> GetGamesAsync();
 
         [Get("/api/Game/ScoreBoards")]
