@@ -13,5 +13,6 @@
         public DateTime Discovered { get; set; }
         public double PositionX { get; set; }
         public double PositionY { get; set; }
+        public int? Order { get; set; }
     }
 }

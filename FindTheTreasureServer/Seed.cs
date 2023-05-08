@@ -55,7 +55,7 @@ namespace FindTheTreasureServer
                     PositionDescription = "Description for position 2",
                     PositionX = 2.0f,
                     PositionY = 3.0f,
-                    MacAddress = "11:22:33:44:55:66",
+                    MacAddress = "0C:F3:EE:B8:DD:0F",
                     GameId = 1
                 },
                 new Beacon
@@ -64,7 +64,7 @@ namespace FindTheTreasureServer
                     PositionDescription = "Description for position 3",
                     PositionX = 3.0f,
                     PositionY = 4.0f,
-                    MacAddress = "22:33:44:55:66:77",
+                    MacAddress = "0C:F3:EE:B8:DE:54",
                     GameId = 2
                 }
             };

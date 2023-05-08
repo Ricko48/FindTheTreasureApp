@@ -32,7 +32,7 @@ namespace FindTheTreasure.Services.Game
                 return await _gameApiClient.CreateGameAsync(gameModel);
             } catch (Exception ex)
             {
-                Debug.WriteLine(ex.Source);
+                Debug.WriteLine(ex.Message);
             }
             return 0;
         }
