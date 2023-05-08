@@ -1,6 +1,6 @@
 ﻿namespace FindTheTreasureServer.DTO
 {
-    public class ScoreDto
+    public class Score
     {
         public int Position { get; set; }
         public string Username { get; set; }

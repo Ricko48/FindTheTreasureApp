@@ -7,6 +7,8 @@ using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Game;
 using FindTheTreasure.Services.Game.API;
 using FindTheTreasure.Services.GPS;
+using FindTheTreasure.Services.ScoreBoard;
+using FindTheTreasure.Services.ScoreBoard.API;
 using FindTheTreasure.Services.User;
 using FindTheTreasure.Services.User.API;
 using Plugin.BLE;
@@ -73,6 +75,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<ScoreBoardView>();
         builder.Services.AddSingleton<ScoreBoardViewModel>();
+        builder.Services.AddSingleton<ScoreBoardService>();
 
         builder.Services.AddSingleton<UserService>();
         builder.Services.AddSingleton<GameService>();
@@ -88,11 +91,12 @@ public static class MauiProgram
 
 
         // register api clients
-        const string apiUrl = "http://147.251.68.19:80";
+        const string apiUrl = "http://localhost:55785";
         
         builder.Services.AddSingleton(RestService.For<IUserApiClient>(apiUrl));
         builder.Services.AddSingleton(RestService.For<IBeaconsApiClient>(apiUrl));
         builder.Services.AddSingleton(RestService.For<IGameApiClient>(apiUrl));
+        builder.Services.AddSingleton(RestService.For<IScoreBoardApiClient>(apiUrl));
 
         return builder.Build();
     }

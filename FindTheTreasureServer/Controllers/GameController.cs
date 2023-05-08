@@ -117,21 +117,22 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpGet("ScoreBoard/{gameId}")]
-        public IEnumerable<ScoreDto> GetScoreBoardForGame(int gameId)
+        public IEnumerable<Score> GetScoreBoardForGame(int gameId)
         {
             using var dbContext = new TreasureDbContext();
             var participants = dbContext.GameParticipants
                 .Where(p => p.GameId == gameId)
                 .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
             var position = 1;
-            var result = new List<ScoreDto>();
+            var result = new List<Score>();
             foreach (var p in participants)
             {
-                result.Add(new ScoreDto
+                var user = dbContext.Users.Find(p.UserId);
+                result.Add(new Score
                 {
                     Position = position,
                     Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
-                    Username = p.User.UserName
+                    Username = user.UserName,
                 });
                 position++;
             }
