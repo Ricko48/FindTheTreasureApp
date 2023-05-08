@@ -22,7 +22,11 @@ namespace FindTheTreasure.Pages.ScoreBoard
         public ICollection<Score> Scoreboard
         {
             get => _scoreBoard;
-            set { _scoreBoard = value; OnPropertyChanged(); }
+            set
+            {
+                _scoreBoard = value;
+                OnPropertyChanged();
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

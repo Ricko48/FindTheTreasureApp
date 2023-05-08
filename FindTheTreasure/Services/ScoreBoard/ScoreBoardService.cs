@@ -1,5 +1,5 @@
 ﻿using FindTheTreasure.Pages.ScoreBoard.Models;
-using FindTheTreasure.Services.ScoreBoard.API;
+using FindTheTreasure.Services.Game.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +10,25 @@ namespace FindTheTreasure.Services.ScoreBoard
 {
     public class ScoreBoardService
     {
-        private readonly IScoreBoardApiClient _scoreBoardApiClient;
+        private readonly IGameApiClient _gameApiClient;
 
-        public ScoreBoardService(IScoreBoardApiClient scoreBoardApiClient) => _scoreBoardApiClient = scoreBoardApiClient;
-
-        public async Task<ICollection<Score>> GetScoreBoard(int gameId)
+        public ScoreBoardService(IGameApiClient gameApiClient)
+        {
+            _gameApiClient = gameApiClient;
+        }
+        public async Task<List<Score>> GetScoreBoard(int gameId)
         {
             try
             {
-                return (await _scoreBoardApiClient.GetScoreForGameASync(gameId)).ToList();
+                return (await _gameApiClient.GetScoreForGameASync(gameId)).ToList();
             }
-            catch (Exception e) { 
-                Console.Write(e.ToString());
-                return new List<Score>();
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Source);
+                Debug.WriteLine(ex.ToString());
             }
+            return new List<Score>();
         }
     }
 }

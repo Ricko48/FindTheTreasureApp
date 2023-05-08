@@ -10,6 +10,6 @@ namespace FindTheTreasure.Pages.ScoreBoard.Models
     {
         public int Position { get; set; }
         public string Username { get; set; }
-        public String Time { get; set; }
+        public string Time { get; set; }
     }
 }
