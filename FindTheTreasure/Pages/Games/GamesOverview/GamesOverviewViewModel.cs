@@ -8,7 +8,6 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
     public class GamesOverviewViewModel : ObservableObject
     {
         public IAsyncRelayCommand GoCreateGameAsyncCommand { get; }
-        public IAsyncRelayCommand DeleteGameAsyncCommand { get; }
         public IAsyncRelayCommand GoToStartGamePageAsyncCommand { get; }
         private GameService GameService;
 
@@ -17,7 +16,6 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
         {
             GameService = gameService;
             GoCreateGameAsyncCommand = new AsyncRelayCommand(GoToCreateGameAsync);
-            DeleteGameAsyncCommand = new AsyncRelayCommand(DeleteGameAsync);
             GoToStartGamePageAsyncCommand = new AsyncRelayCommand<GameModel>(GoToStartGamePageAsync);
 
             if (!userService.IsSignedIn())
@@ -54,9 +52,5 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
             await Shell.Current.GoToAsync(nameof(GameCreateView), true);
         }
 
-        private async Task DeleteGameAsync()
-        {
-
-        }
     }
 }

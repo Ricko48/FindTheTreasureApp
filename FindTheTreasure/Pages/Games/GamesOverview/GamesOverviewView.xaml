@@ -6,7 +6,9 @@
              xmlns:model="clr-namespace:FindTheTreasure.Models"
              xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Games.GamesOverview"
              >
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
     <Grid x:Name="HomePageGrid"
           ColumnDefinitions="*,*"
           ColumnSpacing="6"
@@ -59,19 +61,11 @@
 
         <Button x:Name="CreateGame"
                 Grid.Row="1"
-                Grid.Column="0"
+                Grid.ColumnSpan="2"
                 Margin="8"
                 Command="{Binding GoCreateGameAsyncCommand}"
                 Style="{StaticResource ButtonOutline}"
                 Text="Create game" />
-
-        <Button x:Name="DeleteGame"
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="8"
-                Command="{Binding DeleteGameAsyncCommand}"
-                Style="{StaticResource ButtonOutline}"
-                Text="Delete game" />
 
     </Grid>
 </ContentPage>

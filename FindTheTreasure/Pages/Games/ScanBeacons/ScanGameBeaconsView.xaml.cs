@@ -9,4 +9,9 @@ public partial class ScanGameBeaconsView : ContentPage
 		InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        return true;
+    }
 }
