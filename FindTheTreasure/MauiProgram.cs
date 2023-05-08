@@ -31,6 +31,7 @@ public static class MauiProgram
                 fonts.AddFont("fa-brands-400.ttf", "FontAwesomeBrands");
             });
 
+
         builder.UseMauiMaps();
 
         builder.Services.AddSingleton<BluetoothPermissionsService>();
