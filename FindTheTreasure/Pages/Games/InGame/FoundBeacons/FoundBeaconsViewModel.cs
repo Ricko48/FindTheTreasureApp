@@ -3,7 +3,7 @@ using FindTheTreasure.Services.Game;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 
-namespace FindTheTreasure.Pages.FoundBeacons
+namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
 {
     public class FoundBeaconsViewModel
     {

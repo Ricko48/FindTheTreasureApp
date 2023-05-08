@@ -1,5 +1,3 @@
-using AndroidX.Lifecycle;
-
 namespace FindTheTreasure.Pages.User.SignIn;
 
 public partial class SignInView : ContentPage

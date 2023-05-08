@@ -88,6 +88,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<ScanGameBeaconsView>();
         builder.Services.AddSingleton<ScanGameBeaconsViewModel>();
 
+        builder.Services.AddSingleton<InGameVIew>();
+        builder.Services.AddSingleton<InGameViewModel>();
 
         // register api clients
         const string apiUrl = "http://147.251.69.29:80";
