@@ -6,35 +6,37 @@ using System.Runtime.CompilerServices;
 
 namespace FindTheTreasure.Pages.ScoreBoard
 {
-    public class ScoreBoardViewModel
+    public class ScoreBoardViewModel : INotifyPropertyChanged
     {
         private readonly GameService _gameService;
-        private ICollection<Score> _scoreBoard;
+        private ICollection<Scoreboard> _scoreBoards;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICollection<Scoreboard> Scoreboards
+        {
+            get => _scoreBoards;
+            set
+            {
+                _scoreBoards = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ScoreBoardViewModel(GameService gameService)
         {
             _gameService = gameService;
-            Scoreboard = new List<Score>();
-            FillScoreBoard();
+            Scoreboards = new List<Scoreboard>();
+            FillScoreBoards();
         }
 
-        private async void FillScoreBoard()
+        private async void FillScoreBoards()
         {
-            Scoreboard = await _gameService.GetScoreBoard(1);
+            Scoreboards = await _gameService.GetScoreBoards();
         }
 
 
-        public ICollection<Score> Scoreboard
-        {
-            get => _scoreBoard;
-            set
-            {
-                _scoreBoard = value;
-                OnPropertyChanged();
-            }
-        }
+        
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

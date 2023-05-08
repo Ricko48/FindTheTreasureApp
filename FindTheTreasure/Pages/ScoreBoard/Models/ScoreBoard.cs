@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace FindTheTreasure.Pages.ScoreBoard.Models
 {
-    public class ScoreBoard
+    public class Scoreboard
     {
+        public string GameName { get; set; }
         public ICollection<Score> Scores { get; set; }
     }
 }

@@ -71,11 +71,11 @@ namespace FindTheTreasure.Services.Game
             return Preferences.Get("gameId", null);
         }
 
-        public async Task<List<Score>> GetScoreBoard(int gameId)
+        public async Task<List<Scoreboard>> GetScoreBoards()
         {
             try
             {
-                return (await _gameApiClient.GetScoreForGameASync(gameId)).ToList();
+                return (await _gameApiClient.GetScoreBoardsAsync()).ToList();
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace FindTheTreasure.Services.Game
                 Debug.WriteLine(ex.ToString());
                 await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
             }
-            return new List<Score>();
+            return new List<Scoreboard>();
         }
     }
 }

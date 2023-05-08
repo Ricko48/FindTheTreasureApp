@@ -20,7 +20,7 @@ namespace FindTheTreasure.Services.Game.API
         [Put("/api/game")]
         Task<List<GameModel>> GetGamesAsync();
 
-        [Get("/api/Game/ScoreBoard/{gameId}")]
-        Task<IEnumerable<Score>> GetScoreForGameASync(int gameId);
+        [Get("/api/Game/ScoreBoards")]
+        Task<IEnumerable<Scoreboard>> GetScoreBoardsAsync();
     }
 }
