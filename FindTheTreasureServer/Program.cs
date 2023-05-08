@@ -12,6 +12,15 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using (var context = new TreasureDbContext())
+{
+    if (context.Database.EnsureCreated())
+    {
+        Seed.SeedData(context);
+    }
+
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
