@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
             <Entry x:Name="entryPuzzle"
                    Placeholder="Enter puzzle"
-                   Text="{Binding GameBeacon.Puzze}"
+                   Text="{Binding GameBeacon.PositionDescription}"
                    Grid.Row="1"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>

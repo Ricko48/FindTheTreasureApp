@@ -1,4 +1,5 @@
-﻿using FindTheTreasure.Models;
+﻿using Android.Gms.Common.Apis;
+using FindTheTreasure.Models;
 using FindTheTreasure.Services.Beacons.API;
 using FindTheTreasure.Services.Game;
 using FindTheTreasure.Services.User;
@@ -25,13 +26,28 @@ namespace FindTheTreasure.Services.Beacons
                 return new List<BeaconModel>();
             }
 
-            var userId = _userService.GetUser().Id;
-            return await _beaconsApiClient.GetFoundBeaconsForParticipant(userId);
+            var participantId = _userService.GetUser().ParticipantId;
+            return await _beaconsApiClient.GetFoundBeaconsForParticipant(participantId.Value);
         }
 
         public async Task<IEnumerable<BeaconModel>> GetAllAsync()
         {
             return await _beaconsApiClient.GetAllAsync();
+        }
+
+        public async Task<GameBeacon> GetNextBeaconInGame()
+        {
+            var r = Preferences.Get("gameId", null);
+            var gameId = int.Parse(r);
+            var beaconOrder = int.Parse(Preferences.Get("beaconOrder", null)) + 1;
+            Preferences.Set("beaconOrder", beaconOrder.ToString());
+            return await _beaconsApiClient.GetBeaconWithOrder(gameId, beaconOrder);
+        }
+
+        public async Task SetBeaconToFoundAsync(int beaconId)
+        {
+            var participantId = _userService.GetUser().ParticipantId;
+            await _beaconsApiClient.SetParticipantBeaconFound(participantId.Value, beaconId);
         }
     }
 }

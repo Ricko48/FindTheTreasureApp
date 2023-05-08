@@ -36,13 +36,17 @@ namespace FindTheTreasure.Services.User
                 return null;
             }
 
-            return new UserModel
+            var participantId = Preferences.Get("participantId", null);
+
+            var user = new UserModel
             {
                 UserName = Preferences.Get("userName", null),
                 FirstName = Preferences.Get("firstName", null),
                 LastName = Preferences.Get("lastName", null),
-                Id = int.Parse(Preferences.Get("userId", null))
+                Id = int.Parse(Preferences.Get("userId", null)),
+                ParticipantId = !string.IsNullOrEmpty(participantId) ? int.Parse(participantId) : null
             };
+            return user;
         }
 
         public async Task DeleteAccountAsync()

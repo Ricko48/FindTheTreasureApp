@@ -4,7 +4,8 @@
     {
         public int Id { get; set; }
         public int GameID { get; set; }
-        public string MAC { get; set; }        
+        public string MAC { get; set; }
+        public string MacAddress { get; set; }
         public string Name { get; set; }
         public int? Number { get; set; }
         public string SerialNumber { get; set; }

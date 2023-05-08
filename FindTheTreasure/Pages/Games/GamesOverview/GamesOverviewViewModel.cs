@@ -1,18 +1,12 @@
 ﻿using FindTheTreasure.Models;
-using FindTheTreasure.Pages.Games.CreateGame;
 using FindTheTreasure.Services.Game;
 using FindTheTreasure.Services.User;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FindTheTreasure.Pages.Games.GamesOverview
 {
     public class GamesOverviewViewModel : ObservableObject
-    {       
+    {
         public IAsyncRelayCommand GoCreateGameAsyncCommand { get; }
         public IAsyncRelayCommand DeleteGameAsyncCommand { get; }
         public IAsyncRelayCommand GoToStartGamePageAsyncCommand { get; }
@@ -20,7 +14,7 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
 
         public ObservableCollection<GameModel> Games { get; set; } = new ObservableCollection<GameModel>();
         public GamesOverviewViewModel(UserService userService, GameService gameService)
-        {           
+        {
             GameService = gameService;
             GoCreateGameAsyncCommand = new AsyncRelayCommand(GoToCreateGameAsync);
             DeleteGameAsyncCommand = new AsyncRelayCommand(DeleteGameAsync);

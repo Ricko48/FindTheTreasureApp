@@ -83,7 +83,7 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpPost("{gameId}/user/{userId}")]
-        public bool AddUserToGame(int gameId, int userId)
+        public int AddUserToGame(int gameId, int userId)
         {
             using var dbContext = new TreasureDbContext();
             var participant = new GameParticipant { GameId = gameId, UserId = userId };
@@ -99,7 +99,7 @@ namespace FindTheTreasureServer.Controllers
                 });
             dbContext.ParticipantBeacons.AddRange(beacons);
             dbContext.SaveChanges();
-            return true;
+            return participant.Id.Value;
         }
 
         [HttpDelete("{gameId}/user/{userId}")]
