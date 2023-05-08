@@ -35,7 +35,7 @@ namespace FindTheTreasureServer.Database
             );
 
             modelBuilder.Entity<Beacon>().HasData(
-                new Beacon { Id = 1, Name = "Beacon 1", PositionDescription = "Near the river", PositionX = 1.0f, PositionY = 2.0f, MacAddress = "00:11:22:33:44:55", GameId = 1 },
+                new Beacon { Id = 1, Name = "Real beacon", PositionDescription = "Near the river", PositionX = 1.0f, PositionY = 2.0f, MacAddress = "0C:F3:EE:B8:DD:0A", GameId = 1},
                 new Beacon { Id = 2, Name = "Beacon 2", PositionDescription = "On the hill", PositionX = 3.0f, PositionY = 4.0f, MacAddress = "66:77:88:99:aa:bb", GameId = 1 },
                 new Beacon { Id = 3, Name = "Beacon 3", PositionDescription = "In the forest", PositionX = 5.0f, PositionY = 6.0f, MacAddress = "cc:dd:ee:ff:00:11", GameId = 2 }
             );
