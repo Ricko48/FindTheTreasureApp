@@ -1,6 +1,6 @@
 ﻿using FindTheTreasure.Models;
 
-namespace FindTheTreasure.Pages.FoundBeacons
+namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
 {
     public class FoundBeaconsModel
     {

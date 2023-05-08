@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
+﻿using FindTheTreasure.Services.User;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using FindTheTreasure.Services.User;
 using System.Windows.Input;
-using Refit;
 
 namespace FindTheTreasure.Pages.User
 {
@@ -61,7 +60,7 @@ namespace FindTheTreasure.Pages.User
                 await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
                 return;
             }
-            
+
             await Shell.Current.GoToAsync(nameof(SignInView), false);
         }
 
