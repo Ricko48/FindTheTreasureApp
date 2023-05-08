@@ -75,7 +75,6 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<ScoreBoardView>();
         builder.Services.AddSingleton<ScoreBoardViewModel>();
-        builder.Services.AddSingleton<ScoreBoardService>();
 
         builder.Services.AddSingleton<UserService>();
         builder.Services.AddSingleton<GameService>();
@@ -98,7 +97,6 @@ public static class MauiProgram
         builder.Services.AddSingleton(RestService.For<IUserApiClient>(apiUrl));
         builder.Services.AddSingleton(RestService.For<IBeaconsApiClient>(apiUrl));
         builder.Services.AddSingleton(RestService.For<IGameApiClient>(apiUrl));
-        builder.Services.AddSingleton(RestService.For<IScoreBoardApiClient>(apiUrl));
 
         return builder.Build();
     }
