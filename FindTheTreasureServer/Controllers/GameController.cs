@@ -2,6 +2,7 @@
 using FindTheTreasureServer.Database.Entity;
 using FindTheTreasureServer.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {

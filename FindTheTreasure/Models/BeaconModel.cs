@@ -3,7 +3,7 @@
     public class BeaconModel
     {
         public int Id { get; set; }
-        public int GameID { get; set; }
+        public int? GameID { get; set; }
         public string MacAddress { get; set; }
         public string PositionDescription { get; set; }
         public string Name { get; set; }
