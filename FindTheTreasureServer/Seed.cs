@@ -47,7 +47,7 @@ namespace FindTheTreasureServer
                     PositionDescription = "Description for position 1",
                     PositionX = 1.0f,
                     PositionY = 2.0f,
-                    MacAddress = "0C:F3:EE:B8:DD:0A",
+                    MacAddress = "0C:F3:EE:B8:DD:0A"
                 },
                 new Beacon
                 {
@@ -55,8 +55,9 @@ namespace FindTheTreasureServer
                     PositionDescription = "Description for position 2",
                     PositionX = 2.0f,
                     PositionY = 3.0f,
-                    MacAddress = "0C:F3:EE:B8:DD:0F",
-                    GameId = 1
+                    MacAddress = "11:22:33:44:55:66",
+                    GameId = 1,
+                    Order = 0,
                 },
                 new Beacon
                 {
@@ -64,8 +65,10 @@ namespace FindTheTreasureServer
                     PositionDescription = "Description for position 3",
                     PositionX = 3.0f,
                     PositionY = 4.0f,
-                    MacAddress = "0C:F3:EE:B8:DE:54",
-                    GameId = 2
+                    MacAddress = "22:33:44:55:66:77",
+                    GameId = 2,
+                    Order = 0,
+
                 }
             };
             context.Beacons.AddRange(beacons);
