@@ -18,4 +18,10 @@ public partial class FoundBeaconsView : ContentPage
         base.OnAppearing();
         _viewModel.Refresh(Map);
     }
+
+    protected override bool OnBackButtonPressed()
+    {
+        Shell.Current.GoToAsync(nameof(InGameVIew)).Wait();
+        return true;
+    }
 }

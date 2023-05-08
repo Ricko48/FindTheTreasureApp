@@ -7,7 +7,6 @@
     xmlns:homePage="clr-namespace:FindTheTreasure.Pages.Home"
     xmlns:scoreBoardPage="clr-namespace:FindTheTreasure.Pages.ScoreBoard"
     xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.User"
-    xmlns:foundBeacons="clr-namespace:FindTheTreasure.Pages.Games.InGame.FoundBeacons"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.Resources>

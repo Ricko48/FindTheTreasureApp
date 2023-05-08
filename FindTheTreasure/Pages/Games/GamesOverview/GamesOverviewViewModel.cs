@@ -31,8 +31,11 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
 
+            GameService.StartGameAsync(1).Wait(); // test
+            Shell.Current.GoToAsync(nameof(InGameVIew), false).Wait(); // test
+
             //GetGames();
-            
+
         }
 
         private async void GetGames()

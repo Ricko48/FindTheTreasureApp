@@ -38,7 +38,7 @@ namespace FindTheTreasure.Services.Game
             return await _gameApiClient.CreateGameAsync(gameModel);
         }
 
-        public async Task<bool> StartGameAsync(string gameId)
+        public async Task<bool> StartGameAsync(int gameId)
         {
             // ToDo API
 
@@ -47,12 +47,11 @@ namespace FindTheTreasure.Services.Game
             return true;
         }
 
-        public async Task<bool> StopGameAsync()
+        public async Task StopGameAsync()
         {
             // ToDo API
 
             Preferences.Set("isInGame", "false");
-            return true;
         }
 
         public bool IsInGame()
