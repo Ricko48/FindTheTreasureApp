@@ -12,59 +12,19 @@
     </Shell.BackButtonBehavior>
 
     <Grid x:Name="HomePageGrid"
-          ColumnDefinitions="*,*"
-          ColumnSpacing="6"
-          RowDefinitions="*,Auto, Auto"
+          RowDefinitions="*, Auto, Auto, Auto, Auto"
           RowSpacing="0"
           BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-        <ScrollView x:Name="HomePageScrollView"
-                    Grid.ColumnSpan="2">
-            <CollectionView x:Name="HomePageCollectionView"
-                            ItemsSource="{Binding DiscoveredDevices}"
-                            BackgroundColor="Transparent"
-                            SelectionMode="None">
-                <CollectionView.EmptyView>
-                    <StackLayout Grid.RowSpan="2"
-                                 Grid.ColumnSpan="2"
-                                 BackgroundColor="Transparent">
-                        <Grid RowDefinitions="*,*"
-                              RowSpacing="8"
-                              HorizontalOptions="CenterAndExpand"
-                              VerticalOptions="CenterAndExpand">
-                            <Label Grid.Row="0"
-                                   Text="Scan for nearby Bluetooth LE devices."
-                                   Style="{StaticResource LargeLabel}"
-                                   HorizontalOptions="CenterAndExpand"/>
-                        </Grid>
-                    </StackLayout>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout  Orientation="Vertical"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:BeaconModel">
-                        <Grid Padding="10">
-                            <Frame Style="{StaticResource CardView}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:InGameViewModel}}, 
-                                                  Path=BeaconFoundCommand}"
-                                        CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
-                                <VerticalStackLayout Padding="8">
-                                    <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding MacAddress}" />
-                                </VerticalStackLayout>
-                            </Frame>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
+
+        <Label x:Name="Puzzle"
+               Text="{Binding Puzzle}"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="0"
+               FontSize="20"/>
 
         <Button x:Name="ScanDevicesButton"
                 Grid.Row="1"
-                Grid.Column="0"
                 Margin="8"
                 Command="{Binding ScanNearbyDevicesAsyncCommand}"
                 IsEnabled="{Binding IsNotScanning}"
@@ -73,8 +33,7 @@
                 Text="Scan nearby devices" />
 
         <Button x:Name="CheckPermissionsButton"
-                Grid.Row="1"
-                Grid.Column="1"
+                Grid.Row="2"
                 Margin="8"
                 Command="{Binding CheckPermissionsAsyncCommand}"
                 IsEnabled="{Binding IsNotScanning}"
@@ -83,15 +42,14 @@
                 Text="Check Permissions" />
 
         <Button x:Name="ShowMap"
-                Grid.Row="2"
-                Grid.Column="1"
+                Grid.Row="3"
                 Margin="8"
                 Command="{Binding ShowMapButtonClickedCommand}"
                 Style="{StaticResource ButtonOutline}"
                 Text="Show map" />
 
         <Button x:Name="StopGame"
-                Grid.Row="2"
+                Grid.Row="4"
                 Grid.Column="0"
                 Margin="8"
                 Command="{Binding StopGameButtonClickedCommand}"

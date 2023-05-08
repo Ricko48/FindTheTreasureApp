@@ -24,8 +24,8 @@ namespace FindTheTreasureServer
             // Add games
             var games = new[]
             {
-                new Game {Name = "Game 1", Description = "Description for game 1", OwnerId = 1},
-                new Game {Name = "Game 2", Description = "Description for game 2", OwnerId = 2}
+                new Game {Name = "The golden treasure", Description = "Description for game 1", OwnerId = 1},
+                new Game {Name = "The king's property", Description = "Description for game 2", OwnerId = 2}
             };
             context.Games.AddRange(games);
 
@@ -44,7 +44,7 @@ namespace FindTheTreasureServer
                 new Beacon
                 {
                     Name = "Real beacon",
-                    PositionDescription = "Description for position 1",
+                    PositionDescription = "Next treasure is located in the park Lužánky next to the pub.",
                     PositionX = 1.0f,
                     PositionY = 2.0f,
                     MacAddress = "0C:F3:EE:B8:DD:0A"
@@ -52,7 +52,7 @@ namespace FindTheTreasureServer
                 new Beacon
                 {
                     Name = "Beacon 2",
-                    PositionDescription = "Description for position 2",
+                    PositionDescription = "Next treasure is located next to the red church under the brown wooden bench.",
                     PositionX = 2.0f,
                     PositionY = 3.0f,
                     MacAddress = "11:22:33:44:55:66",
@@ -62,7 +62,7 @@ namespace FindTheTreasureServer
                 new Beacon
                 {
                     Name = "Beacon 3",
-                    PositionDescription = "Description for position 3",
+                    PositionDescription = "Next treasure is located in the park Lužánky next to the pub.",
                     PositionX = 3.0f,
                     PositionY = 4.0f,
                     MacAddress = "22:33:44:55:66:77",

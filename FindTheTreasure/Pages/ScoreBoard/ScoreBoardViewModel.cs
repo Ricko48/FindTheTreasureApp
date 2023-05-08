@@ -19,8 +19,13 @@ namespace FindTheTreasure.Pages.ScoreBoard
             set
             {
                 _scoreBoards = value;
-                OnPropertyChanged();
+                OnPropertyChanged();;
             }
+        }
+
+        public void Refresh()
+        {
+            FillScoreBoards();
         }
 
         public ScoreBoardViewModel(GameService gameService)
@@ -35,8 +40,6 @@ namespace FindTheTreasure.Pages.ScoreBoard
             Scoreboards = await _gameService.GetScoreBoards();
         }
 
-
-        
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
