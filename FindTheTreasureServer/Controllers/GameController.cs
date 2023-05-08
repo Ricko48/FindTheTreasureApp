@@ -57,6 +57,7 @@ namespace FindTheTreasureServer.Controllers
             if (beacon == null || beacon.GameId != null)
                 return false;
             beacon.GameId = gameId;
+            beacon.Order = dbContext.Beacons.Count(b => b.GameId == gameId);
             var participantBeacons = dbContext
                 .GameParticipants
                 .Where(p => p.GameId == gameId)
@@ -78,6 +79,9 @@ namespace FindTheTreasureServer.Controllers
             var beacon = dbContext.Beacons.Find(beaconId);
             if (beacon.GameId != gameId)
                 return false;
+             dbContext.Beacons.Where(b => b.GameId == gameId && b.Order > beacon.Order)
+                .ForEachAsync(b => --b.Order)
+                .Wait();
             beacon.GameId = null;
             dbContext.SaveChanges();
             return true;
