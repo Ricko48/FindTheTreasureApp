@@ -71,6 +71,7 @@ namespace FindTheTreasure.Pages.Beacon
             if(location == null)
             {
                 await Shell.Current.DisplayAlert("Alert", "Cannot get your location", "Ok");
+                return; 
             }
 
             var beacon = new UpdateBeaconModel
@@ -83,11 +84,14 @@ namespace FindTheTreasure.Pages.Beacon
                 PositionX = (float)location.Latitude,
                 PositionY = (float)location.Longitude,
             };
-            await BeaconsService.UpdateBeacon(beacon);
-            bool su = await GameService.AddBeaconToGameAsync((int)Item.GameID, Item.Id); 
+            bool su = await GameService.AddBeaconToGameAsync((int)Item.GameID, Item.Id);
+            await BeaconsService.UpdateBeacon(beacon);            
             if (su)
             {
                 await Shell.Current.DisplayAlert("Alert", "Beacon added", "Ok");
+            } else
+            {
+                await Shell.Current.DisplayAlert("Alert", "Beacon is probably used in another game", "Ok");
             }
             await Shell.Current.GoToAsync("..");
         }

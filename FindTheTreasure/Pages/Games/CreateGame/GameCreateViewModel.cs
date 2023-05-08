@@ -1,6 +1,7 @@
 ﻿using FindTheTreasure.Models;
 using FindTheTreasure.Pages.Games.ScanBeacons;
 using FindTheTreasure.Services.Game;
+using FindTheTreasure.Services.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace FindTheTreasure.Pages.Games.CreateGame
         private GameModel gameModel;
 
         private GameService GameService;
+        private UserService UserService;
 
         public GameModel GameModel
         {
@@ -32,10 +34,11 @@ namespace FindTheTreasure.Pages.Games.CreateGame
 
         }
 
-        public GameCreateViewModel(GameService gameService)
+        public GameCreateViewModel(GameService gameService, UserService userService)
         {
             CreateGame = new AsyncRelayCommand(CreateGameAsync);
             GameService = gameService;
+            UserService = userService;
         }
 
         protected virtual void OnPropertyChanged_([CallerMemberName] string propertyName = null)
@@ -50,8 +53,8 @@ namespace FindTheTreasure.Pages.Games.CreateGame
 
         private async Task CreateGameAsync()
         {
-            //get real wonerID
-            gameModel.OwnerId = 1;
+            var user = UserService.GetUser();
+            gameModel.OwnerId = user.Id;
             var createGame = new CreateGameModel
             {
                 Name = gameModel.Name,

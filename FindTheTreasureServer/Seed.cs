@@ -58,7 +58,6 @@ namespace FindTheTreasureServer
                     MacAddress = "11:22:33:44:55:66",
                     GameId = 1,
                     Order = 0,
-
                 },
                 new Beacon
                 {
@@ -69,6 +68,7 @@ namespace FindTheTreasureServer
                     MacAddress = "22:33:44:55:66:77",
                     GameId = 2,
                     Order = 0,
+
                 }
             };
             context.Beacons.AddRange(beacons);
