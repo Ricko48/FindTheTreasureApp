@@ -9,18 +9,13 @@
              Title="Found beacons">
 
     <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="True" IsVisible="True"/>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
 
     <Grid>
         <maps:Map x:Name="Map" 
                   VerticalOptions="FillAndExpand"
                   HorizontalOptions="FillAndExpand"/>
-
-        <Button Text="Show map"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Command="{Binding GoBackButtonClickedCommand}"/>
 
     </Grid>
 </ContentPage>

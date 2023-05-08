@@ -5,7 +5,6 @@ global using System.Diagnostics;
 
 global using FindTheTreasure.ViewModels;
 global using FindTheTreasure.Pages;
-global using FindTheTreasure.Pages.Home;
 global using FindTheTreasure.Pages.Games.GamesOverview;
 global using FindTheTreasure.Pages.Games.CreateGame;
 global using FindTheTreasure.Pages.ScoreBoard;

@@ -1,8 +1,5 @@
 ﻿using Android.Content;
 using Android.Locations;
-using FindTheTreasure.Pages.Games.CreateGame;
-using FindTheTreasure.Pages.Games.GamesOverview;
-using FindTheTreasure.Pages.Games.ScanBeacons;
 using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Beacons.API;
 using FindTheTreasure.Services.Bluetooth;
@@ -54,9 +51,6 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<BeaconsService>();
         builder.Services.AddSingleton<BeaconBluetoothDeviceMergeService>();
-
-        builder.Services.AddSingleton<HomeView>();
-        builder.Services.AddSingleton<HomeViewModel>();
 
         builder.Services.AddSingleton<FoundBeaconsView>();
         builder.Services.AddSingleton<FoundBeaconsViewModel>();

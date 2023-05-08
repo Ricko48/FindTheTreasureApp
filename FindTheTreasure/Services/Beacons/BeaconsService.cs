@@ -32,7 +32,7 @@ namespace FindTheTreasure.Services.Beacons
             }
 
             var participantId = _userService.GetUser().ParticipantId;
-            return await _beaconsApiClient.GetFoundBeaconsForParticipant(participantId.Value);
+            return _beaconsApiClient.GetFoundBeaconsForParticipant(participantId.Value).Result;
         }
 
         public async Task<IEnumerable<BeaconModel>> GetAllAsync()
@@ -42,11 +42,10 @@ namespace FindTheTreasure.Services.Beacons
 
         public async Task<GameBeacon> GetNextBeaconInGame()
         {
-            var r = Preferences.Get("gameId", null);
-            var gameId = int.Parse(r);
+            var gameId = int.Parse(Preferences.Get("gameId", null));
             var beaconOrder = int.Parse(Preferences.Get("beaconOrder", null)) + 1;
             Preferences.Set("beaconOrder", beaconOrder.ToString());
-            return await _beaconsApiClient.GetBeaconWithOrder(gameId, beaconOrder);
+            return _beaconsApiClient.GetBeaconWithOrder(gameId, beaconOrder).Result;
         }
 
         public async Task SetBeaconToFoundAsync(int beaconId)

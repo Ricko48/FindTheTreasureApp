@@ -32,13 +32,6 @@
                       Route="HomeView" >
         </ShellContent>
     </FlyoutItem>
-    
-    <FlyoutItem Title="Game" 
-                FlyoutIcon="{StaticResource IconBluetoothLE}">
-        <ShellContent ContentTemplate="{DataTemplate homePage:HomeView}"
-                      Route="HomeView" >
-        </ShellContent>
-    </FlyoutItem>
 
     <FlyoutItem Title="Score board"
                 FlyoutIcon="{StaticResource IconInfo}">

@@ -21,7 +21,7 @@ public partial class FoundBeaconsView : ContentPage
 
     protected override bool OnBackButtonPressed()
     {
-        Shell.Current.GoToAsync(nameof(InGameVIew)).Wait();
+        Shell.Current.GoToAsync(nameof(InGameVIew));
         return true;
     }
 }

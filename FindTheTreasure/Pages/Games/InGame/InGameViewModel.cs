@@ -54,6 +54,16 @@ namespace FindTheTreasure.Pages.Games.InGame
         private async Task OnBeaconFoundAsync()
         {
             //await beaconService.SetBeaconToFoundAsync(beaconId);
+            await SetNextBeacon();
+        }
+
+        private void InitializeMacAddress()
+        {
+            SetNextBeacon().Wait();
+        }
+
+        private async Task SetNextBeacon()
+        {
             try
             {
                 var beacon = await beaconService.GetNextBeaconInGame();
@@ -69,11 +79,6 @@ namespace FindTheTreasure.Pages.Games.InGame
                 }
                 await Shell.Current.DisplayAlert("Error", "Something went wrong", "Ok");
             }
-        }
-
-        private void InitializeMacAddress()
-        {
-            OnBeaconFoundAsync().Wait();
         }
 
         private async Task CheckPermissionsAsync()

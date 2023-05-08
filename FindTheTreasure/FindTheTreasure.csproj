@@ -84,9 +84,6 @@
 	  <Compile Update="Pages\Beacon\AddBeaconToGamView.xaml.cs">
 	    <DependentUpon>AddBeaconToGamView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\Home\HomeView.xaml.cs">
-	    <DependentUpon>HomeView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Pages\Games\InGame\FoundBeacons\FoundBeaconsView.xaml.cs">
 	    <DependentUpon>FoundBeaconsView.xaml</DependentUpon>
 	  </Compile>

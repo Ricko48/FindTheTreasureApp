@@ -25,11 +25,7 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
 
-            //GameService.StartGameAsync(1).Wait(); // test
-            //Shell.Current.GoToAsync(nameof(InGameVIew), false).Wait(); // test
-
             //GetGames();
-
         }
 
         public async void GetGames()
@@ -42,10 +38,11 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
         private async Task GoToStartGamePageAsync(GameModel item)
         {
             //start a game
-            bool answer = await Shell.Current.DisplayAlert("Start a game?", "Would you like to start a game", "Yes", "No");
+            bool answer = await Shell.Current.DisplayAlert("Start a game?", "Would you like to start a game?", "Yes", "No");
             if (answer)
             {
-                //go to page
+                await GameService.StartGameAsync(item.Id);
+                await Shell.Current.GoToAsync(nameof(InGameVIew));
             }
         }
 

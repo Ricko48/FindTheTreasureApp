@@ -1,5 +1,5 @@
 using FindTheTreasure.Services.Beacons.API;
-﻿using Android.App;
+using Android.App;
 using FindTheTreasure.Models;
 using FindTheTreasure.Pages.ScoreBoard.Models;
 
@@ -31,14 +31,7 @@ namespace FindTheTreasure.Services.Game
 
         public async Task<int> CreateGameAsync(CreateGameModel gameModel)
         {
-            try
-            {
-                return await _gameApiClient.CreateGameAsync(gameModel);
-            } catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            return 0;
+            return await _gameApiClient.CreateGameAsync(gameModel);
         }
 
         public async Task StartGameAsync(int gameId)
@@ -47,8 +40,8 @@ namespace FindTheTreasure.Services.Game
             var participantId = await _gameApiClient.StartGame(gameId, userId);
 
             Preferences.Set("isInGame", "true");
-            Preferences.Set("gameId", gameId);
-            Preferences.Set("beaconOder", (-1).ToString());
+            Preferences.Set("gameId", gameId.ToString());
+            Preferences.Set("beaconOrder", (-1).ToString());
             Preferences.Set("participantId", participantId.ToString());
         }
 
