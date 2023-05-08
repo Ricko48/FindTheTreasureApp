@@ -10,10 +10,10 @@ namespace FindTheTreasureServer.Controllers
     public class GameController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Game> GetGames()
+        public async Task<List<Game>> GetGames()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Games.ToList();
+            return await dbContext.Games.ToListAsync();
         }
 
         [HttpPut]
@@ -26,11 +26,11 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpPost]
-        public int CreateGame(Game game)
+        public async Task<int> CreateGame(Game game)
         {
             using var dbContext = new TreasureDbContext();
             dbContext.Games.Add(game);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return game.Id ?? 0;
         }
 

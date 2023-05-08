@@ -31,11 +31,9 @@ namespace FindTheTreasure.Services.Game
                 return await _gameApiClient.CreateGameAsync(gameModel);
             } catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 Debug.WriteLine(ex.Source);
-                Debug.WriteLine(ex.ToString());
             }
-            return await _gameApiClient.CreateGameAsync(gameModel);
+            return 0;
         }
 
         public async Task<bool> StartGameAsync(string gameId)

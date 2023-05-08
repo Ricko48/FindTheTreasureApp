@@ -68,7 +68,7 @@ namespace FindTheTreasure.Pages.Home
 
                 var knownBeacons = await beaconService.GetAllAsync();
                 //used to filter bluetooth devices when scanning
-                var macAddresses = knownBeacons.Select(b => b.MAC).ToArray();
+                var macAddresses = knownBeacons.Select(b => b.MacAddress).ToArray();
 
                 await beaconDiscoveryService.StartScanning(macAddresses: macAddresses, maxItems: null);
                 Debug.WriteLine("Finished scanning");

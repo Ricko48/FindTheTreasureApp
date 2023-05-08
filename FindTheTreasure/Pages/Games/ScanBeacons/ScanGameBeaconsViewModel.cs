@@ -3,14 +3,13 @@ using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Bluetooth;
 using Plugin.BLE.Abstractions.Contracts;
 using System.Collections.ObjectModel;
-using static Android.Content.ClipData;
 
 namespace FindTheTreasure.Pages.Games.ScanBeacons
 {
     [QueryProperty(nameof(Item), nameof(Item))]
-    public class ScanGameBeaconsViewModel : BaseViewModel
+    public partial class ScanGameBeaconsViewModel : BaseViewModel
     {
-        public GameModel GameModel { get; set; }
+        public GameModel Item { get; set; }
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
         public IAsyncRelayCommand CheckPermissionsAsyncCommand { get; }
         public IAsyncRelayCommand GoToBeaconDetailPageAsyncCommand { get; }
@@ -37,12 +36,13 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
             GoToBeaconDetailPageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToBeaconDetailPageAsync);
         }
 
-        private async Task GoToBeaconDetailPageAsync(BeaconModel item)
+        private async Task GoToBeaconDetailPageAsync(BeaconModel model)
         {
-            item.GameID = GameModel.Id;
+            model.GameID = Item.Id;
             //get real id
-            item.Id = 1;
-            Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), item } };
+            var y = model.Id;
+            model.Id = 1;
+            Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), model } };
             await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
         }
 
@@ -59,7 +59,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
                 DiscoveredDevices.Clear();
 
                 var knownBeacons = await beaconService.GetAllAsync();
-                var macAddresses = knownBeacons.Select(b => b.MAC).ToArray();
+                var macAddresses = knownBeacons.Select(b => b.MacAddress).ToArray();
 
                 await beaconDiscoveryService.StartScanning(macAddresses: macAddresses, maxItems: null);
                 Debug.WriteLine("Finished scanning");

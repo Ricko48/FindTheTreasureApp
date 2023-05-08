@@ -5,8 +5,9 @@ using Plugin.BLE.Abstractions.Contracts;
 using FindTheTreasure.Services.Bluetooth;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using static Android.Content.ClipData;
 using FindTheTreasure.Services.Game;
+using FindTheTreasure.Services.Beacons;
+using FindTheTreasure.Services.GPS;
 
 namespace FindTheTreasure.Pages.Beacon
 {
@@ -15,11 +16,11 @@ namespace FindTheTreasure.Pages.Beacon
     {
         public IAsyncRelayCommand AddDeviceToGameAsyncCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;    
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        
         public BeaconModel Item { get; set; }
 
+        private AndroidGPSFeatureService AndroidGPSService;
 
         private GameBeacon gameBeacon;
 
@@ -35,11 +36,14 @@ namespace FindTheTreasure.Pages.Beacon
         }
 
         private GameService GameService;
+        private BeaconsService BeaconsService;
 
-        public AddBeaconToGameViewModel( GameService gameService)
+        public AddBeaconToGameViewModel(GameService gameService, BeaconsService beaconsService, AndroidGPSFeatureService androidGPSService)
         {
             AddDeviceToGameAsyncCommand = new AsyncRelayCommand(AddDeviceToGameAsync);
             GameService = gameService;
+            BeaconsService = beaconsService;
+            AndroidGPSService = androidGPSService;
         }
 
         protected virtual void OnPropertyChanged_([CallerMemberName] string propertyName = null)
@@ -54,6 +58,19 @@ namespace FindTheTreasure.Pages.Beacon
 
         private async Task AddDeviceToGameAsync()
         {
+            var location = await AndroidGPSService.GetCurrentLocation();
+            var loc = await AndroidGPSService.GetCachedLocation();
+            var beacon = new UpdateBeaconModel
+            {
+                GameId = Item.GameID,
+                Id = Item.Id,
+                MacAddress = Item.MacAddress,
+                PositionDescription = "",
+                Name = Item.Name,
+                Puzzle = Item.Puzzle,
+
+            };
+            await BeaconsService.UpdateBeacon(beacon);
             bool su = await GameService.AddBeaconToGameAsync(Item.GameID, Item.Id); 
             if (su)
             {

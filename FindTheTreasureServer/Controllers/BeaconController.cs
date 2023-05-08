@@ -1,6 +1,7 @@
 ﻿using FindTheTreasureServer.Database;
 using FindTheTreasureServer.Database.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {
@@ -79,10 +80,10 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpGet("all")]
-        public IEnumerable<Beacon> GetAllBeacons()
+        public async Task<IEnumerable<Beacon>> GetAllBeacons()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Beacons.ToList();
+            return await dbContext.Beacons.ToListAsync();
         }
     }
 }
