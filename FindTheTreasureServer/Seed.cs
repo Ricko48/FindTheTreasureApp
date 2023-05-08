@@ -43,12 +43,11 @@ namespace FindTheTreasureServer
             {
                 new Beacon
                 {
-                    Name = "Beacon 1",
+                    Name = "Real beacon",
                     PositionDescription = "Description for position 1",
                     PositionX = 1.0f,
                     PositionY = 2.0f,
-                    MacAddress = "00:11:22:33:44:55",
-                    GameId = 1
+                    MacAddress = "0C:F3:EE:B8:DD:0A",
                 },
                 new Beacon
                 {

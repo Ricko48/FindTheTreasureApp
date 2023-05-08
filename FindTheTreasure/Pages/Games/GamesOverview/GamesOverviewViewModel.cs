@@ -30,8 +30,6 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
             {
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
-
-            GetGames();
             
         }
 

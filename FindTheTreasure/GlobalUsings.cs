@@ -16,6 +16,7 @@ global using FindTheTreasure.Pages.User.SignUp;
 global using FindTheTreasure.Pages.User.Models;
 global using FindTheTreasure.Pages.Games.InGame;
 global using FindTheTreasure.Pages.Games.InGame.FoundBeacons;
+global using FindTheTreasure.Pages.Games.ScanBeacons;
 
 namespace FindTheTreasure
 {

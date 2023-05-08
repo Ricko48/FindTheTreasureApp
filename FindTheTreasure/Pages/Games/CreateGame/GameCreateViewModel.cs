@@ -50,6 +50,7 @@ namespace FindTheTreasure.Pages.Games.CreateGame
 
         private async Task CreateGameAsync()
         {
+            //get real wonerID
             gameModel.OwnerId = 1;
             var createGame = new CreateGameModel
             {

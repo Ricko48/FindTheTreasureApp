@@ -58,24 +58,38 @@ namespace FindTheTreasure.Pages.Beacon
 
         private async Task AddDeviceToGameAsync()
         {
+            
+            
+            //more accurate          
             var location = await AndroidGPSService.GetCurrentLocation();
-            var loc = await AndroidGPSService.GetCachedLocation();
+
+            if(location == null)
+            {
+                location = await AndroidGPSService.GetCachedLocation();
+            }
+
+            if(location == null)
+            {
+                await Shell.Current.DisplayAlert("Alert", "Cannot get your location", "Ok");
+            }
+
             var beacon = new UpdateBeaconModel
             {
-                GameId = Item.GameID,
                 Id = Item.Id,
                 MacAddress = Item.MacAddress,
-                PositionDescription = "",
+                PositionDescription = gameBeacon.LocationDescription,
                 Name = Item.Name,
-                Puzzle = Item.Puzzle,
-
+                Puzzle = gameBeacon.Puzzle,
+                PositionX = (float)location.Latitude,
+                PositionY = (float)location.Longitude,
             };
             await BeaconsService.UpdateBeacon(beacon);
-            bool su = await GameService.AddBeaconToGameAsync(Item.GameID, Item.Id); 
+            bool su = await GameService.AddBeaconToGameAsync((int)Item.GameID, Item.Id); 
             if (su)
             {
                 await Shell.Current.DisplayAlert("Alert", "Beacon added", "Ok");
             }
+            await Shell.Current.GoToAsync("..");
         }
 
     }
