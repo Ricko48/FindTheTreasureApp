@@ -3,10 +3,10 @@
     x:Class="FindTheTreasure.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:gamesPage="clr-namespace:FindTheTreasure.Pages.Games.GamesOverview"
     xmlns:homePage="clr-namespace:FindTheTreasure.Pages.Home"
-    xmlns:mapPage="clr-namespace:FindTheTreasure.Pages.Map"
     xmlns:scoreBoardPage="clr-namespace:FindTheTreasure.Pages.ScoreBoard"
-    xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.Account"
+    xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.User"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.Resources>
@@ -26,31 +26,24 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <FlyoutItem Title="Game" 
+    <FlyoutItem Title="Games" 
                 FlyoutIcon="{StaticResource IconBluetoothLE}">
-        <ShellContent ContentTemplate="{DataTemplate homePage:HomePage}"
-                      Route="HomePage" >
-        </ShellContent>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Found treasures map" 
-                FlyoutIcon="{StaticResource IconMap}">
-        <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsPage}"
-                      Route="FoundBeaconsPage" >
+        <ShellContent ContentTemplate="{DataTemplate gamesPage:GamesOverviewView}"
+                      Route="HomeView" >
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="Score board"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardPage}"
-                      Route="ScoreBoardPage">
+        <ShellContent ContentTemplate="{DataTemplate scoreBoardPage:ScoreBoardView}"
+                      Route="ScoreBoardView">
         </ShellContent>
     </FlyoutItem>
 
     <FlyoutItem Title="My account"
                 FlyoutIcon="{StaticResource IconInfo}">
-        <ShellContent ContentTemplate="{DataTemplate accountPage:AccountDetailPage}"
-                      Route="AccountDetailPage">
+        <ShellContent ContentTemplate="{DataTemplate accountPage:UserDetailView}"
+                      Route="UserDetailView">
         </ShellContent>
     </FlyoutItem>
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindTheTreasure.Pages.Games.InGame.InGameVIew"
+             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Games.InGame"
+             x:DataType="viewmodel:InGameViewModel"
+             xmlns:model="clr-namespace:FindTheTreasure.Models"
+             Title="Game">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid x:Name="HomePageGrid"
+          RowDefinitions="*, Auto, Auto, Auto, Auto"
+          RowSpacing="0"
+          BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+
+        <Label x:Name="Puzzle"
+               Text="{Binding Puzzle}"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Row="0"
+               FontSize="20"/>
+
+        <Button x:Name="ScanDevicesButton"
+                Grid.Row="1"
+                Margin="8"
+                Command="{Binding ScanNearbyDevicesAsyncCommand}"
+                IsEnabled="{Binding IsNotScanning}"
+                IsVisible="{Binding IsNotScanning}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Scan nearby devices" />
+
+        <Button x:Name="CheckPermissionsButton"
+                Grid.Row="2"
+                Margin="8"
+                Command="{Binding CheckPermissionsAsyncCommand}"
+                IsEnabled="{Binding IsNotScanning}"
+                IsVisible="{Binding IsNotScanning}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Check Permissions" />
+
+        <Button x:Name="ShowMap"
+                Grid.Row="3"
+                Margin="8"
+                Command="{Binding ShowMapButtonClickedCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Show map" />
+
+        <Button x:Name="StopGame"
+                Grid.Row="4"
+                Grid.Column="0"
+                Margin="8"
+                Command="{Binding StopGameButtonClickedCommand}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Stop game" />
+
+        <ActivityIndicator x:Name="HomePageActivityIndicator"
+                           Grid.ColumnSpan="2"
+                           IsRunning="{Binding IsScanning}"
+                           IsVisible="{Binding IsScanning}"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="StartAndExpand" />
+    </Grid>
+</ContentPage>

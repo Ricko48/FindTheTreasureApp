@@ -10,13 +10,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-using (TreasureDbContext dbContext = new TreasureDbContext())
-{
-    if (dbContext.Database.EnsureCreated())
-        Seed.SeedData(dbContext);
-}
-
 var app = builder.Build();
+
+using (var context = new TreasureDbContext())
+{
+    if (context.Database.EnsureCreated())
+    {
+        Seed.SeedData(context);
+    }
+
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

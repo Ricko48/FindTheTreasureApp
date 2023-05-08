@@ -9,35 +9,57 @@ namespace FindTheTreasureServer.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        public int CreateUser(User user)
+        public IActionResult CreateUser(User user)
         {
             using var dbContext = new TreasureDbContext();
+            user.Id = user.Id == null || user.Id == 0 ? null : user.Id;
+            if (dbContext.Users.Any(u => u.UserName == user.UserName))
+            {
+                return Conflict();
+            }
+
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
-            return user.Id ?? 0;
+
+            return Ok(user.Id);
         }
 
-        [HttpPut]
-        public int UpdateUser(User user)
+        [HttpGet("{username}")]
+        public IActionResult GetUser(string username)
         {
             using var dbContext = new TreasureDbContext();
-            dbContext.Users.Update(user);
+            var users = dbContext.Users.Where(x => x.UserName == username);
+
+            if (!users.Any())
+            {
+                return NotFound();
+            }
+            
+            return Ok(users.First());
+        }
+
+        [HttpDelete("delete/{username}")]
+        public IActionResult DeleteUser(string username)
+        {
+            using var dbContext = new TreasureDbContext();
+            var users = dbContext.Users.Where(x => x.UserName == username);
+
+            if (!users.Any())
+            {
+                return NotFound();
+            }
+
+            dbContext.Users.Remove(users.First());
             dbContext.SaveChanges();
-            return user.Id ?? 0;
+
+            return Ok();
         }
 
-        [HttpGet("{id}")]
-        public User? GetUser(int id)
+        [HttpGet("all")]
+        public IEnumerable<User> GetAll()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Users.Find(id);
-        }
-
-        [HttpGet("exists/{id}")]
-        public bool UserExists(int id)
-        {
-            using var dbContext = new TreasureDbContext();
-            return dbContext.Users.Find(id) == null;
+            return dbContext.Users.ToList();
         }
     }
 }

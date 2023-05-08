@@ -1,11 +1,16 @@
 ﻿using Android.Content;
 using Android.Locations;
-using FindTheTreasure.Pages.ScoreBoard;
+using FindTheTreasure.Services.Beacons;
+using FindTheTreasure.Services.Beacons.API;
 using FindTheTreasure.Services.Bluetooth;
-using FindTheTreasure.Services.Data;
+using FindTheTreasure.Services.Game;
+using FindTheTreasure.Services.Game.API;
 using FindTheTreasure.Services.GPS;
+using FindTheTreasure.Services.User;
+using FindTheTreasure.Services.User.API;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
+using Refit;
 
 namespace FindTheTreasure;
 
@@ -26,19 +31,17 @@ public static class MauiProgram
                 fonts.AddFont("fa-brands-400.ttf", "FontAwesomeBrands");
             });
 
+
         builder.UseMauiMaps();
 
         builder.Services.AddSingleton<BluetoothPermissionsService>();
 
         builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
         builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
-        //builder.Services.AddSingleton<IMap>(Map.Default);
 
-        //register Bluetooth Low-Energy library (Plugin.BLE)
         builder.Services.AddSingleton<IBluetoothLE>(CrossBluetoothLE.Current);
         builder.Services.AddSingleton<IAdapter>(CrossBluetoothLE.Current.Adapter);
 
-        //custom Bluetooth services (using Plugin.BLE)
         builder.Services.AddSingleton<BluetoothPermissionsService>();
         builder.Services.AddSingleton<BeaconDiscoveryService>();
         builder.Services.AddSingleton<BluetoothDeviceMacAddressService>();
@@ -47,23 +50,48 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<AndroidGPSFeatureService>();
 
-        builder.Services.AddSingleton<BeaconService>();
+        builder.Services.AddSingleton<BeaconsService>();
         builder.Services.AddSingleton<BeaconBluetoothDeviceMergeService>();
 
-        builder.Services.AddSingleton<HomePage>();
-        builder.Services.AddSingleton<HomePageViewModel>();
+        builder.Services.AddSingleton<FoundBeaconsView>();
+        builder.Services.AddSingleton<FoundBeaconsViewModel>();
 
-        builder.Services.AddSingleton<FoundBeaconsPage>();
-        builder.Services.AddSingleton<FoundBeaconsPageModel>();
+        builder.Services.AddSingleton<BeaconDetailView>();
+        builder.Services.AddSingleton<AddBeaconToGameViewModel>();
 
-        builder.Services.AddSingleton<BeaconDetailPage>();
-        builder.Services.AddSingleton<BeaconDetailPageViewModel>();
+        builder.Services.AddSingleton<UserDetailView>();
+        builder.Services.AddSingleton<UserDetailViewModel>();
 
-        builder.Services.AddSingleton<AccountDetailPage>();
-        builder.Services.AddSingleton<AccountDetailPageModel>();
+        builder.Services.AddSingleton<SignInView>();
+        builder.Services.AddSingleton<SignInViewModel>();
 
-        builder.Services.AddSingleton<ScoreBoardPage>();
-        builder.Services.AddSingleton<ScoreBoardPageModel>();
+        builder.Services.AddSingleton<SignUpView>();
+        builder.Services.AddSingleton<SignUpViewModel>();
+
+        builder.Services.AddSingleton<ScoreBoardView>();
+        builder.Services.AddSingleton<ScoreBoardViewModel>();
+
+        builder.Services.AddSingleton<UserService>();
+        builder.Services.AddSingleton<GameService>();
+
+        builder.Services.AddSingleton<GamesOverviewViewModel>();
+        builder.Services.AddSingleton<GamesOverviewView>();
+
+        builder.Services.AddSingleton<GameCreateView>();
+        builder.Services.AddSingleton<GameCreateViewModel>();
+
+        builder.Services.AddSingleton<ScanGameBeaconsView>();
+        builder.Services.AddSingleton<ScanGameBeaconsViewModel>();
+
+        builder.Services.AddSingleton<InGameVIew>();
+        builder.Services.AddSingleton<InGameViewModel>();
+
+        // register api clients
+        const string apiUrl = "http://147.251.69.19:80";
+        
+        builder.Services.AddSingleton(RestService.For<IUserApiClient>(apiUrl));
+        builder.Services.AddSingleton(RestService.For<IBeaconsApiClient>(apiUrl));
+        builder.Services.AddSingleton(RestService.For<IGameApiClient>(apiUrl));
 
         return builder.Build();
     }

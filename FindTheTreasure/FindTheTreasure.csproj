@@ -12,7 +12,7 @@
 		<ApplicationTitle>FindTheTreasure</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.findthetreasure</ApplicationId>
+		<ApplicationId>com.muni.findthetreasure</ApplicationId>
 		<ApplicationIdGuid>a15b2046-b91b-4d59-a0d8-97a89f384494</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -51,6 +51,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <Compile Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <EmbeddedResource Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <MauiCss Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <MauiXaml Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <None Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Resources\AppIcon\appiconfg.svg" />
 		<None Remove="Resources\Fonts\fa-brands-400.ttf" />
 		<None Remove="Resources\Fonts\fa_solid.ttf" />
@@ -62,31 +71,56 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.59" />
 		<PackageReference Include="Plugin.BLE" Version="3.0.0-beta.2" />
+		<PackageReference Include="Refit" Version="6.3.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\Account\AccountDetailPage.xaml.cs">
-	    <DependentUpon>AccountDetailPage.xaml</DependentUpon>
+	  <Compile Update="Pages\User\UserDetailView.xaml.cs">
+	    <DependentUpon>UserDetailView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\Map\FoundBeaconsPage.xaml.cs">
-	    <DependentUpon>FoundBeaconsPage.xaml</DependentUpon>
+	  <Compile Update="Pages\User\SignUp\SignUpView.xaml.cs">
+	    <DependentUpon>SignUpView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\ScoreBoard\ScoreBoardPage.xaml.cs">
-	    <DependentUpon>ScoreBoardPage.xaml</DependentUpon>
+	  <Compile Update="Pages\Beacon\AddBeaconToGamView.xaml.cs">
+	    <DependentUpon>AddBeaconToGamView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Games\InGame\FoundBeacons\FoundBeaconsView.xaml.cs">
+	    <DependentUpon>FoundBeaconsView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ScoreBoard\ScoreBoardView.xaml.cs">
+	    <DependentUpon>ScoreBoardView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Account\AccountDetailPage.xaml">
+	  <MauiXaml Update="Pages\Games\CreateGame\GameCreateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Beacon\BeaconDetailPage.xaml">
+	  <MauiXaml Update="Pages\Games\GamesOverview\GamesOverviewView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Map\FoundBeaconsPage.xaml">
+	  <MauiXaml Update="Pages\Games\InGame\InGameVIew.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardPage.xaml">
+	  <MauiXaml Update="Pages\Games\ScanBeacons\ScanGameBeaconsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\User\UserDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\User\SignIn\SignInView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\User\SignUp\SignUpView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Beacon\AddBeaconToGamView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Games\InGame\FoundBeacons\FoundBeaconsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

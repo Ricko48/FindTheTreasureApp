@@ -2,7 +2,6 @@
 
 public class BluetoothPermissionsService
 {
-#if ANDROID
     public async Task<PermissionStatus> CheckBluetoothPermissions()
     {
         PermissionStatus status = PermissionStatus.Unknown;
@@ -31,8 +30,5 @@ public class BluetoothPermissionsService
         }
         return status;
     }
-#elif IOS
-#elif WINDOWS
-#endif
 }
 

@@ -9,12 +9,12 @@ namespace FindTheTreasure.Services.Bluetooth
         /// </summary>
         public string GetMacAddress(IDevice bluetoothDevice)
         {
-#if ANDROID
+
             if (bluetoothDevice.NativeDevice is Android.Bluetooth.BluetoothDevice device)
             {
                 return device.Address;
             }
-#endif
+
             return null;
         }
     }

@@ -1,62 +1,90 @@
-﻿using FindTheTreasureServer.Database;
-using FindTheTreasureServer.Database.Entity;
-using System.Collections.Generic;
+﻿using FindTheTreasureServer.Database.Entity;
+using FindTheTreasureServer.Database;
 
 namespace FindTheTreasureServer
 {
-    public class Seed
+    public static class Seed
     {
         public static void SeedData(TreasureDbContext context)
         {
-            var beacons = new List<Beacon>
+            if (context.Users.Any())
             {
-                new Beacon { Name = "Beacon 1", PositionX = 1.0f, PositionY = 2.0f },
-                new Beacon { Name = "Beacon 2", PositionX = 3.0f, PositionY = 4.0f },
-                new Beacon { Name = "Beacon 3", PositionX = 5.0f, PositionY = 6.0f }
-            };
+                // Database has already been seeded
+                return;
+            }
 
-            var users = new List<User>
+            // Add users
+            var users = new[]
             {
-                new User { Name = "John", Surname = "Doe", Participants = new List<GameParticipant>() },
-                new User { Name = "Jane", Surname = "Doe", Participants = new List<GameParticipant>() },
-                new User { Name = "Bob", Surname = "Smith", Participants = new List<GameParticipant>() }
+                new User {UserName = "user1", FirstName = "John", LastName = "Doe"},
+                new User {UserName = "user2", FirstName = "Jane", LastName = "Doe"}
             };
-
-            var games = new List<Game>
-            {
-                new Game { Name = "Game 1", Description = "Description 1", GameParticipants = new List<GameParticipant>() },
-                new Game { Name = "Game 2", Description = "Description 2", GameParticipants = new List<GameParticipant>() }
-            };
-
-            var gameParticipants = new List<GameParticipant>
-            {
-                new GameParticipant { Game = games[0], User = users[0] },
-                new GameParticipant { Game = games[0], User = users[1] },
-                new GameParticipant { Game = games[1], User = users[2] }
-            };
-
-            var gameBeacons = new List<GameBeacon>
-            {
-                new GameBeacon { Game = games[0], Beacon = beacons[0] },
-                new GameBeacon { Game = games[0], Beacon = beacons[1] },
-                new GameBeacon { Game = games[1], Beacon = beacons[2] }
-            };
-
-            var participantBeacons = new List<ParticipantBeacon>
-            {
-                new ParticipantBeacon { GameParticipant = gameParticipants[0], GameBeacon = gameBeacons[0], Found = false },
-                new ParticipantBeacon { GameParticipant = gameParticipants[0], GameBeacon = gameBeacons[1], Found = true },
-                new ParticipantBeacon { GameParticipant = gameParticipants[1], GameBeacon = gameBeacons[0], Found = false },
-                new ParticipantBeacon { GameParticipant = gameParticipants[1], GameBeacon = gameBeacons[1], Found = true },
-                new ParticipantBeacon { GameParticipant = gameParticipants[2], GameBeacon = gameBeacons[2], Found = false }
-            };
-
             context.Users.AddRange(users);
-            context.Beacons.AddRange(beacons);
+
+            // Add games
+            var games = new[]
+            {
+                new Game {Name = "The golden treasure", Description = "Description for game 1", OwnerId = 1},
+                new Game {Name = "The king's property", Description = "Description for game 2", OwnerId = 2}
+            };
             context.Games.AddRange(games);
-            context.GameBeacons.AddRange(gameBeacons);
+
+            // Add game participants
+            var gameParticipants = new[]
+            {
+                new GameParticipant {GameId = 1, UserId = 1, Start = DateTime.UtcNow},
+                new GameParticipant {GameId = 1, UserId = 2, Start = DateTime.UtcNow},
+                new GameParticipant {GameId = 2, UserId = 1, Start = DateTime.UtcNow}
+            };
             context.GameParticipants.AddRange(gameParticipants);
+
+            // Add beacons
+            var beacons = new[]
+            {
+                new Beacon
+                {
+                    Name = "Real beacon",
+                    PositionDescription = "Next treasure is located in the park Lužánky next to the pub.",
+                    PositionX = 1.0f,
+                    PositionY = 2.0f,
+                    MacAddress = "0C:F3:EE:B8:DD:0A"
+                },
+                new Beacon
+                {
+                    Name = "Beacon 2",
+                    PositionDescription = "Next treasure is located next to the red church under the brown wooden bench.",
+                    PositionX = 2.0f,
+                    PositionY = 3.0f,
+                    MacAddress = "11:22:33:44:55:66",
+                    GameId = 1,
+                    Order = 0,
+                },
+                new Beacon
+                {
+                    Name = "Beacon 3",
+                    PositionDescription = "Next treasure is located in the park Lužánky next to the pub.",
+                    PositionX = 3.0f,
+                    PositionY = 4.0f,
+                    MacAddress = "22:33:44:55:66:77",
+                    GameId = 2,
+                    Order = 0,
+
+                }
+            };
+            context.Beacons.AddRange(beacons);
+
+            // Add participant beacons
+            var participantBeacons = new[]
+            {
+                new ParticipantBeacon {GameParticipantId = 1, BeaconId = 1, Found = true},
+                new ParticipantBeacon {GameParticipantId = 1, BeaconId = 2, Found = true},
+                new ParticipantBeacon {GameParticipantId = 2, BeaconId = 1, Found = true},
+                new ParticipantBeacon {GameParticipantId = 2, BeaconId = 2, Found = false},
+                new ParticipantBeacon {GameParticipantId = 3, BeaconId = 3, Found = false}
+            };
             context.ParticipantBeacons.AddRange(participantBeacons);
+
+            // Save changes to the database
             context.SaveChanges();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using FindTheTreasureServer.Database;
 using FindTheTreasureServer.Database.Entity;
-using Microsoft.AspNetCore.Http;
+using FindTheTreasureServer.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +11,10 @@ namespace FindTheTreasureServer.Controllers
     public class GameController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Game> GetGames()
+        public async Task<List<Game>> GetGames()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Games;
+            return await dbContext.Games.ToListAsync();
         }
 
         [HttpPut]
@@ -27,11 +27,11 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpPost]
-        public int CreateGame(Game game)
+        public async Task<int> CreateGame(Game game)
         {
             using var dbContext = new TreasureDbContext();
             dbContext.Games.Add(game);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return game.Id ?? 0;
         }
 
@@ -42,22 +42,32 @@ namespace FindTheTreasureServer.Controllers
             return dbContext.Games.Find(id);
         }
 
+        /// <summary>
+        /// Adds beacon to game
+        /// </summary>
+        /// <param name="gameId">Game Id</param>
+        /// <param name="beaconId">Beacon Id</param>
+        /// <returns>Returns true, if beacon added to game or false if beacon does not exist or it is already 
+        /// assigned to game</returns>
         [HttpPost("{gameId}/beacon/{beaconId}")]
         public bool AddBeaconToGame(int gameId, int beaconId)
         {
             using var dbContext = new TreasureDbContext();
-            var newBeacon = new GameBeacon { BeaconId = beaconId, GameId = gameId };
-            dbContext.GameBeacons.Add(newBeacon);
-            dbContext.GameParticipants
+            var beacon = dbContext.Beacons.Find(beaconId);
+            if (beacon == null || beacon.GameId != null)
+                return false;
+            beacon.GameId = gameId;
+            beacon.Order = dbContext.Beacons.Count(b => b.GameId == gameId);
+            var participantBeacons = dbContext
+                .GameParticipants
                 .Where(p => p.GameId == gameId)
-                .ForEachAsync(p => dbContext.ParticipantBeacons
-                    .Add(new ParticipantBeacon
-                    {
-                        GameBeaconId = newBeacon.Id ?? 0,
-                        GameParticipantId = p.Id ?? 0,
-                        Found = false
-                    }))
-                .Wait();
+                .Select(p => new ParticipantBeacon
+                {
+                    BeaconId = beaconId,
+                    Found = false,
+                    GameParticipantId = p.Id.Value,
+                });
+            dbContext.ParticipantBeacons.AddRange(participantBeacons);
             dbContext.SaveChanges();
             return true;
         }
@@ -66,32 +76,35 @@ namespace FindTheTreasureServer.Controllers
         public bool DeleteBeaconFromGame(int gameId, int beaconId)
         {
             using var dbContext = new TreasureDbContext();
-            var beacon = dbContext.GameBeacons.First(b => b.BeaconId == beaconId && b.GameId == gameId);
-            if (beacon == null)
+            var beacon = dbContext.Beacons.Find(beaconId);
+            if (beacon.GameId != gameId)
                 return false;
-            dbContext.GameBeacons.Remove(beacon);
+             dbContext.Beacons.Where(b => b.GameId == gameId && b.Order > beacon.Order)
+                .ForEachAsync(b => --b.Order)
+                .Wait();
+            beacon.GameId = null;
             dbContext.SaveChanges();
             return true;
         }
 
-        [HttpPost("{gameId}/user{userId}")]
-        public bool AddUserToGame(int gameId, int userId)
+        [HttpPost("{gameId}/user/{userId}")]
+        public int AddUserToGame(int gameId, int userId)
         {
             using var dbContext = new TreasureDbContext();
-            var newParticipant= new GameParticipant { UserId = userId, GameId = gameId };
-            dbContext.GameParticipants.Add(newParticipant);
-            dbContext.GameBeacons
+            var participant = new GameParticipant { GameId = gameId, UserId = userId, Start = DateTime.Now };
+            dbContext.GameParticipants.Add(participant);
+            var beacons = dbContext
+                .Beacons
                 .Where(b => b.GameId == gameId)
-                .ForEachAsync(b => dbContext.ParticipantBeacons
-                    .Add(new ParticipantBeacon
-                    {
-                        GameBeaconId = b.Id ?? 0,
-                        GameParticipantId = newParticipant.Id ?? 0,
-                        Found = false
-                    }))
-                .Wait();
+                .Select(b => new ParticipantBeacon
+                {
+                    BeaconId = b.Id.Value,
+                    GameParticipantId = participant.Id.Value,
+                    Found = false
+                });
+            dbContext.ParticipantBeacons.AddRange(beacons);
             dbContext.SaveChanges();
-            return true;
+            return participant.Id.Value;
         }
 
         [HttpDelete("{gameId}/user/{userId}")]
@@ -104,6 +117,36 @@ namespace FindTheTreasureServer.Controllers
             dbContext.GameParticipants.Remove(participant);
             dbContext.SaveChanges();
             return true;
+        }
+
+        [HttpGet("ScoreBoards")]
+        public IEnumerable<ScoreboardDTO> GetScoreBoardForGame()
+        {
+            using var dbContext = new TreasureDbContext();
+            var games = dbContext.Games.ToList();
+            var result = new List<ScoreboardDTO>();
+            foreach (var game in games)
+            {
+                var scoreboard = new List<ScoreDTO>();
+                var participants = dbContext.GameParticipants
+                    .Where(p => p.GameId == game.Id)
+                    .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
+                var position = 1;
+                var tmpScoreboard = new List<ScoreDTO>();
+                foreach (var p in participants)
+                {
+                    var user = dbContext.Users.Find(p.UserId);
+                    tmpScoreboard.Add(new ScoreDTO
+                    {
+                        Position = position,
+                        Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
+                        Username = user.UserName,
+                    });
+                    position++;
+                }
+                result.Add(new ScoreboardDTO { Scores = tmpScoreboard, GameName = game.Name });
+            }
+            return result;
         }
     }
 }
