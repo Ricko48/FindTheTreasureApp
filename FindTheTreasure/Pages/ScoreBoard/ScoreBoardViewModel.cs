@@ -16,8 +16,15 @@ namespace FindTheTreasure.Pages.ScoreBoard
         public ScoreBoardViewModel(GameService gameService)
         {
             _gameService = gameService;
-            Scoreboard = _gameService.GetScoreBoard(1).Result;
+            Scoreboard = new List<Score>();
+            FillScoreBoard();
         }
+
+        private async void FillScoreBoard()
+        {
+            Scoreboard = await _gameService.GetScoreBoard(1);
+        }
+
 
         public ICollection<Score> Scoreboard
         {
