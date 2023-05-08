@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:gamesPage="clr-namespace:FindTheTreasure.Pages.Games.GamesOverview"
     xmlns:homePage="clr-namespace:FindTheTreasure.Pages.Home"
-    xmlns:mapPage="clr-namespace:FindTheTreasure.Pages.FoundBeacons"
     xmlns:scoreBoardPage="clr-namespace:FindTheTreasure.Pages.ScoreBoard"
     xmlns:accountPage="clr-namespace:FindTheTreasure.Pages.User"
+    xmlns:foundBeacons="clr-namespace:FindTheTreasure.Pages.Games.InGame.FoundBeacons"
     Shell.FlyoutBehavior="Flyout">
 
     <Shell.Resources>
@@ -38,13 +38,6 @@
                 FlyoutIcon="{StaticResource IconBluetoothLE}">
         <ShellContent ContentTemplate="{DataTemplate homePage:HomeView}"
                       Route="HomeView" >
-        </ShellContent>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Found treasures map" 
-                FlyoutIcon="{StaticResource IconMap}">
-        <ShellContent ContentTemplate="{DataTemplate mapPage:FoundBeaconsView}"
-                      Route="FoundBeaconsView" >
         </ShellContent>
     </FlyoutItem>
 

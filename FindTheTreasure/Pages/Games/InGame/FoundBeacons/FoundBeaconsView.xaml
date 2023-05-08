@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FindTheTreasure.Pages.FoundBeacons.FoundBeaconsView"
-             xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.FoundBeacons"
-             x:DataType="viewmodel:FoundBeaconsViewModel"
+             x:Class="FindTheTreasure.Pages.Games.InGame.FoundBeacons.FoundBeaconsView"
+
+             x:DataType="foundBeacons:FoundBeaconsViewModel"
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:foundBeacons="clr-namespace:FindTheTreasure.Pages.Games.InGame.FoundBeacons"
              Title="Found beacons">
     <Grid>
         <maps:Map x:Name="Map" 
