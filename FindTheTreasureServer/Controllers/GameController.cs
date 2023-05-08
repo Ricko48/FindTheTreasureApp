@@ -115,26 +115,33 @@ namespace FindTheTreasureServer.Controllers
             return true;
         }
 
-        [HttpGet("ScoreBoard/{gameId}")]
-        public IEnumerable<ScoreDto> GetScoreBoardForGame(int gameId)
+        [HttpGet("ScoreBoards")]
+        public IEnumerable<ScoreboardDTO> GetScoreBoardForGame()
         {
             using var dbContext = new TreasureDbContext();
-            var participants = dbContext.GameParticipants
-                .Where(p => p.GameId == gameId)
-                .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
-            var position = 1;
-            var result = new List<ScoreDto>();
-            foreach (var p in participants)
+            var games = dbContext.Games.ToList();
+            var result = new List<ScoreboardDTO>();
+            foreach (var game in games)
             {
-                result.Add(new ScoreDto
+                var scoreboard = new List<ScoreDTO>();
+                var participants = dbContext.GameParticipants
+                    .Where(p => p.GameId == game.Id)
+                    .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
+                var position = 1;
+                var tmpScoreboard = new List<ScoreDTO>();
+                foreach (var p in participants)
                 {
-                    Position = position,
-                    Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
-                    Username = p.User.UserName
-                });
-                position++;
+                    var user = dbContext.Users.Find(p.UserId);
+                    tmpScoreboard.Add(new ScoreDTO
+                    {
+                        Position = position,
+                        Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
+                        Username = user.UserName,
+                    });
+                    position++;
+                }
+                result.Add(new ScoreboardDTO { Scores = tmpScoreboard, GameName = game.Name });
             }
-
             return result;
         }
     }

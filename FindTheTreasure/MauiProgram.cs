@@ -9,6 +9,8 @@ using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Game;
 using FindTheTreasure.Services.Game.API;
 using FindTheTreasure.Services.GPS;
+using FindTheTreasure.Services.ScoreBoard;
+using FindTheTreasure.Services.ScoreBoard.API;
 using FindTheTreasure.Services.User;
 using FindTheTreasure.Services.User.API;
 using Plugin.BLE;

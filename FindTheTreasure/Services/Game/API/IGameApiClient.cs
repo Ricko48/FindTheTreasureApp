@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FindTheTreasure.Models;
+using FindTheTreasure.Pages.ScoreBoard.Models;
 using Refit;
 
 namespace FindTheTreasure.Services.Game.API
@@ -18,5 +19,8 @@ namespace FindTheTreasure.Services.Game.API
 
         [Get("/api/game")]
         Task<List<GameModel>> GetGamesAsync();
+
+        [Get("/api/Game/ScoreBoards")]
+        Task<IEnumerable<Scoreboard>> GetScoreBoardsAsync();
     }
 }
