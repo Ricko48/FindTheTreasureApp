@@ -102,6 +102,9 @@
 	  <MauiXaml Update="Pages\Games\GamesOverview\GamesOverviewView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Games\InGame\InGameVIew.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Games\ScanBeacons\ScanGameBeaconsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

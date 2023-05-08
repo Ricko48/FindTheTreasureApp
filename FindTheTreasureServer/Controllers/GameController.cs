@@ -1,9 +1,7 @@
 ﻿using FindTheTreasureServer.Database;
 using FindTheTreasureServer.Database.Entity;
 using FindTheTreasureServer.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {
@@ -84,7 +82,7 @@ namespace FindTheTreasureServer.Controllers
             return true;
         }
 
-        [HttpPost("{gameId}/user{userId}")]
+        [HttpPost("{gameId}/user/{userId}")]
         public bool AddUserToGame(int gameId, int userId)
         {
             using var dbContext = new TreasureDbContext();
