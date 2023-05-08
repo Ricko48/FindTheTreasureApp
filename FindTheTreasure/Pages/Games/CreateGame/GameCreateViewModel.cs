@@ -1,6 +1,7 @@
 ﻿using FindTheTreasure.Models;
 using FindTheTreasure.Pages.Games.ScanBeacons;
 using FindTheTreasure.Services.Game;
+using FindTheTreasure.Services.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace FindTheTreasure.Pages.Games.CreateGame
         private GameModel gameModel;
 
         private GameService GameService;
+        private UserService UserService;
 
         public GameModel GameModel
         {
@@ -32,10 +34,11 @@ namespace FindTheTreasure.Pages.Games.CreateGame
 
         }
 
-        public GameCreateViewModel(GameService gameService)
+        public GameCreateViewModel(GameService gameService, UserService userService)
         {
             CreateGame = new AsyncRelayCommand(CreateGameAsync);
             GameService = gameService;
+            UserService = userService;
         }
 
         protected virtual void OnPropertyChanged_([CallerMemberName] string propertyName = null)
@@ -50,26 +53,16 @@ namespace FindTheTreasure.Pages.Games.CreateGame
 
         private async Task CreateGameAsync()
         {
-            gameModel.OwnerId = 1;
-            var g = gameModel;
+            var user = UserService.GetUser();
+            gameModel.OwnerId = user.Id;
             var createGame = new CreateGameModel
             {
                 Name = gameModel.Name,
                 OwnerId = gameModel.OwnerId,
-                Owner = new Models.User
-                {
-                    Id = 1,
-                    FirstName = "xx",
-                    LastName = "xx",
-                    UserName = ""
-                },
-                GameBeacons = new List<GameBeacon>(),
-                GameParticipants = new List<GameParticipant>(),
             };
-            gameModel.Id = await GameService.CreateGameAsync(createGame); 
-            
-            /*Dictionary<string, object> parameters = new() { { nameof(ScanGameBeaconsViewModel.GameModel), gameModel } };
-            await Shell.Current.GoToAsync(nameof(ScanGameBeaconsView), true, parameters);*/
+            gameModel.Id = await GameService.CreateGameAsync(createGame);
+            Dictionary<string, object> parameters = new() { { nameof(ScanGameBeaconsViewModel.Item), gameModel } };
+            await Shell.Current.GoToAsync(nameof(ScanGameBeaconsView), true, parameters);
         }
     }
 }

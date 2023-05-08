@@ -1,6 +1,7 @@
 ﻿using FindTheTreasureServer.Database;
 using FindTheTreasureServer.Database.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {
@@ -19,7 +20,7 @@ namespace FindTheTreasureServer.Controllers
         public IEnumerable<Beacon> GetFoundBeaconsForParticipant(int participantId)
         {
             using var dbContext = new TreasureDbContext();
-            var participantBeacons =  dbContext
+            var participantBeacons = dbContext
                 .ParticipantBeacons
                 .Where(b => b.GameParticipantId == participantId && b.Found);
             return dbContext
@@ -78,10 +79,17 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpGet("all")]
-        public IEnumerable<Beacon> GetAllBeacons()
+        public async Task<IEnumerable<Beacon>> GetAllBeacons()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Beacons.ToList();
+            return await dbContext.Beacons.ToListAsync();
+        }
+
+        [HttpGet("gameBeacon/{gameId}/{order}")]
+        public Beacon? GetBeaconWithOrder(int gameId, int order)
+        {
+            using var dbContext = new TreasureDbContext();
+            return dbContext.Beacons.FirstOrDefault(b => b.GameId == gameId && b.Order == order);
         }
     }
 }

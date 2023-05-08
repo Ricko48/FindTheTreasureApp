@@ -19,6 +19,11 @@ namespace FindTheTreasure.Services.Beacons
             _gameService = gameService;
         }
 
+        public async Task<UpdateBeaconModel> UpdateBeacon(UpdateBeaconModel model)
+        {
+            return await _beaconsApiClient.UpdateBeacon(model);
+        }
+
         public async Task<IEnumerable<BeaconModel>> GetFoundBeaconsAsync()
         {
             if (!_userService.IsSignedIn() || !_gameService.IsInGame())

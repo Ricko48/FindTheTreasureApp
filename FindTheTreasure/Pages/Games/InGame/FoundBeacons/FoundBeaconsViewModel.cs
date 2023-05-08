@@ -49,7 +49,7 @@ namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
                 var pin = new Pin
                 {
                     Label = beacon.Name,
-                    Location = new Location(beacon.Latitude, beacon.Longitude),
+                    Location = new Location(beacon.PositionX, beacon.PositionY),
                     Type = PinType.Place
                 };
 

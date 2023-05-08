@@ -24,13 +24,13 @@
             </Grid.RowDefinitions>
             <Entry x:Name="entryPuzzle"
                    Placeholder="Enter puzzle"
-                   Text="{Binding GameBeacon.PositionDescription}"
+                   Text="{Binding GameBeacon.Puzzle}"
                    Grid.Row="1"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
-            <Entry x:Name="beaconGameName"
-                   Placeholder="Enter game name"
-                   Text="{Binding GameBeacon.Name}"
+            <Entry x:Name="beaconLocation"
+                   Placeholder="Enter beacon location description"
+                   Text="{Binding GameBeacon.LocationDescription}"
                    Grid.Row="2"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>

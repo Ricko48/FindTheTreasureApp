@@ -1,5 +1,7 @@
 ﻿using Android.Content;
 using Android.Locations;
+using FindTheTreasure.Pages.Games.CreateGame;
+using FindTheTreasure.Pages.Games.GamesOverview;
 using FindTheTreasure.Pages.Games.ScanBeacons;
 using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Beacons.API;

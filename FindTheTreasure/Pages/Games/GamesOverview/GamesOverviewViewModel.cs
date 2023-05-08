@@ -18,30 +18,35 @@ namespace FindTheTreasure.Pages.Games.GamesOverview
             GameService = gameService;
             GoCreateGameAsyncCommand = new AsyncRelayCommand(GoToCreateGameAsync);
             DeleteGameAsyncCommand = new AsyncRelayCommand(DeleteGameAsync);
-            GoToStartGamePageAsyncCommand = new AsyncRelayCommand<BeaconModel>(GoToStartGamePageAsync);
+            GoToStartGamePageAsyncCommand = new AsyncRelayCommand<GameModel>(GoToStartGamePageAsync);
 
             if (!userService.IsSignedIn())
             {
                 Shell.Current.GoToAsync(nameof(SignInView), false).Wait();
             }
 
-            GameService.StartGameAsync(1).Wait(); // test
-            Shell.Current.GoToAsync(nameof(InGameVIew), false).Wait(); // test
+            //GameService.StartGameAsync(1).Wait(); // test
+            //Shell.Current.GoToAsync(nameof(InGameVIew), false).Wait(); // test
 
             //GetGames();
 
         }
 
-        private async void GetGames()
+        public async void GetGames()
         {
-            /*var games = await GameService.GetGamesAsync();
-            games.ForEach(g => Games.Add(g));*/
+            Games.Clear();
+            var games = await GameService.GetGamesAsync();
+            games.ForEach(g => Games.Add(g));
         }
 
-        private async Task GoToStartGamePageAsync(BeaconModel item)
+        private async Task GoToStartGamePageAsync(GameModel item)
         {
-            //Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), item } };
-            //await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
+            //start a game
+            bool answer = await Shell.Current.DisplayAlert("Start a game?", "Would you like to start a game", "Yes", "No");
+            if (answer)
+            {
+                //go to page
+            }
         }
 
         private async Task GoToCreateGameAsync()

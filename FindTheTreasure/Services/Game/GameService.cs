@@ -1,5 +1,8 @@
-﻿using FindTheTreasure.Models;
 using FindTheTreasure.Services.Beacons.API;
+﻿using Android.App;
+using FindTheTreasure.Models;
+using FindTheTreasure.Pages.ScoreBoard.Models;
+
 using FindTheTreasure.Services.Game.API;
 using FindTheTreasure.Services.User;
 
@@ -28,7 +31,14 @@ namespace FindTheTreasure.Services.Game
 
         public async Task<int> CreateGameAsync(CreateGameModel gameModel)
         {
-            return await _gameApiClient.CreateGameAsync(gameModel);
+            try
+            {
+                return await _gameApiClient.CreateGameAsync(gameModel);
+            } catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return 0;
         }
 
         public async Task StartGameAsync(int gameId)
@@ -60,6 +70,22 @@ namespace FindTheTreasure.Services.Game
         public string GetGameId()
         {
             return Preferences.Get("gameId", null);
+        }
+
+        public async Task<List<Scoreboard>> GetScoreBoards()
+        {
+            try
+            {
+                return (await _gameApiClient.GetScoreBoardsAsync()).ToList();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Source);
+                Debug.WriteLine(ex.ToString());
+                await Shell.Current.DisplayAlert("Error", "Something went wrong.", "Ok");
+            }
+            return new List<Scoreboard>();
         }
     }
 }

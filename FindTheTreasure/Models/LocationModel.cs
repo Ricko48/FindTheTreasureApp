@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace FindTheTreasure.Models
 {
-    public class CreateGameModel
+    public class LocationModel
     {
-        public string Name { get; set; }
-        public int OwnerId { get; set; }
-
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

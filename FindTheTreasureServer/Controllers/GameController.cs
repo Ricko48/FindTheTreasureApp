@@ -2,6 +2,7 @@
 using FindTheTreasureServer.Database.Entity;
 using FindTheTreasureServer.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindTheTreasureServer.Controllers
 {
@@ -10,10 +11,10 @@ namespace FindTheTreasureServer.Controllers
     public class GameController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Game> GetGames()
+        public async Task<List<Game>> GetGames()
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Games.ToList();
+            return await dbContext.Games.ToListAsync();
         }
 
         [HttpPut]
@@ -26,11 +27,11 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpPost]
-        public int CreateGame(Game game)
+        public async Task<int> CreateGame(Game game)
         {
             using var dbContext = new TreasureDbContext();
             dbContext.Games.Add(game);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return game.Id ?? 0;
         }
 
@@ -56,6 +57,7 @@ namespace FindTheTreasureServer.Controllers
             if (beacon == null || beacon.GameId != null)
                 return false;
             beacon.GameId = gameId;
+            beacon.Order = dbContext.Beacons.Count(b => b.GameId == gameId);
             var participantBeacons = dbContext
                 .GameParticipants
                 .Where(p => p.GameId == gameId)
@@ -77,6 +79,9 @@ namespace FindTheTreasureServer.Controllers
             var beacon = dbContext.Beacons.Find(beaconId);
             if (beacon.GameId != gameId)
                 return false;
+             dbContext.Beacons.Where(b => b.GameId == gameId && b.Order > beacon.Order)
+                .ForEachAsync(b => --b.Order)
+                .Wait();
             beacon.GameId = null;
             dbContext.SaveChanges();
             return true;
@@ -86,7 +91,7 @@ namespace FindTheTreasureServer.Controllers
         public int AddUserToGame(int gameId, int userId)
         {
             using var dbContext = new TreasureDbContext();
-            var participant = new GameParticipant { GameId = gameId, UserId = userId };
+            var participant = new GameParticipant { GameId = gameId, UserId = userId, Start = DateTime.Now };
             dbContext.GameParticipants.Add(participant);
             var beacons = dbContext
                 .Beacons
@@ -114,26 +119,33 @@ namespace FindTheTreasureServer.Controllers
             return true;
         }
 
-        [HttpGet("ScoreBoard/{gameId}")]
-        public IEnumerable<ScoreDto> GetScoreBoardForGame(int gameId)
+        [HttpGet("ScoreBoards")]
+        public IEnumerable<ScoreboardDTO> GetScoreBoardForGame()
         {
             using var dbContext = new TreasureDbContext();
-            var participants = dbContext.GameParticipants
-                .Where(p => p.GameId == gameId)
-                .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
-            var position = 1;
-            var result = new List<ScoreDto>();
-            foreach (var p in participants)
+            var games = dbContext.Games.ToList();
+            var result = new List<ScoreboardDTO>();
+            foreach (var game in games)
             {
-                result.Add(new ScoreDto
+                var scoreboard = new List<ScoreDTO>();
+                var participants = dbContext.GameParticipants
+                    .Where(p => p.GameId == game.Id)
+                    .OrderBy(p => p.End.HasValue ? p.End - p.Start : TimeSpan.MaxValue);
+                var position = 1;
+                var tmpScoreboard = new List<ScoreDTO>();
+                foreach (var p in participants)
                 {
-                    Position = position,
-                    Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
-                    Username = p.User.UserName
-                });
-                position++;
+                    var user = dbContext.Users.Find(p.UserId);
+                    tmpScoreboard.Add(new ScoreDTO
+                    {
+                        Position = position,
+                        Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
+                        Username = user.UserName,
+                    });
+                    position++;
+                }
+                result.Add(new ScoreboardDTO { Scores = tmpScoreboard, GameName = game.Name });
             }
-
             return result;
         }
     }
