@@ -11,7 +11,7 @@ namespace FindTheTreasure.Services.User
         public bool IsSignedIn()
         {
             var isUserLoggedIn = Preferences.Get("isUserLoggedIn", null);
-            return !string.IsNullOrEmpty(isUserLoggedIn) && isUserLoggedIn != "false";
+            return isUserLoggedIn == "true";
         }
 
         public async Task SignInAsync(string userName)

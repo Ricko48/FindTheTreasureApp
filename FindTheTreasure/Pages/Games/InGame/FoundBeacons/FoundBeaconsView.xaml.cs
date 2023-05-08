@@ -1,4 +1,4 @@
-namespace FindTheTreasure.Pages.FoundBeacons;
+namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class FoundBeaconsView : ContentPage

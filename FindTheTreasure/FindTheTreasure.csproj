@@ -51,12 +51,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="Pages\FoundBeacons\Models\**" />
-	  <Compile Remove="Pages\FoundBeacons\Models\**" />
-	  <EmbeddedResource Remove="Pages\FoundBeacons\Models\**" />
-	  <MauiCss Remove="Pages\FoundBeacons\Models\**" />
-	  <MauiXaml Remove="Pages\FoundBeacons\Models\**" />
-	  <None Remove="Pages\FoundBeacons\Models\**" />
+	  <AndroidResource Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <Compile Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <EmbeddedResource Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <MauiCss Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <MauiXaml Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
+	  <None Remove="Pages\Games\InGame\FoundBeacons\Models\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -87,7 +87,7 @@
 	  <Compile Update="Pages\Home\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\FoundBeacons\FoundBeaconsView.xaml.cs">
+	  <Compile Update="Pages\Games\InGame\FoundBeacons\FoundBeaconsView.xaml.cs">
 	    <DependentUpon>FoundBeaconsView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\ScoreBoard\ScoreBoardView.xaml.cs">
@@ -100,6 +100,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Games\GamesOverview\GamesOverviewView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Games\InGame\InGameVIew.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Games\ScanBeacons\ScanGameBeaconsView.xaml">
@@ -117,7 +120,7 @@
 	  <MauiXaml Update="Pages\Beacon\AddBeaconToGamView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\FoundBeacons\FoundBeaconsView.xaml">
+	  <MauiXaml Update="Pages\Games\InGame\FoundBeacons\FoundBeaconsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ScoreBoard\ScoreBoardView.xaml">
