@@ -87,7 +87,7 @@ namespace FindTheTreasureServer.Controllers
         public bool AddUserToGame(int gameId, int userId)
         {
             using var dbContext = new TreasureDbContext();
-            var participant = new GameParticipant { GameId = gameId, UserId = userId };
+            var participant = new GameParticipant { GameId = gameId, UserId = userId, Start = DateTime.Now };
             dbContext.GameParticipants.Add(participant);
             var beacons = dbContext
                 .Beacons
