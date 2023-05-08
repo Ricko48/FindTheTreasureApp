@@ -51,8 +51,6 @@
                                 <VerticalStackLayout Padding="8">
                                     <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
                                     <Label Style="{StaticResource MicroLabel}" Text="{Binding MacAddress}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding Number}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding SerialNumber}" />
                                 </VerticalStackLayout>
                             </Frame>
                         </Grid>
