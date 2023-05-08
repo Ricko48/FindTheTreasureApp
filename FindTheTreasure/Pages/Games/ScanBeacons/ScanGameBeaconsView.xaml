@@ -5,8 +5,10 @@
              x:DataType="viewmodel:ScanGameBeaconsViewModel"
              xmlns:model="clr-namespace:FindTheTreasure.Models"
              xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Games.ScanBeacons"
-             Title="ScanGameBeaconsView">
-    
+             Title="Scan game beacons">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
     <Grid x:Name="HomePageGrid"
           ColumnDefinitions="*,*"
           ColumnSpacing="6"
@@ -50,8 +52,6 @@
                                 <VerticalStackLayout Padding="8">
                                     <Label Style="{StaticResource BaseLabel}" Text="{Binding Name}" />
                                     <Label Style="{StaticResource MicroLabel}" Text="{Binding MacAddress}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding Number}" />
-                                    <Label Style="{StaticResource MicroLabel}" Text="{Binding SerialNumber}" />
                                 </VerticalStackLayout>
                             </Frame>
                         </Grid>

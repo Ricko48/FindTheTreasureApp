@@ -107,7 +107,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
                 permissionStatus = await bluetoothPermissionsService.RequestBluetoothPermissions();
                 if (permissionStatus != PermissionStatus.Granted)
                 {
-                    await Shell.Current.DisplayAlert($"Bluetooth LE permissions", $"Bluetooth LE permissions are not granted.", "OK");
+                    await Shell.Current.DisplayAlert($"Bluetooth permissions", $"Bluetooth permissions are not granted.", "OK");
                     return;
                 }
             }
