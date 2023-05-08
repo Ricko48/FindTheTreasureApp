@@ -6,9 +6,7 @@
              xmlns:model="clr-namespace:FindTheTreasure.Models"
              xmlns:viewmodel="clr-namespace:FindTheTreasure.Pages.Games.GamesOverview"
              >
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
-    </Shell.BackButtonBehavior>
+
     <Grid x:Name="HomePageGrid"
           ColumnDefinitions="*,*"
           ColumnSpacing="6"

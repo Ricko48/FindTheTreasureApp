@@ -20,7 +20,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
         private readonly BeaconsService beaconService;
         private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
-        public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new ObservableCollection<BeaconModel>();
+        public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new();
 
         public ScanGameBeaconsViewModel(BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
             BluetoothPermissionsService bluetoothPermissionsService,

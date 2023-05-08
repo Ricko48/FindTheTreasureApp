@@ -1,12 +1,11 @@
-﻿using FindTheTreasure.Models;
+﻿using Android.Gms.Common.Apis;
+using FindTheTreasure.Models;
 using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Game;
-using Plugin.BLE.Abstractions.Contracts;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Windows.Input;
-using Android.Gms.Common.Apis;
 
 namespace FindTheTreasure.Pages.Games.InGame
 {
@@ -16,7 +15,6 @@ namespace FindTheTreasure.Pages.Games.InGame
         private readonly BluetoothPermissionsService bluetoothPermissionsService;
         private readonly BeaconDiscoveryService beaconDiscoveryService;
         private readonly BeaconsService beaconService;
-        private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
 
         public string Puzzle { get; set; } = "hadanka";
@@ -28,16 +26,14 @@ namespace FindTheTreasure.Pages.Games.InGame
         public ICommand ShowMapButtonClickedCommand { get; }
         public ICommand BeaconFoundCommand { get; }
 
-        public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new ObservableCollection<BeaconModel>();
+        public ObservableCollection<BeaconModel> DiscoveredDevices { get; set; } = new();
 
         public InGameViewModel(
             GameService gameService,
-            BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService,
             BluetoothPermissionsService bluetoothPermissionsService,
             BeaconDiscoveryService beaconDiscoveryService,
             BeaconsService beaconService)
         {
-            this.beaconBluetoothDeviceMergeService = beaconBluetoothDeviceMergeService;
             this.beaconDiscoveryService = beaconDiscoveryService;
             this.beaconService = beaconService;
             this.bluetoothPermissionsService = bluetoothPermissionsService;
@@ -53,7 +49,8 @@ namespace FindTheTreasure.Pages.Games.InGame
 
         private async Task OnBeaconFoundAsync()
         {
-            //await beaconService.SetBeaconToFoundAsync(beaconId);
+            await Shell.Current.DisplayAlert("Success", "You found the beacon. Good luck with the next one!", "Ok");
+            await beaconService.SetBeaconToFoundAsync(DiscoveredDevices.First().Id);
             await SetNextBeacon();
         }
 
@@ -89,7 +86,7 @@ namespace FindTheTreasure.Pages.Games.InGame
                 permissionStatus = await bluetoothPermissionsService.RequestBluetoothPermissions();
                 if (permissionStatus != PermissionStatus.Granted)
                 {
-                    await Shell.Current.DisplayAlert($"Bluetooth LE permissions", $"Bluetooth LE permissions are not granted.", "OK");
+                    await Shell.Current.DisplayAlert("Bluetooth LE permissions", "Bluetooth LE permissions are not granted.", "OK");
                     return;
                 }
             }
@@ -108,7 +105,7 @@ namespace FindTheTreasure.Pages.Games.InGame
                 IsScanning = true;
                 DiscoveredDevices.Clear();
 
-                await beaconDiscoveryService.StartScanning(macAddresses: new[]{ _macAddress }, maxItems: null);
+                await beaconDiscoveryService.StartScanning(macAddresses: new[] { _macAddress }, maxItems: null);
                 Debug.WriteLine("Finished scanning");
                 var devices = beaconDiscoveryService.DiscoveredDevices;
                 if (devices.Count == 0)
@@ -117,7 +114,7 @@ namespace FindTheTreasure.Pages.Games.InGame
                     return;
                 }
 
-                await ShowDiscoveredDevices(beaconDiscoveryService.DiscoveredDevices);
+                await OnBeaconFoundAsync();
             }
             catch (Exception ex)
             {
@@ -128,17 +125,6 @@ namespace FindTheTreasure.Pages.Games.InGame
             finally
             {
                 IsScanning = false;
-            }
-        }
-
-        private async Task ShowDiscoveredDevices(List<IDevice> discoveredBluetoothDevices)
-        {
-            var knownBeacons = await beaconService.GetAllAsync();
-            var devicesToDisplay = beaconBluetoothDeviceMergeService.Merge(knownBeacons.ToList(), discoveredBluetoothDevices);
-            DiscoveredDevices.Clear();
-            foreach (var device in devicesToDisplay)
-            {
-                DiscoveredDevices.Add(device);
             }
         }
 

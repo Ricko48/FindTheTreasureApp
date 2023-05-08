@@ -1,5 +1,3 @@
-using AndroidX.Lifecycle;
-
 namespace FindTheTreasure.Pages.Games.GamesOverview;
 
 public partial class GamesOverviewView : ContentPage
@@ -12,14 +10,9 @@ public partial class GamesOverviewView : ContentPage
     }
 
     public GamesOverviewView(GamesOverviewViewModel viewModel)
-	{
-        ViewModel = viewModel;
-		InitializeComponent();
-        BindingContext = viewModel;
-    }
-
-    protected override bool OnBackButtonPressed()
     {
-        return true;
+        ViewModel = viewModel;
+        InitializeComponent();
+        BindingContext = viewModel;
     }
 }

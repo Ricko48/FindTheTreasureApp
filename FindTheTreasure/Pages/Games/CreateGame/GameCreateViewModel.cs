@@ -1,15 +1,8 @@
 ﻿using FindTheTreasure.Models;
-using FindTheTreasure.Pages.Games.ScanBeacons;
 using FindTheTreasure.Services.Game;
 using FindTheTreasure.Services.User;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static Android.Content.ClipData;
 
 namespace FindTheTreasure.Pages.Games.CreateGame
 {
@@ -31,7 +24,6 @@ namespace FindTheTreasure.Pages.Games.CreateGame
                 gameModel = value;
                 OnPropertyChanged_();
             }
-
         }
 
         public GameCreateViewModel(GameService gameService, UserService userService)
