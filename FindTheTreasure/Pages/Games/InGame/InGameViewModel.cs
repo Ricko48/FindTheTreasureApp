@@ -9,7 +9,7 @@ using System.Net;
 
 namespace FindTheTreasure.Pages.Games.InGame
 {
-    public class InGameViewModel : BaseViewModel
+    public partial class InGameViewModel : BaseViewModel
     {
         private readonly GameService _gameService;
         private readonly BluetoothPermissionsService bluetoothPermissionsService;
@@ -17,8 +17,8 @@ namespace FindTheTreasure.Pages.Games.InGame
         private readonly BeaconsService beaconService;
         private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
-
-        public string Puzzle { get; set; } = "hadanka";
+        [ObservableProperty]
+        private string puzzle; 
         private string _macAddress;
 
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
@@ -81,6 +81,7 @@ namespace FindTheTreasure.Pages.Games.InGame
             {
                 await Shell.Current.DisplayAlert("Congratulations", "All the beacons have been collected!", "Ok");
                 await Shell.Current.Navigation.PopToRootAsync();
+                _gameService.StopGame();
             }
         }
 
