@@ -38,6 +38,11 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
             GoBackAsyncCommand = new AsyncRelayCommand(GoBackAsync);
         }
 
+        public void Refresh()
+        {
+            DiscoveredDevices.Clear();
+        }
+
         private async Task GoBackAsync()
         {
             await Shell.Current.GoToAsync("../..");
@@ -45,6 +50,8 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
 
         private async Task GoToAddBeaconPageAsync(BeaconModel model)
         {
+            // ToDO check whether beacon is already in some other game 
+
             model.GameID = Item.Id;
             Dictionary<string, object> parameters = new() { { nameof(AddBeaconToGameViewModel.Item), model } };
             await Shell.Current.GoToAsync(nameof(BeaconDetailView), true, parameters);
@@ -62,7 +69,7 @@ namespace FindTheTreasure.Pages.Games.ScanBeacons
                 IsScanning = true;
                 DiscoveredDevices.Clear();
 
-                var knownBeacons = await beaconService.GetAllAsync();
+                var knownBeacons = await beaconService.GetNotAddedBeaconsForGame(Item.Id);
                 var macAddresses = knownBeacons.Select(b => b.MacAddress).ToArray();
 
                 await beaconDiscoveryService.StartScanning(macAddresses: macAddresses, maxItems: null);

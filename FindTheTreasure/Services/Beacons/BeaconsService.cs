@@ -40,6 +40,11 @@ namespace FindTheTreasure.Services.Beacons
             return await _beaconsApiClient.GetAllAsync();
         }
 
+        public async Task<IEnumerable<BeaconModel>> GetNotAddedBeaconsForGame(int gameId)
+        {
+            return await _beaconsApiClient.GetAllNotAddedBeaconsInGame(gameId);
+        }
+
         public async Task<GameBeacon> GetNextBeaconInGame()
         {
             var gameId = int.Parse(Preferences.Get("gameId", null));

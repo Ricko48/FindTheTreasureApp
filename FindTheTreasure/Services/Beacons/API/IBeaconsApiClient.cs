@@ -19,5 +19,8 @@ namespace FindTheTreasure.Services.Beacons.API
 
         [Get("/api/beacon/gameBeacon/{gameId}/{order}")]
         Task<GameBeacon> GetBeaconWithOrder(int gameId, int order);
+
+        [Get("/api/beacon/all/{gameId}")]
+        Task<IEnumerable<BeaconModel>> GetAllNotAddedBeaconsInGame(int gameId);
     }
 }

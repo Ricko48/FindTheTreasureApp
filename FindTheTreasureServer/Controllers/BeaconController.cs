@@ -87,6 +87,13 @@ namespace FindTheTreasureServer.Controllers
             return await dbContext.Beacons.ToListAsync();
         }
 
+        [HttpGet("all/{gameId}")]
+        public async Task<IEnumerable<Beacon>> GetAllNotAddedBeaconsInGame(int gameId)
+        {
+            using var dbContext = new TreasureDbContext();
+            return await dbContext.Beacons.Where(x => x.GameId != gameId).ToListAsync();
+        }
+
         [HttpGet("gameBeacon/{gameId}/{order}")]
         public IActionResult GetBeaconWithOrder(int gameId, int order)
         {
