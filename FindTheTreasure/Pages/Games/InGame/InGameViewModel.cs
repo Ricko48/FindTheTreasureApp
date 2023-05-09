@@ -1,23 +1,24 @@
-﻿using Android.Gms.Common.Apis;
+﻿using Refit;
 using FindTheTreasure.Models;
 using FindTheTreasure.Services.Beacons;
 using FindTheTreasure.Services.Bluetooth;
 using FindTheTreasure.Services.Game;
 using System.Collections.ObjectModel;
-using System.Net;
 using System.Windows.Input;
+using System.Net;
 
 namespace FindTheTreasure.Pages.Games.InGame
 {
-    public class InGameViewModel : BaseViewModel
+    public partial class InGameViewModel : BaseViewModel
     {
         private readonly GameService _gameService;
         private readonly BluetoothPermissionsService bluetoothPermissionsService;
         private readonly BeaconDiscoveryService beaconDiscoveryService;
         private readonly BeaconsService beaconService;
+        private readonly BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService;
 
-
-        public string Puzzle { get; set; } = "hadanka";
+        [ObservableProperty]
+        private string puzzle; 
         private string _macAddress;
 
         public IAsyncRelayCommand ScanNearbyDevicesAsyncCommand { get; }
@@ -32,7 +33,8 @@ namespace FindTheTreasure.Pages.Games.InGame
             GameService gameService,
             BluetoothPermissionsService bluetoothPermissionsService,
             BeaconDiscoveryService beaconDiscoveryService,
-            BeaconsService beaconService)
+            BeaconsService beaconService,
+            BeaconBluetoothDeviceMergeService beaconBluetoothDeviceMergeService)
         {
             this.beaconDiscoveryService = beaconDiscoveryService;
             this.beaconService = beaconService;
@@ -45,13 +47,21 @@ namespace FindTheTreasure.Pages.Games.InGame
             BeaconFoundCommand = new Command(async () => await OnBeaconFoundAsync());
 
             InitializeMacAddress();
+            this.beaconBluetoothDeviceMergeService = beaconBluetoothDeviceMergeService;
         }
 
         private async Task OnBeaconFoundAsync()
         {
-            await Shell.Current.DisplayAlert("Success", "You found the beacon. Good luck with the next one!", "Ok");
-            await beaconService.SetBeaconToFoundAsync(DiscoveredDevices.First().Id);
-            await SetNextBeacon();
+            try
+            {
+                await Shell.Current.DisplayAlert("Success", "You found the beacon. Good luck with the next one!", "Ok");
+                await beaconService.SetBeaconToFoundAsync(DiscoveredDevices.First().MacAddress);
+                await SetNextBeacon();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Something went wrong while connecting to the server.", "Ok");
+            }
         }
 
         private void InitializeMacAddress()
@@ -67,14 +77,11 @@ namespace FindTheTreasure.Pages.Games.InGame
                 Puzzle = beacon.PositionDescription;
                 _macAddress = beacon.MacAddress;
             }
-            catch (ApiException ex)
+            catch (Exception ex)
             {
-                if (ex.StatusCode == (int)HttpStatusCode.NotFound)
-                {
-                    await Shell.Current.DisplayAlert("Congratulations", "All the beacons have been collected!", "Ok");
-                    await Shell.Current.Navigation.PopToRootAsync();
-                }
-                await Shell.Current.DisplayAlert("Error", "Something went wrong", "Ok");
+                await Shell.Current.DisplayAlert("Congratulations", "All the beacons have been collected!", "Ok");
+                await Shell.Current.Navigation.PopToRootAsync();
+                _gameService.StopGame();
             }
         }
 
@@ -114,6 +121,8 @@ namespace FindTheTreasure.Pages.Games.InGame
                     return;
                 }
 
+                var discovered = devices.Select(d => beaconBluetoothDeviceMergeService.Map(d)).ToList();
+                DiscoveredDevices.Add(discovered.First());
                 await OnBeaconFoundAsync();
             }
             catch (Exception ex)

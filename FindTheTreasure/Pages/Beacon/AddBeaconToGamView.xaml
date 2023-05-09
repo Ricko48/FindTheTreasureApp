@@ -30,7 +30,7 @@
                    HorizontalOptions="Center"/>
             <Entry x:Name="beaconLocation"
                    Placeholder="Enter beacon location description"
-                   Text="{Binding GameBeacon.LocationDescription}"
+                   Text="{Binding GameBeacon.PositionDescription}"
                    Grid.Row="2"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>

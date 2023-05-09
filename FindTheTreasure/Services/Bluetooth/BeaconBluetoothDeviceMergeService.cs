@@ -29,7 +29,7 @@ namespace FindTheTreasure.Services.Bluetooth
             return discoveredWithInfos;
         }
 
-        private BeaconModel Map(IDevice device)
+        public BeaconModel Map(IDevice device)
         {
             var mac = bluetoothDeviceMacAddressService.GetMacAddress(device);
             return new BeaconModel

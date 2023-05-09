@@ -14,8 +14,8 @@ namespace FindTheTreasure.Services.Beacons.API
         [Get("/api/beacon/all")]
         Task<IEnumerable<BeaconModel>> GetAllAsync();
 
-        [Post("/api/beacon/{beaconId}/{participantId}")]
-        Task SetParticipantBeaconFound(int beaconId, int participantId);
+        [Post("/api/beacon/{mac}/{participantId}")]
+        Task SetParticipantBeaconFound(string mac, int participantId);
 
         [Get("/api/beacon/gameBeacon/{gameId}/{order}")]
         Task<GameBeacon> GetBeaconWithOrder(int gameId, int order);
