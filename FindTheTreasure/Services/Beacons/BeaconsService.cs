@@ -48,10 +48,10 @@ namespace FindTheTreasure.Services.Beacons
             return _beaconsApiClient.GetBeaconWithOrder(gameId, beaconOrder).Result;
         }
 
-        public async Task SetBeaconToFoundAsync(int beaconId)
+        public async Task SetBeaconToFoundAsync(string mac)
         {
             var participantId = _userService.GetUser().ParticipantId;
-            await _beaconsApiClient.SetParticipantBeaconFound(participantId.Value, beaconId);
+            await _beaconsApiClient.SetParticipantBeaconFound(mac, participantId.Value );
         }
     }
 }

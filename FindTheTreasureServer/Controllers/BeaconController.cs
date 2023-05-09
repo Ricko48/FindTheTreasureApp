@@ -67,11 +67,12 @@ namespace FindTheTreasureServer.Controllers
             return beacon.GameId.HasValue ? beacon.GameId.Value : 0;
         }
 
-        [HttpPost("{beaconId}/{participantId}")]
-        public void SetParticipantBeaconFound(int beaconId, int participantId)
+        [HttpPost("{mac}/{participantId}")]
+        public void SetParticipantBeaconFound(string mac, int participantId)
         {
             using var dbContext = new TreasureDbContext();
-            var beacon = dbContext.ParticipantBeacons.First(b => b.GameParticipantId == participantId && beaconId == b.BeaconId);
+            var ble = dbContext.Beacons.First(b => b.MacAddress == mac);
+            var beacon = dbContext.ParticipantBeacons.First(b => b.GameParticipantId == participantId && b.BeaconId == ble.Id);
             beacon.Found = true;
             if (dbContext.ParticipantBeacons.Where(b => b.GameParticipantId == participantId).All(b => b.Found))
                 dbContext.GameParticipants.Find(participantId).End = DateTime.Now;
@@ -86,10 +87,15 @@ namespace FindTheTreasureServer.Controllers
         }
 
         [HttpGet("gameBeacon/{gameId}/{order}")]
-        public Beacon? GetBeaconWithOrder(int gameId, int order)
+        public IActionResult GetBeaconWithOrder(int gameId, int order)
         {
             using var dbContext = new TreasureDbContext();
-            return dbContext.Beacons.FirstOrDefault(b => b.GameId == gameId && b.Order == order);
+            var ble = dbContext.Beacons.FirstOrDefault(b => b.GameId == gameId && b.Order == order);
+            if(ble == null)
+            {
+                return NotFound();
+            }
+            return Ok(ble);
         }
     }
 }

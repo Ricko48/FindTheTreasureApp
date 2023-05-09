@@ -78,14 +78,14 @@ namespace FindTheTreasure.Pages.Beacon
             {
                 Id = Item.Id,
                 MacAddress = Item.MacAddress,
-                PositionDescription = gameBeacon.LocationDescription,
+                PositionDescription = gameBeacon.PositionDescription,
                 Name = Item.Name,
                 Puzzle = gameBeacon.Puzzle,
                 PositionX = (float)location.Latitude,
                 PositionY = (float)location.Longitude,
             };
-            bool su = await GameService.AddBeaconToGameAsync((int)Item.GameID, Item.Id);
-            await BeaconsService.UpdateBeacon(beacon);            
+            await BeaconsService.UpdateBeacon(beacon);
+            bool su = await GameService.AddBeaconToGameAsync((int)Item.GameID, Item.Id);                      
             if (su)
             {
                 await Shell.Current.DisplayAlert("Alert", "Beacon added", "Ok");
