@@ -139,8 +139,8 @@ namespace FindTheTreasureServer.Controllers
                     tmpScoreboard.Add(new ScoreDTO
                     {
                         Position = position,
-                        Time = p.End.HasValue ? (p.End - p.Start).ToString() : "DNF",
-                        Username = user.UserName,
+                        Time = p != null && p.End.HasValue ? (p.End - p.Start)?.ToString("c") ?? string.Empty : "DNF",
+                        Username = user?.UserName ?? string.Empty,
                     });
                     position++;
                 }

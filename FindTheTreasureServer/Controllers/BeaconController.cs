@@ -74,6 +74,7 @@ namespace FindTheTreasureServer.Controllers
             var ble = dbContext.Beacons.First(b => b.MacAddress == mac);
             var beacon = dbContext.ParticipantBeacons.First(b => b.GameParticipantId == participantId && b.BeaconId == ble.Id);
             beacon.Found = true;
+            dbContext.SaveChanges();
             if (dbContext.ParticipantBeacons.Where(b => b.GameParticipantId == participantId).All(b => b.Found))
                 dbContext.GameParticipants.Find(participantId).End = DateTime.Now;
             dbContext.SaveChanges();
