@@ -145,7 +145,23 @@ namespace FindTheTreasure.Pages.Games.InGame
 
         public async Task OnShowMapButtonClickedAsync()
         {
+            if (!await EnsureLocationPermissionsAreGrantedAsync())
+            {
+                await Shell.Current.DisplayAlert("Permission error", "Necessary location permissions were not granted.", "OK");
+                return;
+            }
+
             await Shell.Current.GoToAsync(nameof(FoundBeaconsView), false);
+        }
+
+        private async Task<bool> EnsureLocationPermissionsAreGrantedAsync()
+        {
+            if (await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>() == PermissionStatus.Granted)
+            {
+                return true;
+            }
+
+            return await Permissions.RequestAsync<Permissions.LocationWhenInUse>() == PermissionStatus.Granted;
         }
     }
 }

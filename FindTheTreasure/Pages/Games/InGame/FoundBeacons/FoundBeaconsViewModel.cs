@@ -51,7 +51,11 @@ namespace FindTheTreasure.Pages.Games.InGame.FoundBeacons
 
         private void SetNewRegion(Microsoft.Maui.Controls.Maps.Map map)
         {
-            var locations = map.Pins.Select(x => x.Location).Append(Geolocation.Default.GetLastKnownLocationAsync().Result);
+            var locations = map.Pins.Select(x => x.Location);
+
+            var currentUserLocation = Geolocation.Default.GetLastKnownLocationAsync().Result;
+            locations = locations.Append(currentUserLocation);
+
             var center = GetPinsCenter(locations);
             var radius = GetPinsRegionRadius(locations, center);
             var newRegion = MapSpan.FromCenterAndRadius(center, radius);
